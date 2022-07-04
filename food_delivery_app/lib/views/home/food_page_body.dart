@@ -1,5 +1,7 @@
+import 'package:dots_indicator/dots_indicator.dart';
 import 'package:flutter/material.dart';
 import 'package:food_delivery_app/constant/constant.dart';
+import 'package:food_delivery_app/utils/dimensions.dart';
 import 'package:food_delivery_app/widgets/big_text.dart';
 import 'package:food_delivery_app/widgets/icon_and_text.dart';
 import 'package:food_delivery_app/widgets/small_text.dart';
@@ -36,14 +38,30 @@ class _FoodPageBodyState extends State<FoodPageBody> {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      height: 320,
-      child: PageView.builder(
-          controller: pageController,
-          itemCount: 5,
-          itemBuilder: (context, pos) {
-            return _buildPageItem(pos);
-          }),
+    //print(MediaQuery.of(context).size.toString());
+    return Column(
+      children: [
+        SizedBox(
+          height: Dimensions.pageView,
+          child: PageView.builder(
+              controller: pageController,
+              itemCount: 5,
+              itemBuilder: (context, pos) {
+                return _buildPageItem(pos);
+              }),
+        ),
+        DotsIndicator(
+          dotsCount: 5,
+          position: curPageValue,
+          decorator: DotsDecorator(
+            activeColor: AppColors.primaryBgColor,
+            size: const Size.square(9.0),
+            activeSize: const Size(18.0, 9.0),
+            activeShape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(5.0)),
+          ),
+        ),
+      ],
     );
   }
 
@@ -52,23 +70,24 @@ class _FoodPageBodyState extends State<FoodPageBody> {
 
     if (pos == curPageValue.floor()) {
       var curScale = 1 - (curPageValue - pos) * (1 - scaleFactor);
-      var curTrans = 240 * (1 - curScale) / 2;
+      var curTrans = Dimensions.pageViewContainer * (1 - curScale) / 2;
       matrix = Matrix4.diagonal3Values(1, curScale, 1)
         ..setTranslationRaw(0, curTrans, 0);
     } else if (pos == curPageValue.floor() + 1) {
       var curScale = scaleFactor + (curPageValue - pos + 1) * (1 - scaleFactor);
-      var curTrans = 240 * (1 - curScale) / 2;
+      var curTrans = Dimensions.pageViewContainer * (1 - curScale) / 2;
       matrix = Matrix4.diagonal3Values(1, curScale, 1)
         ..setTranslationRaw(0, curTrans, 0);
     } else if (pos == curPageValue.floor() - 1) {
       var curScale = 1 - (curPageValue - pos) * (1 - scaleFactor);
-      var curTrans = 240 * (1 - curScale) / 2;
+      var curTrans = Dimensions.pageViewContainer * (1 - curScale) / 2;
       matrix = Matrix4.diagonal3Values(1, curScale, 1)
         ..setTranslationRaw(0, curTrans, 0);
     } else {
       var curScale = 0.8;
       matrix = Matrix4.diagonal3Values(1, curScale, 1)
-        ..setTranslationRaw(0, 240 * (1 - scaleFactor) / 2, 1);
+        ..setTranslationRaw(
+            0, Dimensions.pageViewContainer * (1 - scaleFactor) / 2, 1);
     }
 
     return Transform(
@@ -76,8 +95,11 @@ class _FoodPageBodyState extends State<FoodPageBody> {
       child: Stack(
         children: [
           Container(
-            height: 240,
-            margin: EdgeInsets.only(left: 10, right: 10),
+            height: Dimensions.pageViewContainer,
+            margin: EdgeInsets.only(
+              left: Dimensions.widthPadding10,
+              right: Dimensions.widthPadding10,
+            ),
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(30),
               color: AppColors.primaryBgColor,
@@ -90,29 +112,47 @@ class _FoodPageBodyState extends State<FoodPageBody> {
           Align(
             alignment: Alignment.bottomCenter,
             child: Container(
-              height: 120,
-              margin: EdgeInsets.only(left: 30, right: 30, bottom: 20),
+              height: Dimensions.pageViewTextContainer,
+              margin: EdgeInsets.only(
+                left: Dimensions.widthPadding30,
+                right: Dimensions.widthPadding30,
+                bottom: Dimensions.heightPadding30,
+              ),
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(30),
                 color: AppColors.buttoBackgroundColor,
+                boxShadow: [
+                  BoxShadow(
+                    color: AppColors.shadowColor!,
+                    blurRadius: 5.0,
+                    offset: const Offset(0, 5),
+                  ),
+                ],
               ),
               child: Container(
-                padding: EdgeInsets.only(top: 15, left: 15, right: 15),
+                padding: EdgeInsets.only(
+                  top: Dimensions.heightPadding15,
+                  left: Dimensions.widthPadding15,
+                  right: Dimensions.widthPadding15,
+                ),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Padding(
-                      padding: EdgeInsets.only(bottom: 10),
+                      padding:
+                          EdgeInsets.only(bottom: Dimensions.heightPadding10),
                       child: BigText(
                         text: 'Food name',
                       ),
                     ),
                     Padding(
-                      padding: const EdgeInsets.only(bottom: 20),
+                      padding:
+                          EdgeInsets.only(bottom: Dimensions.heightPadding20),
                       child: Row(
                         children: [
                           Padding(
-                            padding: const EdgeInsets.only(right: 10),
+                            padding: EdgeInsets.only(
+                                right: Dimensions.heightPadding10),
                             child: Wrap(
                               children: List.generate(
                                 5,
@@ -132,6 +172,7 @@ class _FoodPageBodyState extends State<FoodPageBody> {
                       ),
                     ),
                     Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         IconAndText(
                           icon: Icons.circle_sharp,

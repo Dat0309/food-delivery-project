@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:food_delivery_app/utils/dimensions.dart';
 import 'package:food_delivery_app/widgets/small_text.dart';
 
 class IconAndText extends StatelessWidget {
@@ -17,23 +18,20 @@ class IconAndText extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.only(left: 10),
-      child: Row(
-        children: [
-          Icon(
-            icon,
-            color: iconColor,
-          ),
-          const SizedBox(
-            width: 5,
-          ),
-          SmallText(
-            text: text,
-            color: textColor,
-          ),
-        ],
-      ),
+    return Row(
+      children: [
+        Icon(
+          icon,
+          color: iconColor,
+        ),
+        SizedBox(
+          width: Dimensions.widthPadding5,
+        ),
+        SmallText(
+          text: text,
+          color: textColor,
+        ),
+      ],
     );
   }
 }
