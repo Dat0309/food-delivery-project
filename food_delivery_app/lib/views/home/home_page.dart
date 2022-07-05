@@ -35,7 +35,7 @@ class _HomePageState extends State<HomePage> {
                       BigText(
                         text: 'Quốc gia',
                         color: AppColors.primaryColor,
-                        size: Dimensions.widthPaddinh25,
+                        size: Dimensions.widthPadding25,
                       ),
                       Row(
                         children: [
@@ -55,7 +55,8 @@ class _HomePageState extends State<HomePage> {
                       width: Dimensions.widthPadding60,
                       height: Dimensions.heightPadding60,
                       decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(15),
+                        borderRadius:
+                            BorderRadius.circular(Dimensions.radius15),
                         color: AppColors.primaryColor,
                       ),
                       child: Icon(
@@ -68,8 +69,10 @@ class _HomePageState extends State<HomePage> {
                 ],
               ),
             ),
-            // Slider custom
-            const FoodPageBody(),
+            // Page body
+            const Expanded(
+              child: SingleChildScrollView(child: FoodPageBody()),
+            ),
           ],
         ),
       ),

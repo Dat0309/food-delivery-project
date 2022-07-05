@@ -17,10 +17,18 @@ class Dimensions {
   static double widthPadding15 = screenWidth / 32;
   static double widthPadding17 = screenWidth / 28;
   static double heightPadding20 = screenHeight / 48.265;
-  static double widthPaddinh25 = screenWidth / 18;
+  static double widthPadding25 = screenWidth / 18;
   static double heightPadding30 = screenHeight / 32.17;
   static double widthPadding30 = screenWidth / 16;
   static double widthPadding40 = screenWidth / 24;
   static double widthPadding60 = screenWidth / 8;
   static double heightPadding60 = screenHeight / 16;
+
+  //radius
+  static double radius15 = screenHeight / 64.35;
+  static double radius20 = screenHeight / 48.265;
+  static double radius30 = screenHeight / 32.17;
+
+  //icon size
+  static double iconSize24 = screenHeight / 40.22;
 }
