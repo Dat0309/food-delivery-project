@@ -71,7 +71,10 @@ class _HomePageState extends State<HomePage> {
             ),
             // Page body
             const Expanded(
-              child: SingleChildScrollView(child: FoodPageBody()),
+              child: SingleChildScrollView(
+                physics: BouncingScrollPhysics(),
+                child: FoodPageBody(),
+              ),
             ),
           ],
         ),

@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:food_delivery_app/views/food_detail/food_detail.dart';
 import 'package:food_delivery_app/views/home/home_page.dart';
 import 'package:get/get.dart';
+import 'helper/dependencies.dart' as dep;
 
-void main() {
+Future<void> main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await dep.AppDependentcies.init();
   runApp(const MyApp());
 }
 
@@ -19,7 +21,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: const FoodDetail(),
+      home: const HomePage(),
     );
   }
 }

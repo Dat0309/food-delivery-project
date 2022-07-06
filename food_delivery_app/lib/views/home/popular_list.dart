@@ -24,26 +24,22 @@ class _PopularListState extends State<PopularList> {
           child: Row(
             crossAxisAlignment: CrossAxisAlignment.end,
             children: [
-              BigText(
+              const BigText(
                 text: 'Thịnh hành',
               ),
               SizedBox(
                 width: Dimensions.widthPadding10,
               ),
-              Container(
-                child: BigText(
-                  text: '|',
-                  color: AppColors.pargColor,
-                ),
+              const BigText(
+                text: '|',
+                color: AppColors.pargColor,
               ),
               SizedBox(
                 width: Dimensions.widthPadding10,
               ),
-              Container(
-                child: SmallText(
-                  text: 'Đồ ăn ngon',
-                  color: AppColors.pargColor,
-                ),
+              const SmallText(
+                text: 'Đồ ăn ngon',
+                color: AppColors.pargColor,
               ),
             ],
           ),
@@ -53,7 +49,7 @@ class _PopularListState extends State<PopularList> {
         ),
         // list
         Container(
-          height: Dimensions.height1000,
+          height: Dimensions.height1000 + 500,
           child: ListView.builder(
             physics: const NeverScrollableScrollPhysics(),
             shrinkWrap: true,
