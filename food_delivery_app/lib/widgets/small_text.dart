@@ -20,7 +20,6 @@ class SmallText extends StatelessWidget {
   Widget build(BuildContext context) {
     return Text(
       text!,
-      maxLines: 1,
       style: TextStyle(
         fontFamily: 'Roboto',
         color: color,
