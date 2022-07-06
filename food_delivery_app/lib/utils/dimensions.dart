@@ -31,4 +31,9 @@ class Dimensions {
 
   //icon size
   static double iconSize24 = screenHeight / 40.22;
+
+  // view size
+  static double height1000 = screenHeight / 0.9653;
+  static double height140 = screenHeight / 6.895;
+  static double width140 = screenWidth / 3.42;
 }
