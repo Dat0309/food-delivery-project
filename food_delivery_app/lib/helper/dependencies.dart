@@ -5,7 +5,8 @@ import 'package:get/get.dart';
 
 class AppDependentcies {
   static Future<void> init() async {
-    Get.lazyPut(() => ApiClient(appBaseUrl: 'url'));
+    Get.lazyPut(
+        () => ApiClient(appBaseUrl: 'https://smart-fooding.herokuapp.com'));
 
     Get.lazyPut(() => PopularProductRepo(apiClient: Get.find()));
 
