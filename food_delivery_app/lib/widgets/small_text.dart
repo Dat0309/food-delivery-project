@@ -25,6 +25,7 @@ class SmallText extends StatelessWidget {
         color: color,
         fontSize: size == 0 ? Dimensions.widthPadding17 : size,
         height: height,
+        overflow: TextOverflow.ellipsis,
       ),
     );
   }

@@ -1,15 +1,11 @@
-import 'package:food_delivery_app/controller/popular_product_controller.dart';
-import 'package:food_delivery_app/service/api/api_client.dart';
-import 'package:food_delivery_app/service/repository/popular_product_repo.dart';
+import 'package:food_delivery_app/controller/product_controller.dart';
+import 'package:food_delivery_app/service/repository/product_repo.dart';
 import 'package:get/get.dart';
 
 class AppDependentcies {
   static Future<void> init() async {
-    Get.lazyPut(
-        () => ApiClient(appBaseUrl: 'https://smart-fooding.herokuapp.com'));
+    Get.lazyPut(() => ProductRepo());
 
-    Get.lazyPut(() => PopularProductRepo(apiClient: Get.find()));
-
-    Get.lazyPut(() => PopularProductController(popularProductRepo: Get.find()));
+    Get.lazyPut(() => ProductController(productRepo: Get.find()));
   }
 }

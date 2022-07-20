@@ -1,10 +1,13 @@
 import 'package:dots_indicator/dots_indicator.dart';
 import 'package:flutter/material.dart';
 import 'package:food_delivery_app/constant/constant.dart';
+import 'package:food_delivery_app/controller/product_controller.dart';
+import 'package:food_delivery_app/models/Product.dart';
 import 'package:food_delivery_app/utils/dimensions.dart';
 import 'package:food_delivery_app/widgets/big_text.dart';
 import 'package:food_delivery_app/widgets/icon_and_text.dart';
 import 'package:food_delivery_app/widgets/small_text.dart';
+import 'package:get/get.dart';
 
 class SliderCustom extends StatefulWidget {
   final PageController pageController;
@@ -27,15 +30,23 @@ class _SliderState extends State<SliderCustom> {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        SizedBox(
-          height: Dimensions.pageView,
-          child: PageView.builder(
-              controller: widget.pageController,
-              itemCount: 5,
-              itemBuilder: (context, pos) {
-                return _buildPageItem(pos);
-              }),
-        ),
+        GetBuilder<ProductController>(builder: (products) {
+          return products.isLoaded
+              ? SizedBox(
+                  height: Dimensions.pageView,
+                  child: PageView.builder(
+                      physics: const BouncingScrollPhysics(),
+                      controller: widget.pageController,
+                      itemCount: 5,
+                      itemBuilder: (context, pos) {
+                        return _buildPageItem(
+                            pos, products.popularProducts[pos]);
+                      }),
+                )
+              : const CircularProgressIndicator(
+                  color: AppColors.primaryColor,
+                );
+        }),
         DotsIndicator(
           dotsCount: 5,
           position: widget.curPageValue,
@@ -52,7 +63,7 @@ class _SliderState extends State<SliderCustom> {
   }
 
   // make animation for page slider.
-  Widget _buildPageItem(int pos) {
+  Widget _buildPageItem(int pos, Product product) {
     Matrix4 matrix = Matrix4.identity();
 
     if (pos == widget.curPageValue.floor()) {
@@ -91,9 +102,9 @@ class _SliderState extends State<SliderCustom> {
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(Dimensions.radius30),
               color: AppColors.primaryBgColor,
-              image: const DecorationImage(
+              image: DecorationImage(
                 fit: BoxFit.cover,
-                image: AssetImage('assets/images/food1.jpg'),
+                image: NetworkImage(product.image!),
               ),
             ),
           ),
@@ -130,7 +141,7 @@ class _SliderState extends State<SliderCustom> {
                       padding:
                           EdgeInsets.only(bottom: Dimensions.heightPadding10),
                       child: BigText(
-                        text: 'Food name',
+                        text: product.name,
                       ),
                     ),
                     Padding(
@@ -153,7 +164,8 @@ class _SliderState extends State<SliderCustom> {
                             ),
                           ),
                           SmallText(
-                            text: '4.5  |  1287 Đánh giá',
+                            text:
+                                '${product.rating}  |  ${product.numReview} Đánh giá',
                             color: AppColors.signColor,
                           ),
                         ],
@@ -164,7 +176,7 @@ class _SliderState extends State<SliderCustom> {
                       children: [
                         IconAndText(
                           icon: Icons.circle_sharp,
-                          text: 'Bình thường',
+                          text: '${product.price.toString()} VNĐ',
                           textColor: AppColors.signColor,
                           iconColor: AppColors.primaryIconColor,
                         ),

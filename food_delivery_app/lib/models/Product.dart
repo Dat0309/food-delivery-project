@@ -8,9 +8,9 @@ class Product {
   String? menuId;
   String? description;
   List<Review>? reviews;
-  double? rating;
+  num? rating;
   int? numReview;
-  double? price;
+  int? price;
   String? unit;
   bool? active;
   String? createdAt;
@@ -43,7 +43,7 @@ class Product {
       description: responseData['description'],
       reviews: responseData['reviews'],
       rating: responseData['rating'],
-      numReview: responseData['num_review'],
+      numReview: responseData['num_reviews'],
       price: responseData['price'],
       unit: responseData['unit'],
       active: responseData['active'],
