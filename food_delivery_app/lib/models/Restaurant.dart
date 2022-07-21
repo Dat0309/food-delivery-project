@@ -12,8 +12,8 @@ class Restaurant {
   String? image;
   String? thumb;
   List<Review>? reviews;
-  double? rating;
-  int? numReviews;
+  num? rating;
+  num? numReviews;
   String? logitude;
   String? latitude;
   String? createdAt;

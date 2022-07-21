@@ -14,11 +14,24 @@ class RestaurantList {
   });
 
   factory RestaurantList.fromJson(Map<String, dynamic> responseData) {
-    return RestaurantList(
-      count: responseData['count'],
-      page: responseData['page'],
-      pages: responseData['pages'],
-      restaurants: responseData['restaurant'],
-    );
+    if (responseData['restaurant'] != null) {
+      List<Restaurant> restaurantList = [];
+      restaurantList.clear();
+      responseData['restaurant']
+          .forEach((e) => {restaurantList.add(Restaurant.fromJson(e))});
+      return RestaurantList(
+        count: responseData['count'],
+        page: responseData['page'],
+        pages: responseData['pages'],
+        restaurants: restaurantList,
+      );
+    } else {
+      return RestaurantList(
+        count: responseData['count'],
+        page: responseData['page'],
+        pages: responseData['pages'],
+        restaurants: [],
+      );
+    }
   }
 }

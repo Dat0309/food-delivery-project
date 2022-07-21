@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:food_delivery_app/controller/product_controller.dart';
+import 'package:food_delivery_app/controller/restaurant_controller.dart';
 import 'package:food_delivery_app/views/home/home_page.dart';
 import 'package:get/get.dart';
 import 'helper/dependencies.dart' as dep;
@@ -29,6 +30,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     Get.find<ProductController>().getPopularProducts();
+    Get.find<RestaurantController>().getRestaurants();
     return GetMaterialApp(
       title: 'ĂN GÌ ĐẶT NGAY!!!',
       debugShowCheckedModeBanner: false,

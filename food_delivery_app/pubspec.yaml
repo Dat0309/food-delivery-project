@@ -37,6 +37,7 @@ dependencies:
   dots_indicator: ^2.1.0
   get: ^4.6.5
   http: ^0.13.4
+  shimmer: ^2.0.0
 
 dev_dependencies:
   flutter_test:

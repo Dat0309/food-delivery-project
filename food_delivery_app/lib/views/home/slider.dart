@@ -8,6 +8,7 @@ import 'package:food_delivery_app/widgets/big_text.dart';
 import 'package:food_delivery_app/widgets/icon_and_text.dart';
 import 'package:food_delivery_app/widgets/small_text.dart';
 import 'package:get/get.dart';
+import 'package:shimmer/shimmer.dart';
 
 class SliderCustom extends StatefulWidget {
   final PageController pageController;
@@ -43,8 +44,30 @@ class _SliderState extends State<SliderCustom> {
                             pos, products.popularProducts[pos]);
                       }),
                 )
-              : const CircularProgressIndicator(
-                  color: AppColors.primaryColor,
+              : SizedBox(
+                  height: Dimensions.pageView,
+                  child: PageView.builder(
+                      physics: const NeverScrollableScrollPhysics(),
+                      controller: widget.pageController,
+                      itemCount: 2,
+                      itemBuilder: (context, pos) {
+                        return Shimmer.fromColors(
+                          baseColor: Colors.grey[300]!,
+                          highlightColor: Colors.grey[100]!,
+                          child: Container(
+                            height: Dimensions.pageViewContainer,
+                            margin: EdgeInsets.only(
+                              left: Dimensions.widthPadding10,
+                              right: Dimensions.widthPadding10,
+                            ),
+                            decoration: BoxDecoration(
+                              borderRadius:
+                                  BorderRadius.circular(Dimensions.radius30),
+                              color: AppColors.primaryBgColor,
+                            ),
+                          ),
+                        );
+                      }),
                 );
         }),
         DotsIndicator(
@@ -101,7 +124,7 @@ class _SliderState extends State<SliderCustom> {
             ),
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(Dimensions.radius30),
-              color: AppColors.primaryBgColor,
+              color: AppColors.signColor,
               image: DecorationImage(
                 fit: BoxFit.cover,
                 image: NetworkImage(product.image!),

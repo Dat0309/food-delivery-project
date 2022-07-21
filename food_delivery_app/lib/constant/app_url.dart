@@ -3,4 +3,5 @@ class AppUrl {
   static const String BASEURL = "https://smart-fooding.herokuapp.com";
 
   static const String GET_PRODUCTS = BASEURL + "/api/product";
+  static const String GET_RESTAURANTS = BASEURL + "/api/restaurants";
 }

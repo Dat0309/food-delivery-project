@@ -6,6 +6,7 @@ import 'package:food_delivery_app/widgets/big_text.dart';
 import 'package:food_delivery_app/widgets/icon_and_text.dart';
 import 'package:food_delivery_app/widgets/small_text.dart';
 import 'package:get/get.dart';
+import 'package:shimmer/shimmer.dart';
 
 class PopularList extends StatefulWidget {
   const PopularList({Key? key}) : super(key: key);
@@ -57,7 +58,7 @@ class _PopularListState extends State<PopularList> {
                   child: ListView.builder(
                     physics: const NeverScrollableScrollPhysics(),
                     shrinkWrap: true,
-                    itemCount: 10,
+                    itemCount: products.popularProducts.length,
                     itemBuilder: (context, index) {
                       return Container(
                         margin: EdgeInsets.only(
@@ -152,10 +153,61 @@ class _PopularListState extends State<PopularList> {
                     },
                   ),
                 )
-              : const CircularProgressIndicator(
-                  color: AppColors.primaryColor,
+              : SizedBox(
+                  height: Dimensions.height1000 + 500,
+                  child: ListView.builder(
+                    physics: const NeverScrollableScrollPhysics(),
+                    shrinkWrap: true,
+                    itemCount: 10,
+                    itemBuilder: (context, index) {
+                      return Container(
+                        margin: EdgeInsets.only(
+                          left: Dimensions.widthPadding25,
+                          right: Dimensions.widthPadding25,
+                          bottom: Dimensions.heightPadding10,
+                        ),
+                        child: Row(
+                          children: [
+                            Shimmer.fromColors(
+                              child: Container(
+                                width: Dimensions.width140,
+                                height: Dimensions.height140,
+                                decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(
+                                      Dimensions.radius20),
+                                  color: AppColors.pargColor,
+                                ),
+                              ),
+                              baseColor: Colors.grey[300]!,
+                              highlightColor: Colors.grey[100]!,
+                            ),
+                            Expanded(
+                              child: Container(
+                                height: Dimensions.height140,
+                                decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.only(
+                                    topRight:
+                                        Radius.circular(Dimensions.radius20),
+                                    bottomRight:
+                                        Radius.circular(Dimensions.radius20),
+                                  ),
+                                  color: AppColors.buttoBackgroundColor,
+                                ),
+                                child: Padding(
+                                  padding: EdgeInsets.only(
+                                    left: Dimensions.widthPadding10,
+                                    right: Dimensions.widthPadding10,
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
+                      );
+                    },
+                  ),
                 );
-        })
+        }),
       ],
     );
   }

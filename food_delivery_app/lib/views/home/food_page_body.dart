@@ -3,6 +3,7 @@ import 'package:food_delivery_app/constant/constant.dart';
 
 import 'package:food_delivery_app/utils/dimensions.dart';
 import 'package:food_delivery_app/views/home/popular_list.dart';
+import 'package:food_delivery_app/views/home/popular_restaurant.dart';
 import 'package:food_delivery_app/views/home/slider.dart';
 import 'package:food_delivery_app/widgets/big_text.dart';
 import 'package:food_delivery_app/widgets/icon_and_text.dart';
@@ -52,6 +53,10 @@ class _FoodPageBodyState extends State<FoodPageBody> {
           height: Dimensions.heightPadding30,
         ),
         const PopularList(),
+        SizedBox(
+          height: Dimensions.heightPadding30,
+        ),
+        const PopularRestaurant(),
       ],
     );
   }
