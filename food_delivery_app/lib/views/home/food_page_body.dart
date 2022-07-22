@@ -5,6 +5,7 @@ import 'package:food_delivery_app/utils/dimensions.dart';
 import 'package:food_delivery_app/views/home/popular_list.dart';
 import 'package:food_delivery_app/views/home/popular_restaurant.dart';
 import 'package:food_delivery_app/views/home/slider.dart';
+import 'package:food_delivery_app/views/home/widget_categories.dart';
 import 'package:food_delivery_app/widgets/big_text.dart';
 import 'package:food_delivery_app/widgets/icon_and_text.dart';
 import 'package:food_delivery_app/widgets/small_text.dart';
@@ -43,6 +44,8 @@ class _FoodPageBodyState extends State<FoodPageBody> {
   Widget build(BuildContext context) {
     //print(MediaQuery.of(context).size.toString());
     return Column(
+      mainAxisSize: MainAxisSize.min,
+      crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         SliderCustom(
           pageController: pageController,
@@ -52,11 +55,15 @@ class _FoodPageBodyState extends State<FoodPageBody> {
         SizedBox(
           height: Dimensions.heightPadding30,
         ),
-        const PopularList(),
+        const WidgetCategories(),
         SizedBox(
           height: Dimensions.heightPadding30,
         ),
         const PopularRestaurant(),
+        SizedBox(
+          height: Dimensions.heightPadding30,
+        ),
+        const PopularList(),
       ],
     );
   }

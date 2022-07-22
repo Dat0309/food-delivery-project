@@ -70,10 +70,18 @@ class _HomePageState extends State<HomePage> {
               ),
             ),
             // Page body
-            const Expanded(
-              child: SingleChildScrollView(
-                physics: BouncingScrollPhysics(),
-                child: FoodPageBody(),
+            Expanded(
+              child: LayoutBuilder(
+                builder: (context, constraints) {
+                  return SingleChildScrollView(
+                    physics: const BouncingScrollPhysics(),
+                    child: ConstrainedBox(
+                      constraints:
+                          BoxConstraints(minHeight: constraints.maxHeight),
+                      child: const FoodPageBody(),
+                    ),
+                  );
+                },
               ),
             ),
           ],

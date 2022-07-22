@@ -4,4 +4,5 @@ class AppUrl {
 
   static const String GET_PRODUCTS = BASEURL + "/api/product";
   static const String GET_RESTAURANTS = BASEURL + "/api/restaurants";
+  static const String GET_CATEGORIES = BASEURL + "/api/categories";
 }

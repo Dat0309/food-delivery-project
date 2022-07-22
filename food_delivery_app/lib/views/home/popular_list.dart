@@ -58,6 +58,7 @@ class _PopularListState extends State<PopularList> {
                   child: ListView.builder(
                     physics: const NeverScrollableScrollPhysics(),
                     shrinkWrap: true,
+                    scrollDirection: Axis.vertical,
                     itemCount: products.popularProducts.length,
                     itemBuilder: (context, index) {
                       return Container(

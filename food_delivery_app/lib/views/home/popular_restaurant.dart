@@ -4,6 +4,7 @@ import 'package:food_delivery_app/controller/restaurant_controller.dart';
 import 'package:food_delivery_app/utils/dimensions.dart';
 import 'package:food_delivery_app/views/home/restaurant_list_tile.dart';
 import 'package:food_delivery_app/widgets/big_text.dart';
+import 'package:food_delivery_app/widgets/icon_and_text.dart';
 import 'package:food_delivery_app/widgets/small_text.dart';
 import 'package:get/get.dart';
 
@@ -18,7 +19,6 @@ class _PopularRestaurantState extends State<PopularRestaurant> {
   @override
   Widget build(BuildContext context) {
     return Column(
-      mainAxisSize: MainAxisSize.min,
       children: [
         Container(
           margin: EdgeInsets.only(
@@ -50,6 +50,38 @@ class _PopularRestaurantState extends State<PopularRestaurant> {
         SizedBox(
           height: Dimensions.heightPadding20,
         ),
+        GetBuilder<RestaurantController>(builder: (restaurant) {
+          return restaurant.isLoaded
+              ? Container(
+                  height: 240,
+                  child: ListView.separated(
+                      physics: const BouncingScrollPhysics(),
+                      scrollDirection: Axis.horizontal,
+                      itemBuilder: (context, index) {
+                        return Column(
+                          children: [
+                            GestureDetector(
+                              onTap: () {},
+                              child: RestaurantListTile(
+                                label: 'HOT',
+                                image: restaurant.restaurants[index].image,
+                                rating: restaurant.restaurants[index].rating,
+                                restaurantName:
+                                    restaurant.restaurants[index].name,
+                              ),
+                            )
+                          ],
+                        );
+                      },
+                      separatorBuilder: (BuildContext context, int index) =>
+                          const VerticalDivider(
+                            color: Colors.transparent,
+                            width: 5,
+                          ),
+                      itemCount: 10),
+                )
+              : CircularProgressIndicator();
+        })
       ],
     );
   }
