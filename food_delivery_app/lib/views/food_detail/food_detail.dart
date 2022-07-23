@@ -1,14 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:food_delivery_app/constant/constant.dart';
+import 'package:food_delivery_app/models/Product.dart';
 import 'package:food_delivery_app/utils/dimensions.dart';
 import 'package:food_delivery_app/widgets/app_icon.dart';
 import 'package:food_delivery_app/widgets/big_text.dart';
 import 'package:food_delivery_app/widgets/expanable_text_widget.dart';
 import 'package:food_delivery_app/widgets/icon_and_text.dart';
 import 'package:food_delivery_app/widgets/small_text.dart';
+import 'package:get/get.dart';
 
 class FoodDetail extends StatefulWidget {
-  const FoodDetail({Key? key}) : super(key: key);
+  final Product product;
+  const FoodDetail({Key? key, required this.product}) : super(key: key);
 
   @override
   State<FoodDetail> createState() => _FoodDetailState();
@@ -30,9 +33,7 @@ class _FoodDetailState extends State<FoodDetail> {
               decoration: BoxDecoration(
                 image: DecorationImage(
                   fit: BoxFit.cover,
-                  image: AssetImage(
-                    'assets/images/food1.jpg',
-                  ),
+                  image: NetworkImage(widget.product.image!),
                 ),
               ),
             ),
@@ -43,12 +44,19 @@ class _FoodDetailState extends State<FoodDetail> {
             right: Dimensions.widthPadding20,
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: const [
-                AppIcon(
-                  icon: Icons.arrow_back_ios,
+              children: [
+                GestureDetector(
+                  onTap: () {
+                    Get.back();
+                  },
+                  child: const AppIcon(
+                    icon: Icons.arrow_back_ios,
+                  ),
                 ),
-                AppIcon(
-                  icon: Icons.shopping_cart_outlined,
+                GestureDetector(
+                  child: const AppIcon(
+                    icon: Icons.shopping_cart_outlined,
+                  ),
                 ),
               ],
             ),
@@ -81,7 +89,7 @@ class _FoodDetailState extends State<FoodDetail> {
                         padding:
                             EdgeInsets.only(bottom: Dimensions.heightPadding10),
                         child: BigText(
-                          text: 'Food name',
+                          text: widget.product.name,
                           size: Dimensions.font32,
                         ),
                       ),
@@ -105,7 +113,8 @@ class _FoodDetailState extends State<FoodDetail> {
                               ),
                             ),
                             SmallText(
-                              text: '4.5  |  1287 Đánh giá',
+                              text:
+                                  '${widget.product.rating}  |  ${widget.product.numReview} Đánh giá',
                               color: AppColors.signColor,
                             ),
                           ],
@@ -116,7 +125,7 @@ class _FoodDetailState extends State<FoodDetail> {
                         children: [
                           IconAndText(
                             icon: Icons.circle_sharp,
-                            text: 'Bình thường',
+                            text: '${widget.product.price.toString()} vnđ',
                             textColor: AppColors.signColor,
                             iconColor: AppColors.primaryIconColor,
                           ),
@@ -144,12 +153,11 @@ class _FoodDetailState extends State<FoodDetail> {
                     color: AppColors.titleColor,
                     size: Dimensions.font24,
                   ),
-                  const Expanded(
+                  Expanded(
                     child: SingleChildScrollView(
-                      physics: BouncingScrollPhysics(),
+                      physics: const BouncingScrollPhysics(),
                       child: ExpandableTextWidget(
-                        text:
-                            "Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old. Richard McClintock, a Latin professor at Hampden-Sydney College in Virginia, looked up one of the more obscure Latin words, consectetur, from a Lorem Ipsum passage, and going through the cites of the word in classical literature, discovered the undoubtable source. Lorem Ipsum comes from sections 1.10.32 and 1.10.33 of (The Extremes of Good and Evil) by Cicero, written in 45 BC. This book is a treatise on the theory of ethics, very popular during the Renaissance. The first line of Lorem Ipsum, comes from a line in section 1.10.32.",
+                        text: widget.product.description!,
                       ),
                     ),
                   ),
@@ -211,6 +219,7 @@ class _FoodDetailState extends State<FoodDetail> {
               ),
             ),
             Container(
+              width: 280,
               padding: EdgeInsets.only(
                 top: Dimensions.heightPadding20,
                 bottom: Dimensions.heightPadding20,
@@ -222,8 +231,9 @@ class _FoodDetailState extends State<FoodDetail> {
                 color: AppColors.primaryBgColor,
               ),
               child: BigText(
-                text: '53.200 đ | Thêm vào giỏ hàng',
+                text: '${widget.product.price} đ | Thêm Vào Giỏ',
                 color: Colors.white,
+                textOverflow: TextOverflow.ellipsis,
               ),
             ),
           ],

@@ -42,7 +42,7 @@ class _FoodPageBodyState extends State<FoodPageBody> {
 
   @override
   Widget build(BuildContext context) {
-    //print(MediaQuery.of(context).size.toString());
+    print(MediaQuery.of(context).size.toString());
     return Column(
       mainAxisSize: MainAxisSize.min,
       crossAxisAlignment: CrossAxisAlignment.start,

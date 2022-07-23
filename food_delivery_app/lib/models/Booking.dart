@@ -1,3 +1,5 @@
+// ignore_for_file: file_names
+
 import 'package:food_delivery_app/models/Order.dart';
 
 class Booking {

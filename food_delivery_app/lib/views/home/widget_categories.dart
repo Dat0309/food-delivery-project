@@ -1,11 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:food_delivery_app/constant/constant.dart';
 import 'package:food_delivery_app/controller/categories_controller.dart';
-import 'package:food_delivery_app/controller/restaurant_controller.dart';
 import 'package:food_delivery_app/utils/dimensions.dart';
-import 'package:food_delivery_app/views/home/restaurant_list_tile.dart';
 import 'package:food_delivery_app/widgets/big_text.dart';
-import 'package:food_delivery_app/widgets/small_text.dart';
 import 'package:get/get.dart';
+import 'package:shimmer/shimmer.dart';
 
 class WidgetCategories extends StatefulWidget {
   const WidgetCategories({Key? key}) : super(key: key);
@@ -26,7 +25,7 @@ class _WidgetCategoriesState extends State<WidgetCategories> {
                     left: Dimensions.widthPadding10,
                     right: Dimensions.widthPadding10,
                   ),
-                  height: 45,
+                  height: Dimensions.heightPadding45,
                   child: ListView.separated(
                       physics: const BouncingScrollPhysics(),
                       scrollDirection: Axis.horizontal,
@@ -42,7 +41,7 @@ class _WidgetCategoriesState extends State<WidgetCategories> {
                                   border: Border.all(color: Colors.black45),
                                   borderRadius: BorderRadius.all(
                                       Radius.circular(Dimensions.radius30)),
-                                  color: Colors.white,
+                                  color: AppColors.signColor,
                                   image: DecorationImage(
                                     colorFilter: ColorFilter.mode(
                                       Colors.black.withOpacity(0.55),
@@ -70,7 +69,47 @@ class _WidgetCategoriesState extends State<WidgetCategories> {
                           ),
                       itemCount: 10),
                 )
-              : CircularProgressIndicator();
+              : Container(
+                  margin: EdgeInsets.only(
+                    left: Dimensions.widthPadding10,
+                    right: Dimensions.widthPadding10,
+                  ),
+                  height: Dimensions.heightPadding45,
+                  child: ListView.separated(
+                      physics: const BouncingScrollPhysics(),
+                      scrollDirection: Axis.horizontal,
+                      itemBuilder: (context, index) {
+                        return Column(
+                          children: [
+                            GestureDetector(
+                              onTap: () {},
+                              child: Shimmer.fromColors(
+                                baseColor: Colors.grey[300]!,
+                                highlightColor: Colors.grey[100]!,
+                                child: Container(
+                                  width: Dimensions.widthPadding100,
+                                  height: Dimensions.heightPadding45,
+                                  padding:
+                                      EdgeInsets.all(Dimensions.widthPadding10),
+                                  decoration: BoxDecoration(
+                                    border: Border.all(color: Colors.black45),
+                                    borderRadius: BorderRadius.all(
+                                        Radius.circular(Dimensions.radius30)),
+                                    color: AppColors.signColor,
+                                  ),
+                                ),
+                              ),
+                            )
+                          ],
+                        );
+                      },
+                      separatorBuilder: (BuildContext context, int index) =>
+                          const VerticalDivider(
+                            color: Colors.transparent,
+                            width: 5,
+                          ),
+                      itemCount: 10),
+                );
         }),
       ],
     );

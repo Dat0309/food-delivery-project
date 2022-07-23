@@ -32,8 +32,8 @@ class _RestaurantListTileState extends State<RestaurantListTile> {
       child: Stack(
         children: [
           Container(
-            width: 150,
-            height: 220,
+            width: Dimensions.width150,
+            height: Dimensions.height220,
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(Dimensions.radius15),
               image: DecorationImage(
@@ -45,19 +45,23 @@ class _RestaurantListTileState extends State<RestaurantListTile> {
             ),
           ),
           SizedBox(
-            width: 150,
-            height: 200,
+            width: Dimensions.width150,
+            height: Dimensions.height200,
             child: Expanded(
               child: Column(
                 children: [
                   Row(
                     children: [
                       Container(
-                        margin: EdgeInsets.only(left: 8, top: 8),
-                        padding:
-                            EdgeInsets.symmetric(vertical: 6, horizontal: 8),
+                        margin: EdgeInsets.only(
+                            left: Dimensions.widthPadding8,
+                            top: Dimensions.widthPadding8),
+                        padding: EdgeInsets.symmetric(
+                            vertical: Dimensions.widthPadding5,
+                            horizontal: Dimensions.widthPadding8),
                         decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(8),
+                          borderRadius:
+                              BorderRadius.circular(Dimensions.radius8),
                           color: Colors.black.withOpacity(0.55),
                         ),
                         child: SmallText(
@@ -67,11 +71,16 @@ class _RestaurantListTileState extends State<RestaurantListTile> {
                       ),
                       const Spacer(),
                       Container(
-                        margin: EdgeInsets.only(right: 8, top: 8),
-                        padding:
-                            EdgeInsets.symmetric(horizontal: 8, vertical: 6),
+                        margin: EdgeInsets.only(
+                          right: Dimensions.widthPadding8,
+                          top: Dimensions.heightPadding8,
+                        ),
+                        padding: EdgeInsets.symmetric(
+                            horizontal: Dimensions.widthPadding8,
+                            vertical: Dimensions.widthPadding5),
                         decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(3),
+                          borderRadius:
+                              BorderRadius.circular(Dimensions.radius3),
                           color: Colors.black.withOpacity(0.55),
                         ),
                         child: Column(
@@ -91,23 +100,28 @@ class _RestaurantListTileState extends State<RestaurantListTile> {
                   Row(
                     children: [
                       Container(
-                        margin: EdgeInsets.only(bottom: 10, left: 8, right: 8),
+                        margin: EdgeInsets.only(
+                          bottom: Dimensions.heightPadding10,
+                          left: Dimensions.widthPadding8,
+                          right: Dimensions.widthPadding8,
+                        ),
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Container(
                               width: 100,
                               padding: EdgeInsets.symmetric(
-                                vertical: 6,
-                                horizontal: 8,
+                                vertical: Dimensions.widthPadding5,
+                                horizontal: Dimensions.widthPadding8,
                               ),
                               decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(8),
+                                borderRadius:
+                                    BorderRadius.circular(Dimensions.radius8),
                                 color: Colors.black.withOpacity(0.55),
                               ),
                               child: BigText(
                                 text: widget.restaurantName,
-                                size: 16,
+                                size: Dimensions.font16,
                                 color: Colors.white,
                                 textOverflow: TextOverflow.ellipsis,
                               ),

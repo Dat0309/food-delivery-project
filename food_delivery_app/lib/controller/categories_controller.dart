@@ -3,7 +3,6 @@ import 'dart:convert';
 import 'package:food_delivery_app/models/Category.dart';
 import 'package:food_delivery_app/service/repository/categories_repo.dart';
 import 'package:get/get.dart';
-import 'package:http/http.dart' as http;
 
 class CategoriesController extends GetxController {
   final CategoriesRepo categoriesRepo;
@@ -14,7 +13,7 @@ class CategoriesController extends GetxController {
   bool isLoaded = false;
 
   Future<void> getCategories() async {
-    http.Response res = await categoriesRepo.getCategoriesList().then((value) {
+    await categoriesRepo.getCategoriesList().then((value) {
       if (value.statusCode == 200) {
         final Map<String, dynamic> resData = json.decode(value.body);
 

@@ -1,10 +1,8 @@
 import 'dart:convert';
 
 import 'package:food_delivery_app/models/Product.dart';
-import 'package:food_delivery_app/models/ProductList.dart';
 import 'package:food_delivery_app/service/repository/product_repo.dart';
 import 'package:get/get.dart';
-import 'package:http/http.dart' as http;
 
 class ProductController extends GetxController {
   final ProductRepo productRepo;
@@ -15,7 +13,7 @@ class ProductController extends GetxController {
   bool isLoaded = false;
 
   Future<void> getPopularProducts() async {
-    http.Response res = await productRepo.getProductList().then((value) {
+    await productRepo.getProductList().then((value) {
       if (value.statusCode == 200) {
         final Map<String, dynamic> resData = json.decode(value.body);
 

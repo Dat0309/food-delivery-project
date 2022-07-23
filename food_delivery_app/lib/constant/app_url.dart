@@ -1,3 +1,5 @@
+// ignore_for_file: constant_identifier_names
+
 class AppUrl {
   static const int APP_VERSION = 1;
   static const String BASEURL = "https://smart-fooding.herokuapp.com";
