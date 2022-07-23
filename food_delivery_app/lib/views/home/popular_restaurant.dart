@@ -3,6 +3,7 @@ import 'package:food_delivery_app/constant/constant.dart';
 import 'package:food_delivery_app/controller/restaurant_controller.dart';
 import 'package:food_delivery_app/utils/dimensions.dart';
 import 'package:food_delivery_app/views/home/restaurant_list_tile.dart';
+import 'package:food_delivery_app/views/restaurant_detail/restaurant_detail.dart';
 import 'package:food_delivery_app/widgets/big_text.dart';
 import 'package:food_delivery_app/widgets/icon_and_text.dart';
 import 'package:food_delivery_app/widgets/small_text.dart';
@@ -80,7 +81,10 @@ class _PopularRestaurantState extends State<PopularRestaurant> {
                         return Column(
                           children: [
                             GestureDetector(
-                              onTap: () {},
+                              onTap: () {
+                                Get.to(RestaurantDetail(
+                                    restaurant: restaurant.restaurants[index]));
+                              },
                               child: RestaurantListTile(
                                 label: 'HOT',
                                 image: restaurant.restaurants[index].image,
