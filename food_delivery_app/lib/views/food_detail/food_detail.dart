@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:food_delivery_app/constant/constant.dart';
+import 'package:food_delivery_app/controller/cart_controller.dart';
+import 'package:food_delivery_app/controller/product_controller.dart';
 import 'package:food_delivery_app/models/Product.dart';
 import 'package:food_delivery_app/utils/dimensions.dart';
+import 'package:food_delivery_app/views/cart/cart_page.dart';
 import 'package:food_delivery_app/widgets/app_icon.dart';
 import 'package:food_delivery_app/widgets/big_text.dart';
 import 'package:food_delivery_app/widgets/expanable_text_widget.dart';
@@ -20,6 +23,8 @@ class FoodDetail extends StatefulWidget {
 class _FoodDetailState extends State<FoodDetail> {
   @override
   Widget build(BuildContext context) {
+    Get.find<ProductController>()
+        .initProduct(widget.product, Get.find<CartController>());
     return Scaffold(
       backgroundColor: Colors.white,
       body: Stack(
@@ -53,11 +58,39 @@ class _FoodDetailState extends State<FoodDetail> {
                     icon: Icons.arrow_back_ios,
                   ),
                 ),
-                GestureDetector(
-                  child: const AppIcon(
-                    icon: Icons.shopping_cart_outlined,
-                  ),
-                ),
+                GetBuilder<ProductController>(builder: (productController) {
+                  return Stack(
+                    children: [
+                      GestureDetector(
+                        onTap: () {
+                          Get.to(() => const CartPage());
+                        },
+                        child: const AppIcon(
+                          icon: Icons.shopping_cart_outlined,
+                        ),
+                      ),
+                      Get.find<ProductController>().cartTotalItem >= 1
+                          ? AppIcon(
+                              icon: Icons.circle,
+                              size: Dimensions.heightPadding20,
+                              iconColor: Colors.transparent,
+                              backgroundColor: AppColors.secondaryColor,
+                            )
+                          : Container(),
+                      Get.find<ProductController>().cartTotalItem >= 1
+                          ? Positioned(
+                              left: 3,
+                              child: BigText(
+                                text: Get.find<ProductController>()
+                                    .cartTotalItem
+                                    .toString(),
+                                size: Dimensions.font16,
+                              ),
+                            )
+                          : Container(),
+                    ],
+                  );
+                }),
               ],
             ),
           ),
@@ -167,78 +200,96 @@ class _FoodDetailState extends State<FoodDetail> {
           ),
         ],
       ),
-      bottomNavigationBar: Container(
-        margin: EdgeInsets.only(
-          bottom: Dimensions.heightPadding10,
-          left: Dimensions.widthPadding10,
-          right: Dimensions.widthPadding10,
-        ),
-        height: Dimensions.height140,
-        padding: EdgeInsets.only(
-          top: Dimensions.heightPadding30,
-          bottom: Dimensions.heightPadding30,
-          left: Dimensions.widthPadding20,
-          right: Dimensions.widthPadding20,
-        ),
-        decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(Dimensions.radius20 * 2),
-          color: AppColors.buttoBackgroundColor,
-        ),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            Container(
-              padding: EdgeInsets.only(
-                top: Dimensions.heightPadding20,
-                bottom: Dimensions.heightPadding20,
-                left: Dimensions.widthPadding20,
-                right: Dimensions.widthPadding20,
+      bottomNavigationBar: GetBuilder<ProductController>(builder: (product) {
+        return Container(
+          margin: EdgeInsets.only(
+            bottom: Dimensions.heightPadding10,
+            left: Dimensions.widthPadding10,
+            right: Dimensions.widthPadding10,
+          ),
+          height: Dimensions.height140,
+          padding: EdgeInsets.only(
+            top: Dimensions.heightPadding30,
+            bottom: Dimensions.heightPadding30,
+            left: Dimensions.widthPadding20,
+            right: Dimensions.widthPadding20,
+          ),
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(Dimensions.radius20 * 2),
+            color: AppColors.buttoBackgroundColor,
+          ),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Container(
+                padding: EdgeInsets.only(
+                  top: Dimensions.heightPadding20,
+                  bottom: Dimensions.heightPadding20,
+                  left: Dimensions.widthPadding20,
+                  right: Dimensions.widthPadding20,
+                ),
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(Dimensions.radius20),
+                  color: Colors.white,
+                ),
+                child: Row(
+                  children: [
+                    GestureDetector(
+                      onTap: () {
+                        product.setQuantity(false);
+                      },
+                      child: const Icon(
+                        Icons.remove,
+                        color: AppColors.signColor,
+                      ),
+                    ),
+                    SizedBox(
+                      width: Dimensions.widthPadding5,
+                    ),
+                    BigText(text: product.quantity.toString()),
+                    SizedBox(
+                      width: Dimensions.widthPadding5,
+                    ),
+                    GestureDetector(
+                      onTap: () {
+                        product.setQuantity(true);
+                      },
+                      child: const Icon(
+                        Icons.add,
+                        color: AppColors.signColor,
+                      ),
+                    ),
+                  ],
+                ),
               ),
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(Dimensions.radius20),
-                color: Colors.white,
-              ),
-              child: Row(
-                children: [
-                  const Icon(
-                    Icons.remove,
-                    color: AppColors.signColor,
+              GestureDetector(
+                onTap: () {
+                  product.addItem(widget.product);
+                },
+                child: Container(
+                  width: 280,
+                  padding: EdgeInsets.only(
+                    top: Dimensions.heightPadding20,
+                    bottom: Dimensions.heightPadding20,
+                    left: Dimensions.widthPadding20,
+                    right: Dimensions.widthPadding20,
                   ),
-                  SizedBox(
-                    width: Dimensions.widthPadding5,
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(Dimensions.radius20),
+                    color: AppColors.primaryColor,
                   ),
-                  BigText(text: '0'),
-                  SizedBox(
-                    width: Dimensions.widthPadding5,
+                  child: BigText(
+                    text:
+                        '${widget.product.price! * product.quantity} đ | Thêm Vào Giỏ',
+                    color: Colors.white,
+                    textOverflow: TextOverflow.ellipsis,
                   ),
-                  const Icon(
-                    Icons.add,
-                    color: AppColors.signColor,
-                  ),
-                ],
+                ),
               ),
-            ),
-            Container(
-              width: 280,
-              padding: EdgeInsets.only(
-                top: Dimensions.heightPadding20,
-                bottom: Dimensions.heightPadding20,
-                left: Dimensions.widthPadding20,
-                right: Dimensions.widthPadding20,
-              ),
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(Dimensions.radius20),
-                color: AppColors.primaryBgColor,
-              ),
-              child: BigText(
-                text: '${widget.product.price} đ | Thêm Vào Giỏ',
-                color: Colors.white,
-                textOverflow: TextOverflow.ellipsis,
-              ),
-            ),
-          ],
-        ),
-      ),
+            ],
+          ),
+        );
+      }),
     );
   }
 }

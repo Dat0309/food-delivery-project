@@ -4,6 +4,7 @@ import 'package:food_delivery_app/constant/constant.dart';
 import 'package:food_delivery_app/controller/product_controller.dart';
 import 'package:food_delivery_app/models/Product.dart';
 import 'package:food_delivery_app/utils/dimensions.dart';
+import 'package:food_delivery_app/views/food_detail/food_detail.dart';
 import 'package:food_delivery_app/widgets/big_text.dart';
 import 'package:food_delivery_app/widgets/icon_and_text.dart';
 import 'package:food_delivery_app/widgets/small_text.dart';
@@ -114,115 +115,120 @@ class _SliderState extends State<SliderCustom> {
 
     return Transform(
       transform: matrix,
-      child: Stack(
-        children: [
-          Container(
-            height: Dimensions.pageViewContainer,
-            margin: EdgeInsets.only(
-              left: Dimensions.widthPadding10,
-              right: Dimensions.widthPadding10,
-            ),
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(Dimensions.radius30),
-              color: AppColors.signColor,
-              image: DecorationImage(
-                fit: BoxFit.cover,
-                image: NetworkImage(product.image!),
-              ),
-            ),
-          ),
-          Align(
-            alignment: Alignment.bottomCenter,
-            child: Container(
-              height: Dimensions.pageViewTextContainer,
+      child: GestureDetector(
+        onTap: () {
+          Get.to(FoodDetail(product: product));
+        },
+        child: Stack(
+          children: [
+            Container(
+              height: Dimensions.pageViewContainer,
               margin: EdgeInsets.only(
-                left: Dimensions.widthPadding30,
-                right: Dimensions.widthPadding30,
-                bottom: Dimensions.heightPadding30,
+                left: Dimensions.widthPadding10,
+                right: Dimensions.widthPadding10,
               ),
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(Dimensions.radius30),
-                color: AppColors.buttoBackgroundColor,
-                boxShadow: [
-                  BoxShadow(
-                    color: AppColors.shadowColor!,
-                    blurRadius: 5.0,
-                    offset: const Offset(0, 5),
-                  ),
-                ],
-              ),
-              child: Container(
-                padding: EdgeInsets.only(
-                  top: Dimensions.heightPadding15,
-                  left: Dimensions.widthPadding15,
-                  right: Dimensions.widthPadding15,
-                ),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Padding(
-                      padding:
-                          EdgeInsets.only(bottom: Dimensions.heightPadding10),
-                      child: BigText(
-                        text: product.name,
-                      ),
-                    ),
-                    Padding(
-                      padding:
-                          EdgeInsets.only(bottom: Dimensions.heightPadding20),
-                      child: Row(
-                        children: [
-                          Padding(
-                            padding: EdgeInsets.only(
-                                right: Dimensions.heightPadding10),
-                            child: Wrap(
-                              children: List.generate(
-                                5,
-                                (index) => const Icon(
-                                  Icons.star,
-                                  color: AppColors.yellowColor,
-                                  size: 15,
-                                ),
-                              ),
-                            ),
-                          ),
-                          SmallText(
-                            text:
-                                '${product.rating}  |  ${product.numReview} Đánh giá',
-                            color: AppColors.signColor,
-                          ),
-                        ],
-                      ),
-                    ),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        IconAndText(
-                          icon: Icons.circle_sharp,
-                          text: '${product.price.toString()} VNĐ',
-                          textColor: AppColors.signColor,
-                          iconColor: AppColors.primaryIconColor,
-                        ),
-                        IconAndText(
-                          icon: Icons.location_on,
-                          text: '1.7km',
-                          textColor: AppColors.signColor,
-                          iconColor: AppColors.secondaryIconColor,
-                        ),
-                        IconAndText(
-                          icon: Icons.access_time_rounded,
-                          text: '32 phút',
-                          textColor: AppColors.signColor,
-                          iconColor: AppColors.secondaryIconColor,
-                        ),
-                      ],
-                    ),
-                  ],
+                color: AppColors.signColor,
+                image: DecorationImage(
+                  fit: BoxFit.cover,
+                  image: NetworkImage(product.image!),
                 ),
               ),
             ),
-          ),
-        ],
+            Align(
+              alignment: Alignment.bottomCenter,
+              child: Container(
+                height: Dimensions.pageViewTextContainer,
+                margin: EdgeInsets.only(
+                  left: Dimensions.widthPadding30,
+                  right: Dimensions.widthPadding30,
+                  bottom: Dimensions.heightPadding30,
+                ),
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(Dimensions.radius30),
+                  color: AppColors.buttoBackgroundColor,
+                  boxShadow: [
+                    BoxShadow(
+                      color: AppColors.shadowColor!,
+                      blurRadius: 5.0,
+                      offset: const Offset(0, 5),
+                    ),
+                  ],
+                ),
+                child: Container(
+                  padding: EdgeInsets.only(
+                    top: Dimensions.heightPadding15,
+                    left: Dimensions.widthPadding15,
+                    right: Dimensions.widthPadding15,
+                  ),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Padding(
+                        padding:
+                            EdgeInsets.only(bottom: Dimensions.heightPadding10),
+                        child: BigText(
+                          text: product.name,
+                        ),
+                      ),
+                      Padding(
+                        padding:
+                            EdgeInsets.only(bottom: Dimensions.heightPadding20),
+                        child: Row(
+                          children: [
+                            Padding(
+                              padding: EdgeInsets.only(
+                                  right: Dimensions.heightPadding10),
+                              child: Wrap(
+                                children: List.generate(
+                                  5,
+                                  (index) => const Icon(
+                                    Icons.star,
+                                    color: AppColors.yellowColor,
+                                    size: 15,
+                                  ),
+                                ),
+                              ),
+                            ),
+                            SmallText(
+                              text:
+                                  '${product.rating}  |  ${product.numReview} Đánh giá',
+                              color: AppColors.signColor,
+                            ),
+                          ],
+                        ),
+                      ),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          IconAndText(
+                            icon: Icons.circle_sharp,
+                            text: '${product.price.toString()} VNĐ',
+                            textColor: AppColors.signColor,
+                            iconColor: AppColors.primaryIconColor,
+                          ),
+                          IconAndText(
+                            icon: Icons.location_on,
+                            text: '1.7km',
+                            textColor: AppColors.signColor,
+                            iconColor: AppColors.secondaryIconColor,
+                          ),
+                          IconAndText(
+                            icon: Icons.access_time_rounded,
+                            text: '32 phút',
+                            textColor: AppColors.signColor,
+                            iconColor: AppColors.secondaryIconColor,
+                          ),
+                        ],
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }

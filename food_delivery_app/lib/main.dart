@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
+import 'package:food_delivery_app/controller/cart_controller.dart';
 import 'package:food_delivery_app/controller/categories_controller.dart';
 import 'package:food_delivery_app/controller/product_controller.dart';
 import 'package:food_delivery_app/controller/restaurant_controller.dart';
@@ -33,10 +34,11 @@ class MyApp extends StatelessWidget {
     Get.find<ProductController>().getPopularProducts();
     Get.find<RestaurantController>().getRestaurants();
     Get.find<CategoriesController>().getCategories();
-    return GetMaterialApp(
+    Get.find<CartController>();
+    return const GetMaterialApp(
       title: 'ĂN GÌ ĐẶT NGAY!!!',
       debugShowCheckedModeBanner: false,
-      home: const HomePage(),
+      home: HomePage(),
     );
   }
 }
