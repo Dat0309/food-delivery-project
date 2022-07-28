@@ -16,13 +16,22 @@ class CartController extends GetxController {
     items.forEach((key, value) {
       totalQuantity += value.qty!;
     });
+    update();
     return totalQuantity;
   }
 
-  void addItem(Product product, int qty) {
-    if (items.containsKey(product.id)) {
+  int get totalPrice {
+    var price = 0;
+    items.forEach((key, value) {
+      price += value.price! * value.qty!;
+    });
+    return price;
+  }
+
+  void updateItemQty(String id, int qty) {
+    if (items.containsKey(id)) {
       items.update(
-          product.id!,
+          id,
           (value) => Cart(
                 name: value.name,
                 foodId: value.foodId,
@@ -30,6 +39,21 @@ class CartController extends GetxController {
                 price: value.price,
                 qty: value.qty! + qty,
               ));
+    }
+    update();
+  }
+
+  void addItem(Product product, int qty) {
+    if (items.containsKey(product.id)) {
+      items.update(product.id!, (value) {
+        return Cart(
+          name: value.name,
+          foodId: value.foodId,
+          image: value.image,
+          price: value.price,
+          qty: value.qty! + qty,
+        );
+      });
     } else {
       items.putIfAbsent(
           product.id!,
@@ -41,6 +65,7 @@ class CartController extends GetxController {
                 qty: qty,
               ));
     }
+    update();
   }
 
   bool existInCart(Product product) {

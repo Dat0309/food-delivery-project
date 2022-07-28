@@ -1,12 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:food_delivery_app/constant/constant.dart';
+import 'package:food_delivery_app/controller/cart_controller.dart';
+import 'package:food_delivery_app/controller/product_controller.dart';
 import 'package:food_delivery_app/models/Cart.dart';
 import 'package:food_delivery_app/utils/dimensions.dart';
 import 'package:food_delivery_app/widgets/big_text.dart';
+import 'package:get/get.dart';
 
 class CartCard extends StatefulWidget {
   final Cart cart;
-  const CartCard({Key? key, required this.cart}) : super(key: key);
+  final ProductController controller;
+  const CartCard({Key? key, required this.cart, required this.controller})
+      : super(key: key);
 
   @override
   State<CartCard> createState() => _CartCardState();
@@ -52,11 +57,42 @@ class _CartCardState extends State<CartCard> {
                 ),
                 children: [
                   TextSpan(
-                      text: " x${widget.cart.qty}",
+                      text: " x${widget.cart.qty.toString()}",
                       style: Theme.of(context).textTheme.bodyText1),
                 ],
               ),
             ),
+            GetBuilder<CartController>(builder: (cartController) {
+              return Row(
+                children: [
+                  GestureDetector(
+                    onTap: () {
+                      cartController.updateItemQty(widget.cart.foodId!, -1);
+                    },
+                    child: const Icon(
+                      Icons.remove,
+                      color: AppColors.signColor,
+                    ),
+                  ),
+                  SizedBox(
+                    width: Dimensions.widthPadding5,
+                  ),
+                  BigText(text: widget.cart.qty.toString()),
+                  SizedBox(
+                    width: Dimensions.widthPadding5,
+                  ),
+                  GestureDetector(
+                    onTap: () {
+                      cartController.updateItemQty(widget.cart.foodId!, 1);
+                    },
+                    child: const Icon(
+                      Icons.add,
+                      color: AppColors.signColor,
+                    ),
+                  ),
+                ],
+              );
+            }),
           ],
         ),
       ],

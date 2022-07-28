@@ -1,3 +1,5 @@
+import 'package:food_delivery_app/models/Product.dart';
+
 class Cart {
   String? name;
   int? qty;
@@ -5,7 +7,13 @@ class Cart {
   int? price;
   String? foodId;
 
-  Cart({this.name, this.qty, this.image, this.price, this.foodId});
+  Cart({
+    this.name,
+    this.qty,
+    this.image,
+    this.price,
+    this.foodId,
+  });
 
   factory Cart.fromJson(Map<String, dynamic> res) {
     return Cart(

@@ -27,6 +27,7 @@ class ProductController extends GetxController {
   bool get itemExist => _itemExist;
 
   int get cartTotalItem => _cart.totalItems;
+  int get cartTotalPrice => _cart.totalPrice;
 
   void initProduct(Product product, CartController cartController) {
     _cart = cartController;

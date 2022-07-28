@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:food_delivery_app/constant/constant.dart';
+import 'package:food_delivery_app/controller/cart_controller.dart';
 import 'package:food_delivery_app/controller/product_controller.dart';
 import 'package:food_delivery_app/utils/dimensions.dart';
 import 'package:food_delivery_app/views/cart/component/cart.dart';
@@ -53,10 +54,34 @@ class _CartPageState extends State<CartPage> {
                     backgroundColor: AppColors.primaryColor,
                   ),
                 ),
-                const AppIcon(
-                  icon: Icons.shopping_cart,
-                  iconColor: Colors.white,
-                  backgroundColor: AppColors.primaryColor,
+                Stack(
+                  children: [
+                    GestureDetector(
+                      onTap: () {},
+                      child: const AppIcon(
+                        icon: Icons.shopping_cart_outlined,
+                      ),
+                    ),
+                    Get.find<ProductController>().cartTotalItem >= 1
+                        ? AppIcon(
+                            icon: Icons.circle,
+                            size: Dimensions.heightPadding20,
+                            iconColor: Colors.transparent,
+                            backgroundColor: AppColors.secondaryColor,
+                          )
+                        : Container(),
+                    Get.find<ProductController>().cartTotalItem >= 1
+                        ? Positioned(
+                            left: 3,
+                            child: BigText(
+                              text: Get.find<ProductController>()
+                                  .cartTotalItem
+                                  .toString(),
+                              size: Dimensions.font16,
+                            ),
+                          )
+                        : Container(),
+                  ],
                 ),
               ],
             ),
@@ -98,7 +123,98 @@ class _CartPageState extends State<CartPage> {
                               ],
                             ),
                           ),
-                          child: CartCard(cart: controller.getItems[index]),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.start,
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              SizedBox(
+                                width: Dimensions.width140,
+                                child: AspectRatio(
+                                  aspectRatio: 0.95,
+                                  child: Container(
+                                    decoration: BoxDecoration(
+                                        color: AppColors.pargColor,
+                                        borderRadius: BorderRadius.circular(
+                                            Dimensions.radius15),
+                                        image: DecorationImage(
+                                          image: NetworkImage(controller
+                                              .getItems[index].image!),
+                                          fit: BoxFit.cover,
+                                        )),
+                                  ),
+                                ),
+                              ),
+                              SizedBox(width: Dimensions.widthPadding20),
+                              Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                mainAxisAlignment: MainAxisAlignment.start,
+                                children: [
+                                  BigText(
+                                    text: controller.getItems[index].name!,
+                                  ),
+                                  SizedBox(height: Dimensions.heightPadding10),
+                                  Text.rich(
+                                    TextSpan(
+                                      text:
+                                          "${controller.getItems[index].price} vnđ",
+                                      style: const TextStyle(
+                                        fontWeight: FontWeight.w600,
+                                        color: AppColors.primaryColor,
+                                      ),
+                                      children: [
+                                        TextSpan(
+                                            text:
+                                                " x${controller.getItems[index].qty.toString()}",
+                                            style: Theme.of(context)
+                                                .textTheme
+                                                .bodyText1),
+                                      ],
+                                    ),
+                                  ),
+                                  GetBuilder<CartController>(
+                                      builder: (cartController) {
+                                    return Row(
+                                      children: [
+                                        GestureDetector(
+                                          onTap: () {
+                                            cartController.updateItemQty(
+                                                controller
+                                                    .getItems[index].foodId!,
+                                                -1);
+                                          },
+                                          child: const Icon(
+                                            Icons.remove,
+                                            color: AppColors.signColor,
+                                          ),
+                                        ),
+                                        SizedBox(
+                                          width: Dimensions.widthPadding5,
+                                        ),
+                                        BigText(
+                                            text: controller.getItems[index].qty
+                                                .toString()),
+                                        SizedBox(
+                                          width: Dimensions.widthPadding5,
+                                        ),
+                                        GestureDetector(
+                                          onTap: () {
+                                            cartController.updateItemQty(
+                                                controller
+                                                    .getItems[index].foodId!,
+                                                1);
+                                          },
+                                          child: const Icon(
+                                            Icons.add,
+                                            color: AppColors.signColor,
+                                          ),
+                                        ),
+                                      ],
+                                    );
+                                  }),
+                                ],
+                              ),
+                            ],
+                          ),
                         ),
                       );
                     })),

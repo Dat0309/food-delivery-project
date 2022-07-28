@@ -69,7 +69,7 @@ class _FoodDetailState extends State<FoodDetail> {
                           icon: Icons.shopping_cart_outlined,
                         ),
                       ),
-                      Get.find<ProductController>().cartTotalItem >= 1
+                      productController.cartTotalItem >= 1
                           ? AppIcon(
                               icon: Icons.circle,
                               size: Dimensions.heightPadding20,
@@ -77,13 +77,12 @@ class _FoodDetailState extends State<FoodDetail> {
                               backgroundColor: AppColors.secondaryColor,
                             )
                           : Container(),
-                      Get.find<ProductController>().cartTotalItem >= 1
+                      productController.cartTotalItem >= 1
                           ? Positioned(
                               left: 3,
                               child: BigText(
-                                text: Get.find<ProductController>()
-                                    .cartTotalItem
-                                    .toString(),
+                                text:
+                                    productController.cartTotalItem.toString(),
                                 size: Dimensions.font16,
                               ),
                             )
