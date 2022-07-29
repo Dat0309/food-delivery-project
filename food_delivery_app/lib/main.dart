@@ -5,6 +5,7 @@ import 'package:food_delivery_app/controller/cart_controller.dart';
 import 'package:food_delivery_app/controller/categories_controller.dart';
 import 'package:food_delivery_app/controller/product_controller.dart';
 import 'package:food_delivery_app/controller/restaurant_controller.dart';
+import 'package:food_delivery_app/views/authentication/splash_screen.dart';
 import 'package:food_delivery_app/views/home/home_page.dart';
 import 'package:get/get.dart';
 import 'helper/dependencies.dart' as dep;
@@ -38,7 +39,7 @@ class MyApp extends StatelessWidget {
     return const GetMaterialApp(
       title: 'ĂN GÌ ĐẶT NGAY!!!',
       debugShowCheckedModeBanner: false,
-      home: HomePage(),
+      home: SplashScreen(),
     );
   }
 }
