@@ -6,6 +6,7 @@ class Cart {
   String? image;
   int? price;
   String? foodId;
+  String? time;
 
   Cart({
     this.name,
@@ -13,6 +14,7 @@ class Cart {
     this.image,
     this.price,
     this.foodId,
+    this.time,
   });
 
   factory Cart.fromJson(Map<String, dynamic> res) {
@@ -22,6 +24,18 @@ class Cart {
       image: res['image'],
       price: res['price'],
       foodId: res['product'],
+      time: res['time'],
     );
+  }
+
+  Map<String, dynamic> toJson() {
+    return {
+      "product": foodId,
+      "name": name,
+      "qty": qty,
+      "image": image,
+      "price": price,
+      "time": time,
+    };
   }
 }

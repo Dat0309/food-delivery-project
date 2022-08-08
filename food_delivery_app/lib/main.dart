@@ -35,7 +35,7 @@ class MyApp extends StatelessWidget {
     Get.find<ProductController>().getPopularProducts();
     Get.find<RestaurantController>().getRestaurants();
     Get.find<CategoriesController>().getCategories();
-    Get.find<CartController>();
+    Get.find<CartController>().getCartData();
     return const GetMaterialApp(
       title: 'ĂN GÌ ĐẶT NGAY!!!',
       debugShowCheckedModeBanner: false,

@@ -9,8 +9,10 @@ import 'package:food_delivery_app/views/authentication/component/password_field.
 import 'package:food_delivery_app/views/authentication/component/rich_text.dart';
 import 'package:food_delivery_app/views/authentication/component/signInGoogleFacebook.dart';
 import 'package:food_delivery_app/views/authentication/component/text_field.dart';
+import 'package:food_delivery_app/views/home/home_page.dart';
 import 'package:food_delivery_app/widgets/big_text.dart';
 import 'package:food_delivery_app/widgets/small_text.dart';
+import 'package:get/get.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({Key? key}) : super(key: key);
@@ -107,8 +109,13 @@ class _LoginScreenState extends State<LoginScreen> {
                           flex: 2,
                           child: Column(
                             children: [
-                              const CustomButton(
-                                text: 'Đăng nhập',
+                              GestureDetector(
+                                onTap: () {
+                                  Get.to(() => const HomePage());
+                                },
+                                child: const CustomButton(
+                                  text: 'Đăng nhập',
+                                ),
                               ),
                               SizedBox(
                                 height: Dimensions.heightPadding15 + 1,

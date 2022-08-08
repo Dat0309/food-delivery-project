@@ -10,6 +10,7 @@ class CartController extends GetxController {
   CartController({required this.cartRepo});
 
   Map<String, Cart> items = {};
+  List<Cart> storageItems = [];
 
   int get totalItems {
     var totalQuantity = 0;
@@ -28,6 +29,13 @@ class CartController extends GetxController {
     return price;
   }
 
+  set setCart(List<Cart> listItems) {
+    storageItems = listItems;
+    for (var item in storageItems) {
+      items.putIfAbsent(item.foodId!, () => item);
+    }
+  }
+
   void updateItemQty(String id, int qty) {
     if (items.containsKey(id)) {
       items.update(
@@ -38,6 +46,7 @@ class CartController extends GetxController {
                 image: value.image,
                 price: value.price,
                 qty: value.qty! + qty,
+                time: DateTime.now().toString(),
               ));
     }
     update();
@@ -52,6 +61,7 @@ class CartController extends GetxController {
           image: value.image,
           price: value.price,
           qty: value.qty! + qty,
+          time: DateTime.now().toString(),
         );
       });
     } else {
@@ -63,8 +73,10 @@ class CartController extends GetxController {
                 image: product.image,
                 price: product.price,
                 qty: qty,
+                time: DateTime.now().toString(),
               ));
     }
+    cartRepo.addToCartList(getItems);
     update();
   }
 
@@ -79,5 +91,10 @@ class CartController extends GetxController {
     return items.entries.map((e) {
       return e.value;
     }).toList();
+  }
+
+  List<Cart> getCartData() {
+    setCart = cartRepo.getCartList();
+    return storageItems;
   }
 }
