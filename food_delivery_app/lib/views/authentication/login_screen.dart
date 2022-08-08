@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:food_delivery_app/constant/constant.dart';
+import 'package:food_delivery_app/constant/colors.dart';
 import 'package:food_delivery_app/utils/dimensions.dart';
 import 'package:food_delivery_app/views/authentication/component/button.dart';
 import 'package:food_delivery_app/views/authentication/component/check_box.dart';

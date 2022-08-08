@@ -1,7 +1,7 @@
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
-import 'package:food_delivery_app/constant/constant.dart';
+import 'package:food_delivery_app/constant/colors.dart';
 import 'package:food_delivery_app/controller/cart_controller.dart';
 import 'package:food_delivery_app/models/Cart.dart';
 import 'package:food_delivery_app/models/Product.dart';

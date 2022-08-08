@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:food_delivery_app/constant/constant.dart';
+import 'package:food_delivery_app/constant/colors.dart';
+import 'package:food_delivery_app/controller/cart_controller.dart';
 import 'package:food_delivery_app/controller/product_controller.dart';
 import 'package:food_delivery_app/utils/dimensions.dart';
 import 'package:food_delivery_app/widgets/big_text.dart';
@@ -81,34 +82,40 @@ class _CheckoutCardState extends State<CheckoutCard> {
                         TextSpan(
                           text: "${controller.cartTotalPrice} vnđ",
                           style: const TextStyle(
-                              fontSize: 16, color: Colors.black),
+                            fontSize: 16,
+                            color: Colors.black,
+                          ),
                         ),
                       ],
                     ),
                   ),
-                  SizedBox(
-                    child: GestureDetector(
-                      onTap: () {},
-                      child: Container(
-                        padding: EdgeInsets.only(
-                          top: Dimensions.heightPadding20,
-                          bottom: Dimensions.heightPadding20,
-                          left: Dimensions.widthPadding20,
-                          right: Dimensions.widthPadding20,
-                        ),
-                        decoration: BoxDecoration(
-                          borderRadius:
-                              BorderRadius.circular(Dimensions.radius20),
-                          color: AppColors.primaryColor,
-                        ),
-                        child: const BigText(
-                          text: 'Thanh Toán',
-                          color: Colors.white,
-                          textOverflow: TextOverflow.ellipsis,
+                  GetBuilder<CartController>(builder: (cartController) {
+                    return SizedBox(
+                      child: GestureDetector(
+                        onTap: () {
+                          cartController.addToHistory();
+                        },
+                        child: Container(
+                          padding: EdgeInsets.only(
+                            top: Dimensions.heightPadding20,
+                            bottom: Dimensions.heightPadding20,
+                            left: Dimensions.widthPadding20,
+                            right: Dimensions.widthPadding20,
+                          ),
+                          decoration: BoxDecoration(
+                            borderRadius:
+                                BorderRadius.circular(Dimensions.radius20),
+                            color: AppColors.primaryColor,
+                          ),
+                          child: const BigText(
+                            text: 'Thanh Toán',
+                            color: Colors.white,
+                            textOverflow: TextOverflow.ellipsis,
+                          ),
                         ),
                       ),
-                    ),
-                  ),
+                    );
+                  }),
                 ],
               ),
             ],

@@ -97,4 +97,10 @@ class CartController extends GetxController {
     setCart = cartRepo.getCartList();
     return storageItems;
   }
+
+  void addToHistory() {
+    cartRepo.addToCartHistoryList();
+    items.clear();
+    update();
+  }
 }
