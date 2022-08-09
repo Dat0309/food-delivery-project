@@ -25,6 +25,9 @@ class _LoginScreenState extends State<LoginScreen> {
   register() {}
   @override
   Widget build(BuildContext context) {
+    var usernameController = TextEditingController();
+    var passwordController = TextEditingController();
+
     return Scaffold(
       backgroundColor: AppColors.primaryColor,
       body: SafeArea(
@@ -72,17 +75,19 @@ class _LoginScreenState extends State<LoginScreen> {
                           flex: 4,
                           child: Column(
                             children: [
-                              const TextFieldCustom(
-                                hint: 'Nhập địa chỉ Email',
+                              TextFieldCustom(
+                                hint: 'Nhập tên đăng nhập',
                                 icon: Icons.mail_rounded,
+                                controller: usernameController,
                               ),
                               SizedBox(
                                 height: Dimensions.heightPadding10 - 2,
                               ),
-                              const PasswordField(
+                              PasswordField(
                                 suffixIcon: Icons.visibility,
                                 hint: 'Nhập mật khẩu',
                                 icon: Icons.lock,
+                                controller: passwordController,
                               ),
                               SizedBox(
                                 height: Dimensions.heightPadding15 + 1,

@@ -6,11 +6,14 @@ class PasswordField extends StatefulWidget {
   final String hint;
   final IconData icon;
   final IconData suffixIcon;
+  final TextEditingController controller;
+
   const PasswordField({
     Key? key,
     required this.hint,
     required this.icon,
     required this.suffixIcon,
+    required this.controller,
   }) : super(key: key);
 
   @override
@@ -41,6 +44,7 @@ class _PasswordFieldState extends State<PasswordField> {
             ),
             Expanded(
               child: TextField(
+                controller: widget.controller,
                 maxLines: 1,
                 cursorColor: Colors.white70,
                 keyboardType: TextInputType.emailAddress,

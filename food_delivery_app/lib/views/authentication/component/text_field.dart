@@ -5,11 +5,13 @@ import 'package:food_delivery_app/utils/dimensions.dart';
 class TextFieldCustom extends StatelessWidget {
   final String hint;
   final IconData icon;
+  final TextEditingController controller;
 
   const TextFieldCustom({
     Key? key,
     required this.hint,
     required this.icon,
+    required this.controller,
   }) : super(key: key);
 
   @override
@@ -35,6 +37,7 @@ class TextFieldCustom extends StatelessWidget {
             ),
             Expanded(
               child: TextField(
+                controller: controller,
                 maxLines: 1,
                 cursorColor: Colors.white70,
                 keyboardType: TextInputType.emailAddress,
