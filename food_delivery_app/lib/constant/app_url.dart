@@ -10,4 +10,5 @@ class AppUrl {
 
   static const String LOGIN = BASEURL + "/api/users/login";
   static const String REGISTER = BASEURL + "api/users";
+  static const String PROFILE = BASEURL + "api/users/profile";
 }
