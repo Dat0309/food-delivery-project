@@ -9,7 +9,7 @@ class ProductRepo extends GetxService {
   var token = UserPreference().getToken();
   Future<http.Response> getProductList() async {
     http.Response res = await http.get(
-      Uri.parse(AppUrl.GET_PRODUCTS),
+      Uri.parse(AppUrl.PRODUCTS),
       headers: {
         'Authorization': 'Bearer $token',
         'Accept': 'application/json',

@@ -8,7 +8,7 @@ class CategoriesRepo extends GetxService {
   var token = "";
   Future<http.Response> getCategoriesList() async {
     http.Response res = await http.get(
-      Uri.parse(AppUrl.GET_CATEGORIES),
+      Uri.parse(AppUrl.CATEGORIES),
       headers: {
         'Authorization': 'Bearer $token',
         'Accept': 'application/json',

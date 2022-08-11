@@ -5,6 +5,7 @@ class Order {
   ShippingAddress? shippingAddress;
   String? paymentMethod;
   PaymentResult? paymentResult;
+  double? itemPrice;
   double? taxPrice;
   double? shippingPrice;
   double? totalPrice;
@@ -22,6 +23,7 @@ class Order {
     this.shippingAddress,
     this.paymentMethod,
     this.paymentResult,
+    this.itemPrice,
     this.taxPrice,
     this.shippingPrice,
     this.totalPrice,
@@ -34,13 +36,38 @@ class Order {
   });
 
   factory Order.fromJson(Map<String, dynamic> res) {
+    List<OrderItem> items = [];
+    for (var item in res['orderItems']) {
+      items.add(OrderItem.fromJson(item));
+    }
+
+    if (res['payment_result'] != null) {
+      return Order(
+        id: res['id'],
+        user: res['user'],
+        orderItems: items,
+        shippingAddress: ShippingAddress.fromJson(res['shipping_address']),
+        paymentMethod: res['payment_method'],
+        itemPrice: res['item_price'],
+        taxPrice: res['tax_price'],
+        shippingPrice: res['shipping_price'],
+        totalPrice: res['total_price'],
+        isPaid: res['is_paid'],
+        paidAt: res['paid_at'],
+        isDelivered: res['is_delivered'],
+        delivereAt: res['delivere_at'],
+        createAt: res['createAt'],
+        updateAt: res['updateAt'],
+      );
+    }
     return Order(
       id: res['id'],
       user: res['user'],
-      orderItems: res['orderItems'],
-      shippingAddress: res['shipping_address'],
+      orderItems: items,
+      shippingAddress: ShippingAddress.fromJson(res['shipping_address']),
       paymentMethod: res['payment_method'],
-      paymentResult: res['payment_result'],
+      paymentResult: PaymentResult.fromJson(res['payment_result']),
+      itemPrice: res['item_price'],
       taxPrice: res['tax_price'],
       shippingPrice: res['shipping_price'],
       totalPrice: res['total_price'],
@@ -81,7 +108,7 @@ class ShippingAddress {
 
   factory ShippingAddress.fromJson(Map<String, dynamic> res) {
     return ShippingAddress(
-      address: res['address'],
+      address: Address.fromJson(res['address']),
     );
   }
 }

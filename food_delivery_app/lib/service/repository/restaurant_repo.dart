@@ -8,7 +8,7 @@ class RestaurantRepo extends GetxService {
   var token = "";
   Future<http.Response> getRestaurants() async {
     http.Response res = await http.get(
-      Uri.parse(AppUrl.GET_RESTAURANTS),
+      Uri.parse(AppUrl.RESTAURANTS),
       headers: {
         'Authorization': 'Bearer $token',
         'Accept': 'application/json',
