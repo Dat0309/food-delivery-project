@@ -1,14 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:food_delivery_app/constant/colors.dart';
 
 import 'package:food_delivery_app/utils/dimensions.dart';
 import 'package:food_delivery_app/views/home/popular_list.dart';
 import 'package:food_delivery_app/views/home/popular_restaurant.dart';
 import 'package:food_delivery_app/views/home/component/slider.dart';
 import 'package:food_delivery_app/views/home/component/widget_categories.dart';
-import 'package:food_delivery_app/widgets/big_text.dart';
-import 'package:food_delivery_app/widgets/icon_and_text.dart';
-import 'package:food_delivery_app/widgets/small_text.dart';
 
 class FoodPageBody extends StatefulWidget {
   const FoodPageBody({Key? key}) : super(key: key);
@@ -24,7 +20,6 @@ class _FoodPageBodyState extends State<FoodPageBody> {
 
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
     pageController.addListener(() {
       setState(() {
@@ -35,14 +30,12 @@ class _FoodPageBodyState extends State<FoodPageBody> {
 
   @override
   void dispose() {
-    // TODO: implement dispose
     super.dispose();
     pageController.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
-    print(MediaQuery.of(context).size.toString());
     return Column(
       mainAxisSize: MainAxisSize.min,
       crossAxisAlignment: CrossAxisAlignment.start,

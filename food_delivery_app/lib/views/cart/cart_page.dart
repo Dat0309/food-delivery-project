@@ -3,7 +3,6 @@ import 'package:food_delivery_app/constant/colors.dart';
 import 'package:food_delivery_app/controller/cart_controller.dart';
 import 'package:food_delivery_app/controller/product_controller.dart';
 import 'package:food_delivery_app/utils/dimensions.dart';
-import 'package:food_delivery_app/views/cart/component/cart.dart';
 import 'package:food_delivery_app/views/cart/component/checkout_card.dart';
 import 'package:food_delivery_app/views/home/home_page.dart';
 import 'package:food_delivery_app/widgets/app_icon.dart';

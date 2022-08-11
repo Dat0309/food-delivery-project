@@ -1,5 +1,3 @@
-import 'package:food_delivery_app/models/Product.dart';
-
 class Cart {
   String? name;
   int? qty;

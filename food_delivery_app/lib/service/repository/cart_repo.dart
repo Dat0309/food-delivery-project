@@ -18,7 +18,9 @@ class CartRepo extends GetxService {
     /**
      * Chuyển định dạng dữ liệu từ json sang string vì sharedPreference chỉ nhậN dữ liệu string
      */
-    carts.forEach((element) => cart.add(jsonEncode(element)));
+    for (var element in carts) {
+      cart.add(jsonEncode(element));
+    }
 
     sharedPreferences.setStringList(AppConstant.CART, cart);
     getCartList();
@@ -31,8 +33,9 @@ class CartRepo extends GetxService {
     }
     List<Cart> carts = [];
 
-    cartList
-        .forEach((element) => carts.add(Cart.fromJson(jsonDecode(element))));
+    for (var element in cartList) {
+      carts.add(Cart.fromJson(jsonDecode(element)));
+    }
 
     return carts;
   }
@@ -43,8 +46,9 @@ class CartRepo extends GetxService {
       cartHistory = sharedPreferences.getStringList(AppConstant.CART_HISTORY)!;
     }
     List<Cart> cartListHistory = [];
-    cartHistory.forEach(
-        (element) => cartListHistory.add(Cart.fromJson(jsonDecode(element))));
+    for (var element in cartHistory) {
+      cartListHistory.add(Cart.fromJson(jsonDecode(element)));
+    }
 
     return cartListHistory;
   }

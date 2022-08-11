@@ -5,7 +5,6 @@ import 'package:food_delivery_app/utils/dimensions.dart';
 import 'package:food_delivery_app/views/home/component/restaurant_list_tile.dart';
 import 'package:food_delivery_app/views/restaurant_detail/restaurant_detail.dart';
 import 'package:food_delivery_app/widgets/big_text.dart';
-import 'package:food_delivery_app/widgets/icon_and_text.dart';
 import 'package:food_delivery_app/widgets/small_text.dart';
 import 'package:get/get.dart';
 import 'package:shimmer/shimmer.dart';
@@ -73,7 +72,7 @@ class _PopularRestaurantState extends State<PopularRestaurant> {
         GetBuilder<RestaurantController>(builder: (restaurant) {
           return restaurant.isLoaded
               ? SizedBox(
-                  height: 240,
+                  height: Dimensions.height220 + 20,
                   child: ListView.separated(
                       physics: const BouncingScrollPhysics(),
                       scrollDirection: Axis.horizontal,
@@ -104,7 +103,7 @@ class _PopularRestaurantState extends State<PopularRestaurant> {
                       itemCount: 10),
                 )
               : SizedBox(
-                  height: 240,
+                  height: Dimensions.height220 + 20,
                   child: ListView.separated(
                       physics: const BouncingScrollPhysics(),
                       scrollDirection: Axis.horizontal,
