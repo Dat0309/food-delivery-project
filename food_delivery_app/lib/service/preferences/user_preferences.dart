@@ -1,5 +1,6 @@
 import 'package:food_delivery_app/constant/app_constant.dart';
 import 'package:food_delivery_app/models/AuthModel.dart';
+import 'package:get/get.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class UserPreference {
@@ -49,10 +50,10 @@ class UserPreference {
   Future<String> getToken() async {
     final SharedPreferences sharedPreference =
         await SharedPreferences.getInstance();
-    String? token = "";
+    String result = "";
     if (sharedPreference.containsKey(AppConstant.TOKEN)) {
-      token = sharedPreference.getString(AppConstant.TOKEN);
+      result = sharedPreference.getString(AppConstant.TOKEN)!;
     }
-    return token!;
+    return result;
   }
 }

@@ -15,7 +15,7 @@ class ProductController extends GetxController {
 
   List<dynamic> popularProducts = [];
   bool isLoaded = false;
-  late CartController _cart;
+  CartController _cart = Get.find<CartController>();
 
   int _quantity = 1;
   int get quantity => _quantity;

@@ -45,7 +45,7 @@ class _CartPageState extends State<CartPage> {
                 ),
                 GestureDetector(
                   onTap: () {
-                    Get.to(() => const HomePage());
+                    Get.off(() => const HomePage());
                   },
                   child: const AppIcon(
                     icon: Icons.home_outlined,

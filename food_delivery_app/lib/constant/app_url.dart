@@ -12,7 +12,7 @@ class AppUrl {
   static const String BOOKINGS = BASEURL + "/api/bookings";
 
   static const GET_PRODUCT_BY_CATID = PRODUCTS + "/category-id/";
-  static const GET_USER_ORDER = ORDERS + "/user/";
+  static const GET_USER_ORDER = ORDERS + "/user";
   static const ADMIN_GET_PRODUCTS = PRODUCTS + "/all";
   static const ADMIN_GET_RESTAURANTS = RESTAURANTS + "/all";
   static const ADMIN_GET_ORDERS = ORDERS + "/all";

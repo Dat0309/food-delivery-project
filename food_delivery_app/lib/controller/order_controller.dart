@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:food_delivery_app/models/Cart.dart';
 import 'package:food_delivery_app/models/Order.dart';
+import 'package:food_delivery_app/service/preferences/user_preferences.dart';
 import 'package:food_delivery_app/service/repository/order_repo.dart';
 import 'package:get/get.dart';
 
@@ -49,12 +50,13 @@ class OrderController extends GetxController {
     });
   }
 
-  Future<void> getUserOrder(String uid) async {
+  Future<void> getUserOrder() async {
+    String uid = await UserPreference().getUser().then((value) => value.id!);
     await orderRepo.getUserOrder(uid).then((value) {
       if (value.statusCode == 200) {
         final Map<String, dynamic> resData = json.decode(value.body);
 
-        if (resData['order'].isNotEmpty) {
+        if (resData['order'] != null) {
           userOrders.clear();
           for (var item in resData['order']) {
             userOrders.add(Order.fromJson(item));

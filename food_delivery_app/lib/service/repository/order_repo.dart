@@ -2,7 +2,6 @@ import 'dart:convert';
 
 import 'package:food_delivery_app/constant/app_url.dart';
 import 'package:food_delivery_app/models/Cart.dart';
-import 'package:food_delivery_app/models/Order.dart';
 import 'package:food_delivery_app/service/preferences/user_preferences.dart';
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
@@ -10,9 +9,8 @@ import 'package:http/http.dart' as http;
 class OrderRepo extends GetxService {
   OrderRepo();
 
-  var token = UserPreference().getToken();
-
   Future<http.Response> adminGetOrders() async {
+    String token = await UserPreference().getToken();
     http.Response res = await http.get(
       Uri.parse(AppUrl.ADMIN_GET_ORDERS),
       headers: {
@@ -25,6 +23,7 @@ class OrderRepo extends GetxService {
   }
 
   Future<http.Response> getOrders() async {
+    String token = await UserPreference().getToken();
     http.Response res = await http.get(
       Uri.parse(AppUrl.ORDERS),
       headers: {
@@ -37,6 +36,7 @@ class OrderRepo extends GetxService {
   }
 
   Future<http.Response> getOrdersByID(String id) async {
+    String token = await UserPreference().getToken();
     http.Response res = await http.get(
       Uri.parse(AppUrl.ORDERS + "/$id"),
       headers: {
@@ -49,6 +49,7 @@ class OrderRepo extends GetxService {
   }
 
   Future<http.Response> getUserOrder(String uid) async {
+    String token = await UserPreference().getToken();
     http.Response res = await http.get(
       Uri.parse(AppUrl.GET_USER_ORDER + "/$uid"),
       headers: {
@@ -70,6 +71,7 @@ class OrderRepo extends GetxService {
     var address,
     double totalPrice,
   ) async {
+    String token = await UserPreference().getToken();
     var orderItems = jsonEncode(cart.map((e) => e.toJson()).toList());
 
     final Map<String, dynamic> orders = {

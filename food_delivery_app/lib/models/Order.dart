@@ -5,10 +5,10 @@ class Order {
   ShippingAddress? shippingAddress;
   String? paymentMethod;
   PaymentResult? paymentResult;
-  double? itemPrice;
-  double? taxPrice;
-  double? shippingPrice;
-  double? totalPrice;
+  num? itemPrice;
+  num? taxPrice;
+  num? shippingPrice;
+  num? totalPrice;
   bool? isPaid;
   String? paidAt;
   bool? isDelivered;
@@ -41,7 +41,7 @@ class Order {
       items.add(OrderItem.fromJson(item));
     }
 
-    if (res['payment_result'] != null) {
+    if (!res['is_paid']) {
       return Order(
         id: res['id'],
         user: res['user'],
@@ -56,28 +56,29 @@ class Order {
         paidAt: res['paid_at'],
         isDelivered: res['is_delivered'],
         delivereAt: res['delivere_at'],
+        createAt: res['createdAt'],
+        updateAt: res['updatedAt'],
+      );
+    } else {
+      return Order(
+        id: res['id'],
+        user: res['user'],
+        orderItems: items,
+        shippingAddress: ShippingAddress.fromJson(res['shipping_address']),
+        paymentMethod: res['payment_method'],
+        paymentResult: PaymentResult.fromJson(res['payment_result']),
+        itemPrice: res['item_price'],
+        taxPrice: res['tax_price'],
+        shippingPrice: res['shipping_price'],
+        totalPrice: res['total_price'],
+        isPaid: res['is_paid'],
+        paidAt: res['paid_at'],
+        isDelivered: res['is_delivered'],
+        delivereAt: res['delivere_at'],
         createAt: res['createAt'],
         updateAt: res['updateAt'],
       );
     }
-    return Order(
-      id: res['id'],
-      user: res['user'],
-      orderItems: items,
-      shippingAddress: ShippingAddress.fromJson(res['shipping_address']),
-      paymentMethod: res['payment_method'],
-      paymentResult: PaymentResult.fromJson(res['payment_result']),
-      itemPrice: res['item_price'],
-      taxPrice: res['tax_price'],
-      shippingPrice: res['shipping_price'],
-      totalPrice: res['total_price'],
-      isPaid: res['is_paid'],
-      paidAt: res['paid_at'],
-      isDelivered: res['is_delivered'],
-      delivereAt: res['delivere_at'],
-      createAt: res['createAt'],
-      updateAt: res['updateAt'],
-    );
   }
 }
 
@@ -85,7 +86,7 @@ class OrderItem {
   String? name;
   int? qty;
   String? image;
-  double? price;
+  num? price;
   String? product;
 
   OrderItem({this.name, this.qty, this.image, this.price, this.product});
