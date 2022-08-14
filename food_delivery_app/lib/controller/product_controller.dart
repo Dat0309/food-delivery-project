@@ -95,6 +95,10 @@ class ProductController extends GetxController {
     update();
   }
 
+  void removeItem(Cart cart) {
+    _cart.removeItem(cart);
+  }
+
   List<Cart> get getItems {
     return _cart.getItems;
   }

@@ -51,6 +51,12 @@ class CartController extends GetxController {
     update();
   }
 
+  void removeItem(Cart cart) {
+    items.remove(cart.foodId);
+    cartRepo.addToCartList(getItems);
+    update();
+  }
+
   void addItem(Product product, int qty) {
     if (items.containsKey(product.id)) {
       items.update(product.id!, (value) {

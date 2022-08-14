@@ -93,130 +93,132 @@ class _CartPageState extends State<CartPage> {
             child: GetBuilder<ProductController>(builder: (controller) {
               return SizedBox(
                 child: ListView.builder(
-                    physics: const BouncingScrollPhysics(),
-                    itemCount: controller.getItems.length,
-                    itemBuilder: ((context, index) {
-                      return Padding(
-                        padding: EdgeInsets.symmetric(
-                            vertical: Dimensions.widthPadding10),
-                        child: Dismissible(
-                          key:
-                              Key(controller.getItems[index].foodId.toString()),
-                          onDismissed: (direction) {
-                            controller.getItems.removeAt(index);
-                          },
-                          background: Container(
-                            padding: EdgeInsets.symmetric(
-                                horizontal: Dimensions.heightPadding20),
-                            decoration: BoxDecoration(
-                              color: AppColors.primaryBgColor,
-                              borderRadius: BorderRadius.circular(15),
-                            ),
-                            child: Row(
-                              children: [
-                                SizedBox(
-                                  width: Dimensions.width150 * 2,
-                                ),
-                                const AppIcon(
-                                    icon: Icons.delete_forever_outlined),
-                              ],
-                            ),
+                  physics: const BouncingScrollPhysics(),
+                  itemCount: controller.getItems.length,
+                  itemBuilder: ((context, index) {
+                    return Padding(
+                      padding: EdgeInsets.symmetric(
+                          vertical: Dimensions.widthPadding10),
+                      child: Dismissible(
+                        key: UniqueKey(),
+                        onDismissed: (direction) {
+                          controller.removeItem(controller.getItems[index]);
+                        },
+                        background: Container(
+                          padding: EdgeInsets.symmetric(
+                              horizontal: Dimensions.heightPadding20),
+                          decoration: BoxDecoration(
+                            color: AppColors.primaryBgColor,
+                            borderRadius: BorderRadius.circular(15),
                           ),
                           child: Row(
-                            mainAxisAlignment: MainAxisAlignment.start,
-                            crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               SizedBox(
-                                width: Dimensions.width140,
-                                child: AspectRatio(
-                                  aspectRatio: 0.95,
-                                  child: Container(
-                                    decoration: BoxDecoration(
-                                        color: AppColors.pargColor,
-                                        borderRadius: BorderRadius.circular(
-                                            Dimensions.radius15),
-                                        image: DecorationImage(
-                                          image: NetworkImage(controller
-                                              .getItems[index].image!),
-                                          fit: BoxFit.cover,
-                                        )),
-                                  ),
+                                width: Dimensions.width150 * 2,
+                              ),
+                              const AppIcon(
+                                  icon: Icons.delete_forever_outlined),
+                            ],
+                          ),
+                        ),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            SizedBox(
+                              width: Dimensions.width140,
+                              child: AspectRatio(
+                                aspectRatio: 0.95,
+                                child: Container(
+                                  decoration: BoxDecoration(
+                                      color: AppColors.pargColor,
+                                      borderRadius: BorderRadius.circular(
+                                          Dimensions.radius15),
+                                      image: DecorationImage(
+                                        image: NetworkImage(
+                                            controller.getItems[index].image!),
+                                        fit: BoxFit.cover,
+                                      )),
                                 ),
                               ),
-                              SizedBox(width: Dimensions.widthPadding20),
-                              Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                mainAxisAlignment: MainAxisAlignment.start,
-                                children: [
-                                  BigText(
-                                    text: controller.getItems[index].name!,
-                                  ),
-                                  SizedBox(height: Dimensions.heightPadding10),
-                                  Text.rich(
-                                    TextSpan(
-                                      text:
-                                          "${controller.getItems[index].price} vnđ",
-                                      style: const TextStyle(
-                                        fontWeight: FontWeight.w600,
-                                        color: AppColors.primaryColor,
-                                      ),
-                                      children: [
-                                        TextSpan(
-                                            text:
-                                                " x${controller.getItems[index].qty.toString()}",
-                                            style: Theme.of(context)
-                                                .textTheme
-                                                .bodyText1),
-                                      ],
+                            ),
+                            SizedBox(width: Dimensions.widthPadding20),
+                            Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              mainAxisAlignment: MainAxisAlignment.start,
+                              children: [
+                                BigText(
+                                  text: controller.getItems[index].name!,
+                                ),
+                                SizedBox(height: Dimensions.heightPadding10),
+                                Text.rich(
+                                  TextSpan(
+                                    text:
+                                        "${controller.getItems[index].price} vnđ",
+                                    style: const TextStyle(
+                                      fontWeight: FontWeight.w600,
+                                      color: AppColors.primaryColor,
                                     ),
+                                    children: [
+                                      TextSpan(
+                                          text:
+                                              " x${controller.getItems[index].qty.toString()}",
+                                          style: Theme.of(context)
+                                              .textTheme
+                                              .bodyText1),
+                                    ],
                                   ),
-                                  GetBuilder<CartController>(
-                                      builder: (cartController) {
-                                    return Row(
-                                      children: [
-                                        GestureDetector(
-                                          onTap: () {
+                                ),
+                                GetBuilder<CartController>(
+                                    builder: (cartController) {
+                                  return Row(
+                                    children: [
+                                      GestureDetector(
+                                        onTap: () {
+                                          setState(() {
                                             cartController.updateItemQty(
                                                 controller
                                                     .getItems[index].foodId!,
                                                 -1);
-                                          },
-                                          child: const Icon(
-                                            Icons.remove,
-                                            color: AppColors.signColor,
-                                          ),
+                                          });
+                                        },
+                                        child: const Icon(
+                                          Icons.remove,
+                                          color: AppColors.signColor,
                                         ),
-                                        SizedBox(
-                                          width: Dimensions.widthPadding5,
+                                      ),
+                                      SizedBox(
+                                        width: Dimensions.widthPadding5,
+                                      ),
+                                      BigText(
+                                          text: controller.getItems[index].qty
+                                              .toString()),
+                                      SizedBox(
+                                        width: Dimensions.widthPadding5,
+                                      ),
+                                      GestureDetector(
+                                        onTap: () {
+                                          cartController.updateItemQty(
+                                              controller
+                                                  .getItems[index].foodId!,
+                                              1);
+                                        },
+                                        child: const Icon(
+                                          Icons.add,
+                                          color: AppColors.signColor,
                                         ),
-                                        BigText(
-                                            text: controller.getItems[index].qty
-                                                .toString()),
-                                        SizedBox(
-                                          width: Dimensions.widthPadding5,
-                                        ),
-                                        GestureDetector(
-                                          onTap: () {
-                                            cartController.updateItemQty(
-                                                controller
-                                                    .getItems[index].foodId!,
-                                                1);
-                                          },
-                                          child: const Icon(
-                                            Icons.add,
-                                            color: AppColors.signColor,
-                                          ),
-                                        ),
-                                      ],
-                                    );
-                                  }),
-                                ],
-                              ),
-                            ],
-                          ),
+                                      ),
+                                    ],
+                                  );
+                                }),
+                              ],
+                            ),
+                          ],
                         ),
-                      );
-                    })),
+                      ),
+                    );
+                  }),
+                ),
               );
             }),
           ),
