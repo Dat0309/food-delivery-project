@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:food_delivery_app/controller/cart_controller.dart';
 import 'package:food_delivery_app/models/Cart.dart';
 import 'package:food_delivery_app/models/Order.dart';
 import 'package:food_delivery_app/service/preferences/user_preferences.dart';
@@ -14,6 +15,7 @@ class OrderController extends GetxController {
   List<dynamic> orders = [];
   List<dynamic> userOrders = [];
   Order? order;
+  CartController cartController = Get.find();
 
   bool isLoadedOrders = false;
   bool isLoadingOrder = false;
@@ -93,6 +95,7 @@ class OrderController extends GetxController {
           'message': 'Successful',
           'order': order,
         };
+        cartController.clearCart();
         update();
       } else {
         result = {

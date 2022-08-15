@@ -1,14 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:food_delivery_app/constant/colors.dart';
-import 'package:food_delivery_app/controller/cart_controller.dart';
+import 'package:food_delivery_app/controller/order_controller.dart';
 import 'package:food_delivery_app/controller/product_controller.dart';
 import 'package:food_delivery_app/utils/dimensions.dart';
+import 'package:food_delivery_app/views/order/checkout_screen.dart';
 import 'package:food_delivery_app/widgets/big_text.dart';
 import 'package:food_delivery_app/widgets/small_text.dart';
 import 'package:get/get.dart';
 
 class CheckoutCard extends StatefulWidget {
-  const CheckoutCard({Key? key}) : super(key: key);
+  final bool enable;
+  const CheckoutCard({Key? key, this.enable = true}) : super(key: key);
 
   @override
   State<CheckoutCard> createState() => _CheckoutCardState();
@@ -89,11 +91,13 @@ class _CheckoutCardState extends State<CheckoutCard> {
                       ],
                     ),
                   ),
-                  GetBuilder<CartController>(builder: (cartController) {
+                  GetBuilder<OrderController>(builder: (controller) {
                     return SizedBox(
                       child: GestureDetector(
                         onTap: () {
-                          cartController.addToHistory();
+                          widget.enable
+                              ? Get.off(const CheckOutScreen())
+                              : null;
                         },
                         child: Container(
                           padding: EdgeInsets.only(
@@ -105,7 +109,9 @@ class _CheckoutCardState extends State<CheckoutCard> {
                           decoration: BoxDecoration(
                             borderRadius:
                                 BorderRadius.circular(Dimensions.radius20),
-                            color: AppColors.primaryColor,
+                            color: widget.enable
+                                ? AppColors.primaryColor
+                                : AppColors.primaryBgColor,
                           ),
                           child: const BigText(
                             text: 'Thanh Toán',
