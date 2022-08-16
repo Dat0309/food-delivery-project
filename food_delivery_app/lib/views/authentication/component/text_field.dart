@@ -6,12 +6,14 @@ class TextFieldCustom extends StatelessWidget {
   final String hint;
   final IconData icon;
   final TextEditingController controller;
+  final Color? color;
 
   const TextFieldCustom({
     Key? key,
     required this.hint,
     required this.icon,
     required this.controller,
+    this.color,
   }) : super(key: key);
 
   @override
@@ -21,7 +23,7 @@ class TextFieldCustom extends StatelessWidget {
       height: Dimensions.screenHeight / 13,
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(Dimensions.radius15),
-        color: AppColors.primaryBgColor,
+        color: color != null ? color : AppColors.primaryBgColor,
       ),
       child: Padding(
         padding: EdgeInsets.symmetric(horizontal: Dimensions.heightPadding15),

@@ -6,4 +6,9 @@ class AppConstant {
   static String CART_HISTORY = "CART_HISTORY";
   static String USERNAME = "USERNAME";
   static String PASSWORD = "PASSWORD";
+  static String PROVINCE = "PROVINCE";
+  static String DISTRICT = "DISTRICT";
+  static String WARD = "WARD";
+  static String STREET = "STREET";
+  static String PHONE_NUMBER = "PHONE_NUMBER";
 }

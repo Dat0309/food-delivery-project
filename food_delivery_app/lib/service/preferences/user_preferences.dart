@@ -1,6 +1,6 @@
 import 'package:food_delivery_app/constant/app_constant.dart';
 import 'package:food_delivery_app/models/AuthModel.dart';
-import 'package:get/get.dart';
+import 'package:food_delivery_app/models/ProfileModel.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class UserPreference {
@@ -13,6 +13,19 @@ class UserPreference {
     sharedPreferences.setString('token', auth.token!);
     sharedPreferences.setString('email', auth.email!);
     sharedPreferences.setString('createdAt', auth.createAt!);
+
+    return sharedPreferences.commit();
+  }
+
+  Future<bool> saveAddress(Profile profile) async {
+    final SharedPreferences sharedPreferences =
+        await SharedPreferences.getInstance();
+
+    sharedPreferences.setString(AppConstant.PROVINCE, profile.province!);
+    sharedPreferences.setString(AppConstant.DISTRICT, profile.district!);
+    sharedPreferences.setString(AppConstant.WARD, profile.ward!);
+    sharedPreferences.setString(AppConstant.STREET, profile.street!);
+    sharedPreferences.setString(AppConstant.PHONE_NUMBER, profile.phoneNumber!);
 
     return sharedPreferences.commit();
   }
@@ -45,6 +58,17 @@ class UserPreference {
     sharedPreferences.remove("role");
     sharedPreferences.remove("createAt");
     sharedPreferences.remove("token");
+  }
+
+  void removeAddress() async {
+    final SharedPreferences sharedPreferences =
+        await SharedPreferences.getInstance();
+
+    sharedPreferences.remove(AppConstant.PROVINCE);
+    sharedPreferences.remove(AppConstant.DISTRICT);
+    sharedPreferences.remove(AppConstant.WARD);
+    sharedPreferences.remove(AppConstant.STREET);
+    sharedPreferences.remove(AppConstant.PHONE_NUMBER);
   }
 
   Future<String> getToken() async {

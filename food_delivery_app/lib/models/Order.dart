@@ -9,6 +9,7 @@ class Order {
   num? taxPrice;
   num? shippingPrice;
   num? totalPrice;
+  String? phoneNumber;
   bool? isPaid;
   String? paidAt;
   bool? isDelivered;
@@ -23,6 +24,7 @@ class Order {
     this.shippingAddress,
     this.paymentMethod,
     this.paymentResult,
+    this.phoneNumber,
     this.itemPrice,
     this.taxPrice,
     this.shippingPrice,
@@ -49,6 +51,7 @@ class Order {
         shippingAddress: ShippingAddress.fromJson(res['shipping_address']),
         paymentMethod: res['payment_method'],
         itemPrice: res['item_price'],
+        phoneNumber: res['phone_number'],
         taxPrice: res['tax_price'],
         shippingPrice: res['shipping_price'],
         totalPrice: res['total_price'],
@@ -69,6 +72,7 @@ class Order {
         paymentResult: PaymentResult.fromJson(res['payment_result']),
         itemPrice: res['item_price'],
         taxPrice: res['tax_price'],
+        phoneNumber: res['phone_number'],
         shippingPrice: res['shipping_price'],
         totalPrice: res['total_price'],
         isPaid: res['is_paid'],

@@ -5,6 +5,7 @@ import 'package:food_delivery_app/controller/product_controller.dart';
 import 'package:food_delivery_app/utils/dimensions.dart';
 import 'package:food_delivery_app/views/authentication/component/button.dart';
 import 'package:food_delivery_app/views/home/home_page.dart';
+import 'package:food_delivery_app/views/order/change_address_screen.dart';
 import 'package:food_delivery_app/views/order/component/add_cart.dart';
 import 'package:food_delivery_app/views/order/component/payment_cart.dart';
 import 'package:food_delivery_app/widgets/app_icon.dart';
@@ -27,10 +28,6 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
     var expiryYYController = TextEditingController();
     var firstNameController = TextEditingController();
     var lastNameController = TextEditingController();
-
-    Future.delayed(Duration.zero, () {
-      Get.find<ProductController>();
-    });
 
     return Scaffold(
       body: Stack(
@@ -105,7 +102,9 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
                             ),
                           ),
                           TextButton(
-                            onPressed: () {},
+                            onPressed: () {
+                              Get.to(() => const ChangeAddressScreen());
+                            },
                             child: const BigText(
                               text: 'Thay Đổi',
                               color: AppColors.secondaryIconColor,
