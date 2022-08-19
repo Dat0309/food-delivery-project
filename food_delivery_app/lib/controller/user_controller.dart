@@ -1,7 +1,6 @@
 import 'dart:convert';
 
 import 'package:food_delivery_app/models/ProfileModel.dart';
-import 'package:food_delivery_app/service/preferences/user_preferences.dart';
 import 'package:food_delivery_app/service/repository/user_repo.dart';
 import 'package:get/get.dart';
 
@@ -22,13 +21,22 @@ class UserController extends GetxController {
         if (resData.isNotEmpty) {
           profile = Profile.fromJson(resData);
           isLoadedProfile = true;
-          UserPreference().saveAddress(profile!);
           update();
         }
       }
     });
   }
 
+  Future<void> updateAddress(String phoneNumber, String name, String province,
+      String district, String ward, String street) async {
+    userRepo.updateAddress(phoneNumber, name, province, district, ward, street);
+    update();
+  }
+
+  String get address =>
+      getStreet + ", " + getWard + ", " + getDistrict + ", " + getProvince;
+
+  String get getName => userRepo.getName;
   String get getProvince => userRepo.getProvince;
   String get getDistrict => userRepo.getDistrict;
   String get getWard => userRepo.getWard;

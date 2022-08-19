@@ -35,9 +35,28 @@ class UserRepo extends GetxService {
     return res;
   }
 
-  String get getProvince => sharedPreferences.getString(AppConstant.PROVINCE)!;
-  String get getDistrict => sharedPreferences.getString(AppConstant.DISTRICT)!;
-  String get getWard => sharedPreferences.getString(AppConstant.WARD)!;
-  String get getStreet => sharedPreferences.getString(AppConstant.STREET)!;
-  String get getPhone => sharedPreferences.getString(AppConstant.PHONE_NUMBER)!;
+  Future<void> updateAddress(String phoneNumber, String name, String province,
+      String district, String ward, String street) async {
+    UserPreference()
+        .updateAddress(phoneNumber, name, province, district, ward, street);
+  }
+
+  String get getName => sharedPreferences.containsKey(AppConstant.NAME)
+      ? sharedPreferences.getString(AppConstant.NAME)!
+      : "";
+  String get getProvince => sharedPreferences.containsKey(AppConstant.PROVINCE)
+      ? sharedPreferences.getString(AppConstant.PROVINCE)!
+      : "";
+  String get getDistrict => sharedPreferences.containsKey(AppConstant.DISTRICT)
+      ? sharedPreferences.getString(AppConstant.DISTRICT)!
+      : "";
+  String get getWard => sharedPreferences.containsKey(AppConstant.WARD)
+      ? sharedPreferences.getString(AppConstant.WARD)!
+      : "";
+  String get getStreet => sharedPreferences.containsKey(AppConstant.STREET)
+      ? sharedPreferences.getString(AppConstant.STREET)!
+      : "";
+  String get getPhone => sharedPreferences.containsKey(AppConstant.PHONE_NUMBER)
+      ? sharedPreferences.getString(AppConstant.PHONE_NUMBER)!
+      : "";
 }

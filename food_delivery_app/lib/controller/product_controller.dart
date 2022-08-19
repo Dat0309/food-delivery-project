@@ -17,6 +17,14 @@ class ProductController extends GetxController {
   bool isLoaded = false;
   CartController _cart = Get.find<CartController>();
 
+  double get amount => cartTotalPrice + taxPrice + shipPrice;
+
+  final int _shipPrice = 3000;
+  int get shipPrice => _shipPrice;
+
+  final double _taxPrice = 2.5 / 100;
+  double get taxPrice => _taxPrice * cartTotalPrice;
+
   int _quantity = 1;
   int get quantity => _quantity;
 

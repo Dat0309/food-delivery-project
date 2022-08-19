@@ -11,4 +11,5 @@ class AppConstant {
   static String WARD = "WARD";
   static String STREET = "STREET";
   static String PHONE_NUMBER = "PHONE_NUMBER";
+  static String NAME = "NAME";
 }

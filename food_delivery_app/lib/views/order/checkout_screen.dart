@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:food_delivery_app/constant/colors.dart';
 import 'package:food_delivery_app/controller/order_controller.dart';
 import 'package:food_delivery_app/controller/product_controller.dart';
+import 'package:food_delivery_app/controller/user_controller.dart';
 import 'package:food_delivery_app/utils/dimensions.dart';
 import 'package:food_delivery_app/views/authentication/component/button.dart';
 import 'package:food_delivery_app/views/home/home_page.dart';
@@ -95,9 +96,8 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
                         children: [
                           SizedBox(
                             width: Dimensions.screenWidth * 0.4,
-                            child: const BigText(
-                              text:
-                                  "68 Trần Khánh Dư, Phường 8, Đà Lạt, Lâm Đồng",
+                            child: BigText(
+                              text: Get.find<UserController>().address,
                               textOverflow: TextOverflow.visible,
                             ),
                           ),
@@ -167,101 +167,58 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
                           ),
                         ],
                       ),
-                      PaymentCard(
-                        widget: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            const SmallText(
-                              text: 'Thanh toán khi nhận hàng',
-                              color: AppColors.pargColor,
-                            ),
-                            Container(
-                              width: 15,
-                              height: 15,
-                              decoration: ShapeDecoration(
-                                shape: CircleBorder(
-                                  side: BorderSide(
-                                    color: AppColors.thirthColor!,
-                                  ),
-                                ),
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
                       SizedBox(
-                        height: Dimensions.heightPadding10,
-                      ),
-                      PaymentCard(
-                        widget: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Row(
-                              children: [
-                                SizedBox(
-                                  width: 40,
-                                  height: 30,
-                                  child: Image.asset('assets/images/visa.png'),
-                                ),
-                                SizedBox(
-                                  width: Dimensions.widthPadding10,
-                                ),
-                                const SmallText(
-                                  text: '**** **** **** 2187',
-                                  color: AppColors.pargColor,
-                                ),
-                              ],
-                            ),
-                            Container(
-                              width: 15,
-                              height: 15,
-                              decoration: ShapeDecoration(
-                                shape: CircleBorder(
-                                  side: BorderSide(
-                                    color: AppColors.thirthColor!,
+                        height: Dimensions.height200,
+                        child: MediaQuery.removePadding(
+                          context: context,
+                          removeTop: true,
+                          child: ListView.builder(
+                            physics: const BouncingScrollPhysics(),
+                            scrollDirection: Axis.vertical,
+                            itemCount: 1,
+                            itemBuilder: (context, index) {
+                              return Padding(
+                                padding: EdgeInsets.only(
+                                    bottom: Dimensions.heightPadding10),
+                                child: PaymentCard(
+                                  widget: Row(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
+                                    children: [
+                                      Row(
+                                        children: [
+                                          SizedBox(
+                                            width: 40,
+                                            height: 30,
+                                            child: Image.asset(
+                                                'assets/images/delivery.png'),
+                                          ),
+                                          SizedBox(
+                                            width: Dimensions.widthPadding10,
+                                          ),
+                                          const SmallText(
+                                            text: 'Thanh toán khi nhận hàng',
+                                            color: AppColors.pargColor,
+                                          ),
+                                        ],
+                                      ),
+                                      Container(
+                                        width: 15,
+                                        height: 15,
+                                        decoration: ShapeDecoration(
+                                          shape: CircleBorder(
+                                            side: BorderSide(
+                                              color: AppColors.thirthColor!,
+                                            ),
+                                          ),
+                                        ),
+                                      ),
+                                    ],
                                   ),
                                 ),
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                      SizedBox(
-                        height: Dimensions.heightPadding10,
-                      ),
-                      PaymentCard(
-                        widget: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Row(
-                              children: [
-                                SizedBox(
-                                  width: 40,
-                                  height: 30,
-                                  child:
-                                      Image.asset('assets/images/paypal.png'),
-                                ),
-                                SizedBox(
-                                  width: Dimensions.widthPadding10,
-                                ),
-                                const SmallText(
-                                  text: '1914775@gmail.com',
-                                  color: AppColors.pargColor,
-                                ),
-                              ],
-                            ),
-                            Container(
-                              width: 15,
-                              height: 15,
-                              decoration: ShapeDecoration(
-                                shape: CircleBorder(
-                                  side: BorderSide(
-                                    color: AppColors.thirthColor!,
-                                  ),
-                                ),
-                              ),
-                            ),
-                          ],
+                              );
+                            },
+                          ),
                         ),
                       ),
                       SizedBox(
@@ -275,72 +232,75 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
                       SizedBox(
                         height: Dimensions.heightPadding20,
                       ),
-                      Column(
-                        children: [
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: const [
-                              BigText(
-                                text: 'Đơn giá',
-                                color: AppColors.pargColor,
-                              ),
-                              BigText(
-                                text: '120.000đ',
-                              ),
-                            ],
-                          ),
-                          SizedBox(
-                            height: Dimensions.heightPadding10,
-                          ),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: const [
-                              BigText(
-                                text: 'Thuế',
-                                color: AppColors.pargColor,
-                              ),
-                              BigText(
-                                text: '120.000đ',
-                              ),
-                            ],
-                          ),
-                          SizedBox(
-                            height: Dimensions.heightPadding10,
-                          ),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: const [
-                              BigText(
-                                text: 'Ship',
-                                color: AppColors.pargColor,
-                              ),
-                              BigText(
-                                text: '120.000đ',
-                              ),
-                            ],
-                          ),
-                          Divider(
-                            height: Dimensions.heightPadding30 + 10,
-                            color: AppColors.pargColor!.withOpacity(0.25),
-                            thickness: 2,
-                          ),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: const [
-                              BigText(
-                                text: 'Thành tiền',
-                                color: AppColors.pargColor,
-                              ),
-                              BigText(
-                                text: '120.000đ',
-                              ),
-                            ],
-                          ),
-                          SizedBox(
-                            height: Dimensions.heightPadding20,
-                          ),
-                        ],
-                      ),
+                      GetBuilder<ProductController>(
+                          builder: (productController) {
+                        return Column(
+                          children: [
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                const BigText(
+                                  text: 'Đơn giá',
+                                  color: AppColors.pargColor,
+                                ),
+                                BigText(
+                                  text: "${productController.cartTotalPrice}Đ",
+                                ),
+                              ],
+                            ),
+                            SizedBox(
+                              height: Dimensions.heightPadding10,
+                            ),
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                const BigText(
+                                  text: 'Thuế(đã bao gồm VAT)',
+                                  color: AppColors.pargColor,
+                                ),
+                                BigText(
+                                  text: "${productController.taxPrice}Đ",
+                                ),
+                              ],
+                            ),
+                            SizedBox(
+                              height: Dimensions.heightPadding10,
+                            ),
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                const BigText(
+                                  text: 'Ship',
+                                  color: AppColors.pargColor,
+                                ),
+                                BigText(
+                                  text: "${productController.shipPrice}Đ",
+                                ),
+                              ],
+                            ),
+                            Divider(
+                              height: Dimensions.heightPadding30 + 10,
+                              color: AppColors.pargColor!.withOpacity(0.25),
+                              thickness: 2,
+                            ),
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                const BigText(
+                                  text: 'Thành tiền',
+                                  color: AppColors.pargColor,
+                                ),
+                                BigText(
+                                  text: "${productController.amount}Đ",
+                                ),
+                              ],
+                            ),
+                            SizedBox(
+                              height: Dimensions.heightPadding20,
+                            ),
+                          ],
+                        );
+                      }),
                       Container(
                         height: Dimensions.heightPadding10,
                         width: double.infinity,

@@ -17,15 +17,38 @@ class UserPreference {
     return sharedPreferences.commit();
   }
 
-  Future<bool> saveAddress(Profile profile) async {
+  Future<bool> saveAddress(
+      String phoneNumber,
+      String lastName,
+      String firstName,
+      String province,
+      String district,
+      String ward,
+      String street) async {
     final SharedPreferences sharedPreferences =
         await SharedPreferences.getInstance();
 
-    sharedPreferences.setString(AppConstant.PROVINCE, profile.province!);
-    sharedPreferences.setString(AppConstant.DISTRICT, profile.district!);
-    sharedPreferences.setString(AppConstant.WARD, profile.ward!);
-    sharedPreferences.setString(AppConstant.STREET, profile.street!);
-    sharedPreferences.setString(AppConstant.PHONE_NUMBER, profile.phoneNumber!);
+    sharedPreferences.setString(AppConstant.NAME, lastName + " " + firstName);
+    sharedPreferences.setString(AppConstant.PROVINCE, province);
+    sharedPreferences.setString(AppConstant.DISTRICT, district);
+    sharedPreferences.setString(AppConstant.WARD, ward);
+    sharedPreferences.setString(AppConstant.STREET, street);
+    sharedPreferences.setString(AppConstant.PHONE_NUMBER, phoneNumber);
+
+    return sharedPreferences.commit();
+  }
+
+  Future<bool> updateAddress(String phoneNumber, String name, String province,
+      String district, String ward, String street) async {
+    final SharedPreferences sharedPreferences =
+        await SharedPreferences.getInstance();
+
+    sharedPreferences.setString(AppConstant.NAME, name);
+    sharedPreferences.setString(AppConstant.PROVINCE, province);
+    sharedPreferences.setString(AppConstant.DISTRICT, district);
+    sharedPreferences.setString(AppConstant.WARD, ward);
+    sharedPreferences.setString(AppConstant.STREET, street);
+    sharedPreferences.setString(AppConstant.PHONE_NUMBER, phoneNumber);
 
     return sharedPreferences.commit();
   }
