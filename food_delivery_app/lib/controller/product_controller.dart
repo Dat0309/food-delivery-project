@@ -14,7 +14,11 @@ class ProductController extends GetxController {
   ProductController({required this.productRepo});
 
   List<dynamic> popularProducts = [];
+  List<dynamic> categoryProducts = [];
+
   bool isLoaded = false;
+  bool isLoadedCategoryProducts = false;
+
   CartController _cart = Get.find<CartController>();
 
   double get amount => cartTotalPrice + taxPrice + shipPrice;
@@ -58,6 +62,27 @@ class ProductController extends GetxController {
             }
           }
           isLoaded = true;
+          update();
+        }
+      } else {}
+      return value;
+    });
+  }
+
+  Future<void> getProductByCatId(String catId) async {
+    await productRepo.getProductsByCategory(catId).then((value) {
+      if (value.statusCode == 200) {
+        final Map<String, dynamic> resData = json.decode(value.body);
+
+        if (resData['products'].length > 0) {
+          categoryProducts.clear();
+          for (int i = 0; i < resData['products'].length; i++) {
+            if (resData['products'][i] != null) {
+              Map<String, dynamic> map = resData['products'][i];
+              categoryProducts.add(Product.fromJson(map));
+            }
+          }
+          isLoadedCategoryProducts = true;
           update();
         }
       } else {}

@@ -18,4 +18,16 @@ class ProductRepo extends GetxService {
     );
     return res;
   }
+
+  Future<http.Response> getProductsByCategory(String catId) async {
+    http.Response res = await http.get(
+      Uri.parse(AppUrl.GET_PRODUCT_BY_CATID + catId),
+      headers: {
+        'Authorization': 'Bearer $token',
+        'Accept': 'application/json',
+        'Content-Type': 'application/json',
+      },
+    );
+    return res;
+  }
 }

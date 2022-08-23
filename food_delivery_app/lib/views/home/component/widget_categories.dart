@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:food_delivery_app/constant/colors.dart';
 import 'package:food_delivery_app/controller/categories_controller.dart';
+import 'package:food_delivery_app/controller/product_controller.dart';
 import 'package:food_delivery_app/utils/dimensions.dart';
+import 'package:food_delivery_app/views/categories/product_categories.dart';
 import 'package:food_delivery_app/widgets/big_text.dart';
 import 'package:get/get.dart';
 import 'package:shimmer/shimmer.dart';
@@ -33,7 +35,11 @@ class _WidgetCategoriesState extends State<WidgetCategories> {
                         return Column(
                           children: [
                             GestureDetector(
-                              onTap: () {},
+                              onTap: () {
+                                Get.find<ProductController>().getProductByCatId(
+                                    category.categories[index].id);
+                                Get.to(() => const ProductCategories());
+                              },
                               child: Container(
                                 padding:
                                     EdgeInsets.all(Dimensions.widthPadding10),
@@ -67,7 +73,7 @@ class _WidgetCategoriesState extends State<WidgetCategories> {
                             color: Colors.transparent,
                             width: 5,
                           ),
-                      itemCount: 10),
+                      itemCount: category.categories.length),
                 )
               : Container(
                   margin: EdgeInsets.only(
