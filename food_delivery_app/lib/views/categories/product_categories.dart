@@ -48,20 +48,23 @@ class _ProductCategoriesState extends State<ProductCategories> {
           ),
           Positioned(
             top: Dimensions.heightPadding20 * 7,
-            left: Dimensions.widthPadding10,
-            right: Dimensions.widthPadding10,
+            left: Dimensions.widthPadding5,
+            right: Dimensions.widthPadding5,
             bottom: 0,
             child: SizedBox(
-              child: Column(
-                mainAxisSize: MainAxisSize.min,
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  const WidgetCategories(),
-                  SizedBox(
-                    height: Dimensions.heightPadding30,
+              child: SingleChildScrollView(
+                physics: const BouncingScrollPhysics(),
+                child: MediaQuery.removePadding(
+                  context: context,
+                  removeTop: true,
+                  child: Column(
+                    mainAxisSize: MainAxisSize.min,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: const [
+                      CategoriesListProduct(),
+                    ],
                   ),
-                  const CategoriesListProduct(),
-                ],
+                ),
               ),
             ),
           ),

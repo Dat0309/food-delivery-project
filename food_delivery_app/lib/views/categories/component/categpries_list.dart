@@ -121,7 +121,7 @@ class _CategoriesListProductState extends State<CategoriesListProduct> {
               color: AppColors.pargColor,
               image: DecorationImage(
                 fit: BoxFit.cover,
-                image: NetworkImage(products.popularProducts[index].image),
+                image: NetworkImage(products.categoryProducts[index].image),
               ),
             ),
           ),
@@ -145,10 +145,10 @@ class _CategoriesListProductState extends State<CategoriesListProduct> {
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: [
                     BigText(
-                      text: products.popularProducts[index].name,
+                      text: products.categoryProducts[index].name,
                     ),
                     SmallText(
-                      text: products.popularProducts[index].description,
+                      text: products.categoryProducts[index].description,
                       color: AppColors.pargColor,
                     ),
                     Row(
@@ -157,7 +157,7 @@ class _CategoriesListProductState extends State<CategoriesListProduct> {
                         IconAndText(
                           icon: Icons.circle_sharp,
                           text:
-                              '${products.popularProducts[index].price.toString()} VNĐ',
+                              '${products.categoryProducts[index].price.toString()} VNĐ',
                           textColor: AppColors.signColor,
                           iconColor: AppColors.primaryIconColor,
                         ),
