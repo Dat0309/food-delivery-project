@@ -57,6 +57,7 @@ class _ProductCategoriesState extends State<ProductCategories> {
                 child: MediaQuery.removePadding(
                   context: context,
                   removeTop: true,
+                  removeBottom: true,
                   child: Column(
                     mainAxisSize: MainAxisSize.min,
                     crossAxisAlignment: CrossAxisAlignment.start,
