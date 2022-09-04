@@ -71,20 +71,22 @@ class OrderController extends GetxController {
   }
 
   Future<Map<String, dynamic>> createOrder(
-    String uid,
     List<Cart> cart,
     String paymentMethod,
+    String phoneNumber,
     double taxPrice,
-    double shippingPrice,
-    double itemPrice,
+    int shippingPrice,
+    int itemPrice,
     var address,
     double totalPrice,
   ) async {
     var result;
+    String uid = await UserPreference().getUser().then((value) => value.id!);
     await orderRepo
-        .createOrder(uid, cart, paymentMethod, taxPrice, shippingPrice,
-            itemPrice, address, totalPrice)
+        .createOrder(uid, cart, paymentMethod, phoneNumber, taxPrice,
+            shippingPrice, itemPrice, address, totalPrice)
         .then((value) {
+      print(value.body);
       if (value.statusCode == 201) {
         final Map<String, dynamic> resData = json.decode(value.body);
         Order order = Order.fromJson(resData);

@@ -3,6 +3,7 @@ import 'package:food_delivery_app/constant/colors.dart';
 import 'package:food_delivery_app/controller/order_controller.dart';
 import 'package:food_delivery_app/controller/product_controller.dart';
 import 'package:food_delivery_app/controller/user_controller.dart';
+import 'package:food_delivery_app/service/preferences/user_preferences.dart';
 import 'package:food_delivery_app/utils/dimensions.dart';
 import 'package:food_delivery_app/views/authentication/component/button.dart';
 import 'package:food_delivery_app/views/home/home_page.dart';
@@ -29,6 +30,110 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
     var expiryYYController = TextEditingController();
     var firstNameController = TextEditingController();
     var lastNameController = TextEditingController();
+
+    void createOrder(OrderController orderController) {
+      Map<String, dynamic> address = {
+        "province": Get.find<UserController>().getProvince,
+        "district": Get.find<UserController>().getDistrict,
+        "ward": Get.find<UserController>().getWard,
+        "street": Get.find<UserController>().getStreet
+      };
+      orderController
+          .createOrder(
+        Get.find<ProductController>().getItems,
+        'Thanh toán khi nhận hàng',
+        Get.find<UserController>().getPhone,
+        Get.find<ProductController>().taxPrice,
+        Get.find<ProductController>().shipPrice,
+        Get.find<ProductController>().cartTotalPrice,
+        address,
+        Get.find<ProductController>().amount,
+      )
+          .then((value) {
+        if (value['status']) {
+          showModalBottomSheet(
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(20),
+              ),
+              isScrollControlled: true,
+              isDismissible: false,
+              context: context,
+              builder: (context) {
+                return Padding(
+                  padding: EdgeInsets.symmetric(
+                    horizontal: Dimensions.heightPadding20,
+                  ),
+                  child: SizedBox(
+                    height: Dimensions.screenHeight * 0.7,
+                    child: Column(
+                      children: [
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.end,
+                          children: [
+                            IconButton(
+                              onPressed: () {
+                                Get.back();
+                              },
+                              icon: const Icon(Icons.clear),
+                            ),
+                          ],
+                        ),
+                        Image.asset(
+                          'assets/images/success.png',
+                          scale: 3,
+                        ),
+                        SizedBox(
+                          height: Dimensions.heightPadding20,
+                        ),
+                        const BigText(
+                          text: 'CẢM ƠN!',
+                          color: AppColors.primaryColor,
+                        ),
+                        SizedBox(
+                          height: Dimensions.heightPadding20,
+                        ),
+                        const BigText(
+                          text:
+                              "Đơn đặt hàng của bạn hiện đang được xử lý. Chúng tôi sẽ cho bạn biết khi đơn đặt hàng được chọn từ cửa hàng. kiểm tra tình trạng đơn hàng của bạn",
+                          textOverflow: TextOverflow.visible,
+                        ),
+                        SizedBox(
+                          height: Dimensions.heightPadding60,
+                        ),
+                        SizedBox(
+                          height: 60,
+                          width: double.infinity,
+                          child: GestureDetector(
+                            onTap: () {},
+                            child: const CustomButton(
+                              text: 'Kiểm Tra Đơn Hàng',
+                            ),
+                          ),
+                        ),
+                        TextButton(
+                          onPressed: () {
+                            Get.off(() => const HomePage());
+                          },
+                          child: const BigText(
+                            text: "Về Trang Chủ",
+                            color: AppColors.primaryColor,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                );
+              });
+        } else {
+          Get.snackbar(
+            'Không ổn rồi',
+            'Đã có lỗi sảy ra trong quá trình thanh toán. Vui lòng kiểm tra lại thông tin!',
+            backgroundColor: AppColors.primaryColor,
+            colorText: Colors.white,
+          );
+        }
+      });
+    }
 
     return Scaffold(
       body: Stack(
@@ -311,80 +416,7 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
                       ),
                       GestureDetector(
                         onTap: () {
-                          showModalBottomSheet(
-                              shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(20),
-                              ),
-                              isScrollControlled: true,
-                              isDismissible: false,
-                              context: context,
-                              builder: (context) {
-                                return Padding(
-                                  padding: EdgeInsets.symmetric(
-                                    horizontal: Dimensions.heightPadding20,
-                                  ),
-                                  child: SizedBox(
-                                    height: Dimensions.screenHeight * 0.7,
-                                    child: Column(
-                                      children: [
-                                        Row(
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.end,
-                                          children: [
-                                            IconButton(
-                                              onPressed: () {
-                                                Get.back();
-                                              },
-                                              icon: const Icon(Icons.clear),
-                                            ),
-                                          ],
-                                        ),
-                                        Image.asset(
-                                          'assets/images/success.png',
-                                          scale: 3,
-                                        ),
-                                        SizedBox(
-                                          height: Dimensions.heightPadding20,
-                                        ),
-                                        const BigText(
-                                          text: 'CẢM ƠN!',
-                                          color: AppColors.primaryColor,
-                                        ),
-                                        SizedBox(
-                                          height: Dimensions.heightPadding20,
-                                        ),
-                                        const BigText(
-                                          text:
-                                              "Đơn đặt hàng của bạn hiện đang được xử lý. Chúng tôi sẽ cho bạn biết khi đơn đặt hàng được chọn từ cửa hàng. kiểm tra tình trạng đơn hàng của bạn",
-                                          textOverflow: TextOverflow.visible,
-                                        ),
-                                        SizedBox(
-                                          height: Dimensions.heightPadding60,
-                                        ),
-                                        SizedBox(
-                                          height: 60,
-                                          width: double.infinity,
-                                          child: GestureDetector(
-                                            onTap: () {},
-                                            child: const CustomButton(
-                                              text: 'Kiểm Tra Đơn Hàng',
-                                            ),
-                                          ),
-                                        ),
-                                        TextButton(
-                                          onPressed: () {
-                                            Get.off(() => const HomePage());
-                                          },
-                                          child: const BigText(
-                                            text: "Về Trang Chủ",
-                                            color: AppColors.primaryColor,
-                                          ),
-                                        ),
-                                      ],
-                                    ),
-                                  ),
-                                );
-                              });
+                          createOrder(orderController);
                         },
                         child: const CustomButton(text: 'Xác Nhận'),
                       ),

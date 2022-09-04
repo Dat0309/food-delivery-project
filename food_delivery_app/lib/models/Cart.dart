@@ -4,7 +4,6 @@ class Cart {
   String? image;
   int? price;
   String? foodId;
-  String? time;
 
   Cart({
     this.name,
@@ -12,7 +11,6 @@ class Cart {
     this.image,
     this.price,
     this.foodId,
-    this.time,
   });
 
   factory Cart.fromJson(Map<String, dynamic> res) {
@@ -22,7 +20,6 @@ class Cart {
       image: res['image'],
       price: res['price'],
       foodId: res['product'],
-      time: res['time'],
     );
   }
 
@@ -33,7 +30,6 @@ class Cart {
       "qty": qty,
       "image": image,
       "price": price,
-      "time": time,
     };
   }
 }

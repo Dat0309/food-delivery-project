@@ -45,7 +45,6 @@ class CartController extends GetxController {
                 image: value.image,
                 price: value.price,
                 qty: value.qty! + qty,
-                time: DateTime.now().toString(),
               ));
     }
     update();
@@ -66,7 +65,6 @@ class CartController extends GetxController {
           image: value.image,
           price: value.price,
           qty: value.qty! + qty,
-          time: DateTime.now().toString(),
         );
       });
     } else {
@@ -78,7 +76,6 @@ class CartController extends GetxController {
                 image: product.image,
                 price: product.price,
                 qty: qty,
-                time: DateTime.now().toString(),
               ));
     }
     cartRepo.addToCartList(getItems);
