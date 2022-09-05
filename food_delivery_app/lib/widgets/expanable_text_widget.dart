@@ -18,12 +18,12 @@ class _ExpandableTextWidgetState extends State<ExpandableTextWidget> {
   late String firstHalf;
   late String secondHalf;
   bool hiddenText = true;
-  double textHeight = Dimensions.screenHeight / 4.8265;
+  double textHeight = Dimensions.height200;
 
   @override
   void initState() {
     super.initState();
-    if (widget.text.length > textHeight) {
+    if (widget.text.length > textHeight.toInt()) {
       firstHalf = widget.text.substring(0, textHeight.toInt());
       secondHalf =
           widget.text.substring(textHeight.toInt(), widget.text.length);
@@ -40,6 +40,7 @@ class _ExpandableTextWidgetState extends State<ExpandableTextWidget> {
           ? SmallText(
               text: firstHalf,
               color: AppColors.signColor,
+              textOverflow: TextOverflow.visible,
             )
           : Column(
               children: [
@@ -48,6 +49,7 @@ class _ExpandableTextWidgetState extends State<ExpandableTextWidget> {
                       ? (firstHalf + '...')
                       : (firstHalf + secondHalf),
                   color: AppColors.signColor,
+                  textOverflow: TextOverflow.visible,
                 ),
                 InkWell(
                   onTap: () {

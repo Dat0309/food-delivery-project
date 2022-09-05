@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:food_delivery_app/constant/colors.dart';
 import 'package:food_delivery_app/utils/dimensions.dart';
+import 'package:food_delivery_app/views/cart/cart_page.dart';
 import 'package:food_delivery_app/views/home/food_page_body.dart';
 import 'package:food_delivery_app/widgets/big_text.dart';
 import 'package:food_delivery_app/widgets/small_text.dart';
+import 'package:get/get.dart';
 
 class Home extends StatefulWidget {
   const Home({Key? key}) : super(key: key);
@@ -48,20 +50,47 @@ class _HomeState extends State<Home> {
                   ),
                 ],
               ),
-              Center(
-                child: Container(
-                  width: Dimensions.widthPadding60,
-                  height: Dimensions.heightPadding60,
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(Dimensions.radius15),
-                    color: AppColors.primaryColor,
+              Row(
+                children: [
+                  Center(
+                    child: GestureDetector(
+                      onTap: () {
+                        Get.to(() => const CartPage());
+                      },
+                      child: Container(
+                        width: Dimensions.widthPadding60,
+                        height: Dimensions.heightPadding60,
+                        decoration: BoxDecoration(
+                          borderRadius:
+                              BorderRadius.circular(Dimensions.radius15),
+                          color: AppColors.primaryColor,
+                        ),
+                        child: Icon(
+                          Icons.shopping_cart,
+                          color: Colors.white,
+                          size: Dimensions.heightPadding30,
+                        ),
+                      ),
+                    ),
                   ),
-                  child: Icon(
-                    Icons.search,
-                    color: Colors.white,
-                    size: Dimensions.heightPadding30,
+                  SizedBox(width: Dimensions.widthPadding5),
+                  Center(
+                    child: Container(
+                      width: Dimensions.widthPadding60,
+                      height: Dimensions.heightPadding60,
+                      decoration: BoxDecoration(
+                        borderRadius:
+                            BorderRadius.circular(Dimensions.radius15),
+                        color: AppColors.primaryColor,
+                      ),
+                      child: Icon(
+                        Icons.search,
+                        color: Colors.white,
+                        size: Dimensions.heightPadding30,
+                      ),
+                    ),
                   ),
-                ),
+                ],
               )
             ],
           ),

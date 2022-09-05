@@ -5,7 +5,6 @@ import 'package:food_delivery_app/utils/dimensions.dart';
 import 'package:food_delivery_app/widgets/app_icon.dart';
 import 'package:food_delivery_app/widgets/big_text.dart';
 import 'package:food_delivery_app/widgets/expanable_text_widget.dart';
-import 'package:food_delivery_app/widgets/icon_and_text.dart';
 import 'package:food_delivery_app/widgets/small_text.dart';
 import 'package:get/get.dart';
 
@@ -108,6 +107,7 @@ class _RestaurantDetailState extends State<RestaurantDetail> {
                           text:
                               '${widget.restaurant.province}, ${widget.restaurant.district}, ${widget.restaurant.ward}, ${widget.restaurant.street}',
                           color: AppColors.pargColor,
+                          textOverflow: TextOverflow.visible,
                         ),
                       ),
                       Padding(
@@ -137,33 +137,7 @@ class _RestaurantDetailState extends State<RestaurantDetail> {
                           ],
                         ),
                       ),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          IconAndText(
-                            icon: Icons.circle_sharp,
-                            text: 'vnđ',
-                            textColor: AppColors.signColor,
-                            iconColor: AppColors.primaryIconColor,
-                          ),
-                          IconAndText(
-                            icon: Icons.location_on,
-                            text: '1.7km',
-                            textColor: AppColors.signColor,
-                            iconColor: AppColors.secondaryIconColor,
-                          ),
-                          IconAndText(
-                            icon: Icons.access_time_rounded,
-                            text: '32 phút',
-                            textColor: AppColors.signColor,
-                            iconColor: AppColors.secondaryIconColor,
-                          ),
-                        ],
-                      ),
                     ],
-                  ),
-                  SizedBox(
-                    height: Dimensions.heightPadding20,
                   ),
                   BigText(
                     text: 'Chi tiết nhà hàng',
@@ -225,7 +199,7 @@ class _RestaurantDetailState extends State<RestaurantDetail> {
           left: Dimensions.widthPadding10,
           right: Dimensions.widthPadding10,
         ),
-        height: Dimensions.height140,
+        height: Dimensions.height120,
         padding: EdgeInsets.only(
           top: Dimensions.heightPadding30,
           bottom: Dimensions.heightPadding30,

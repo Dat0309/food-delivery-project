@@ -7,6 +7,7 @@ class SmallText extends StatelessWidget {
   final String? text;
   final double? size;
   final double? height;
+  final TextOverflow? textOverflow;
 
   const SmallText({
     Key? key,
@@ -14,6 +15,7 @@ class SmallText extends StatelessWidget {
     required this.text,
     this.size = 0,
     this.height = 1.2,
+    this.textOverflow = TextOverflow.ellipsis,
   }) : super(key: key);
 
   @override
@@ -25,7 +27,9 @@ class SmallText extends StatelessWidget {
         color: color,
         fontSize: size == 0 ? Dimensions.widthPadding17 : size,
         height: height,
-        overflow: TextOverflow.ellipsis,
+        overflow: textOverflow != TextOverflow.ellipsis
+            ? textOverflow
+            : TextOverflow.ellipsis,
       ),
     );
   }

@@ -81,7 +81,7 @@ class _PopularRestaurantState extends State<PopularRestaurant> {
                           children: [
                             GestureDetector(
                               onTap: () {
-                                Get.to(RestaurantDetail(
+                                Get.to(() => RestaurantDetail(
                                     restaurant: restaurant.restaurants[index]));
                               },
                               child: RestaurantListTile(

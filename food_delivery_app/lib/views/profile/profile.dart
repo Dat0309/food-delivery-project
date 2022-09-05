@@ -23,14 +23,14 @@ class ProfileScreen extends StatelessWidget {
                   top: 0,
                   left: 0,
                   right: 0,
-                  bottom: 550,
+                  bottom: Dimensions.height350 + 200,
                   child: Image.network(
                     userController.profile!.thumb!,
                     fit: BoxFit.cover,
                   ),
                 ),
                 Positioned(
-                  top: 100,
+                  top: Dimensions.height120 - 20,
                   left: 0,
                   right: 0,
                   child: Column(
