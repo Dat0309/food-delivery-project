@@ -27,7 +27,7 @@ class ProfileListItem extends StatelessWidget {
       ),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(30),
-        color: AppColors.buttoBackgroundColor,
+        color: AppColors.shadowColor,
       ),
       child: Row(
         children: [
