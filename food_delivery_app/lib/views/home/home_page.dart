@@ -1,12 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:food_delivery_app/constant/colors.dart';
-import 'package:food_delivery_app/controller/product_controller.dart';
 import 'package:food_delivery_app/utils/dimensions.dart';
 import 'package:food_delivery_app/views/home/home.dart';
 import 'package:food_delivery_app/views/order/order_history.dart';
+import 'package:food_delivery_app/views/profile/profile.dart';
 import 'package:food_delivery_app/widgets/small_text.dart';
-import 'package:get/get.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);
@@ -23,9 +22,7 @@ class _HomePageState extends State<HomePage> {
       child: Text("Page 2"),
     ),
     const OrderHistory(),
-    const Center(
-      child: Text("Page 4"),
-    ),
+    const ProfileScreen(),
   ];
 
   List<String> listOfStrings = [

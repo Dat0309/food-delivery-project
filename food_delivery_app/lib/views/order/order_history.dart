@@ -4,12 +4,10 @@ import 'package:food_delivery_app/controller/order_controller.dart';
 import 'package:food_delivery_app/controller/product_controller.dart';
 import 'package:food_delivery_app/utils/dimensions.dart';
 import 'package:food_delivery_app/views/cart/cart_page.dart';
-import 'package:food_delivery_app/views/order/component/cart_history_item.dart';
+import 'package:food_delivery_app/views/order/widget/cart_history_item.dart';
 import 'package:food_delivery_app/widgets/app_icon.dart';
 import 'package:food_delivery_app/widgets/big_text.dart';
-import 'package:food_delivery_app/widgets/small_text.dart';
 import 'package:get/get.dart';
-import 'package:intl/intl.dart';
 
 class OrderHistory extends StatefulWidget {
   const OrderHistory({Key? key}) : super(key: key);

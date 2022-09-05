@@ -3,8 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:food_delivery_app/utils/dimensions.dart';
 import 'package:food_delivery_app/views/home/popular_list.dart';
 import 'package:food_delivery_app/views/home/popular_restaurant.dart';
-import 'package:food_delivery_app/views/home/component/slider.dart';
-import 'package:food_delivery_app/views/home/component/widget_categories.dart';
+import 'package:food_delivery_app/views/home/widget/slider.dart';
+import 'package:food_delivery_app/views/home/widget/widget_categories.dart';
 
 class FoodPageBody extends StatefulWidget {
   const FoodPageBody({Key? key}) : super(key: key);

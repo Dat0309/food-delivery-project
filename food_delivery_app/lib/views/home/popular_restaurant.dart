@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:food_delivery_app/constant/colors.dart';
 import 'package:food_delivery_app/controller/restaurant_controller.dart';
 import 'package:food_delivery_app/utils/dimensions.dart';
-import 'package:food_delivery_app/views/home/component/restaurant_list_tile.dart';
+import 'package:food_delivery_app/views/home/widget/restaurant_list_tile.dart';
 import 'package:food_delivery_app/views/restaurant_detail/restaurant_detail.dart';
 import 'package:food_delivery_app/widgets/big_text.dart';
 import 'package:food_delivery_app/widgets/small_text.dart';

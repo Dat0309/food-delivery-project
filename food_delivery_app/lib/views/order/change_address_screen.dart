@@ -1,11 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:food_delivery_app/constant/colors.dart';
-import 'package:food_delivery_app/controller/order_controller.dart';
 import 'package:food_delivery_app/controller/user_controller.dart';
-import 'package:food_delivery_app/service/preferences/user_preferences.dart';
 import 'package:food_delivery_app/utils/dimensions.dart';
-import 'package:food_delivery_app/views/authentication/component/button.dart';
-import 'package:food_delivery_app/views/authentication/component/text_field.dart';
+import 'package:food_delivery_app/views/authentication/widget/button.dart';
+import 'package:food_delivery_app/views/authentication/widget/text_field.dart';
 import 'package:food_delivery_app/widgets/app_icon.dart';
 import 'package:food_delivery_app/widgets/big_text.dart';
 import 'package:get/get.dart';
