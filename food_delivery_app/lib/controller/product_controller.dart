@@ -70,6 +70,7 @@ class ProductController extends GetxController {
   }
 
   Future<void> getProductByCatId(String catId) async {
+    isLoadedCategoryProducts = false;
     categoryProducts.clear();
     await productRepo.getProductsByCategory(catId).then((value) {
       if (value.statusCode == 200) {

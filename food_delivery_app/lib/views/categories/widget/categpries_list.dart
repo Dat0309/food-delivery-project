@@ -46,7 +46,7 @@ class _CategoriesListProductState extends State<CategoriesListProduct> {
                   ),
                 )
               : SizedBox(
-                  height: Dimensions.height1000 + 500,
+                  height: Dimensions.height1000,
                   child: ListView.builder(
                     physics: const NeverScrollableScrollPhysics(),
                     shrinkWrap: true,
