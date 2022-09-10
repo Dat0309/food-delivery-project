@@ -6,8 +6,8 @@ GVHD: La Quốc Thắng
 ```
 SV thực hiện:
    Đinh Trọng Đạt - 1914775
-   Nguyễn Anh Nhật Huy - 1911133
-   Nguyễn Việt Duy Danh - 1911138
+   Nguyễn Anh Nhật Huy - 1911155
+   Nguyễn Việt Duy Danh - 1911136
 ```
 ```
 TP. Đà Lạt 2022
