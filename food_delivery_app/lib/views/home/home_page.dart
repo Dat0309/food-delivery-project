@@ -1,11 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:food_delivery_app/constant/colors.dart';
+import 'package:food_delivery_app/controller/order_controller.dart';
+import 'package:food_delivery_app/controller/user_controller.dart';
 import 'package:food_delivery_app/utils/dimensions.dart';
 import 'package:food_delivery_app/views/home/home.dart';
 import 'package:food_delivery_app/views/order/order_history.dart';
 import 'package:food_delivery_app/views/profile/profile.dart';
 import 'package:food_delivery_app/widgets/small_text.dart';
+import 'package:get/get.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);
@@ -41,6 +44,8 @@ class _HomePageState extends State<HomePage> {
 
   @override
   Widget build(BuildContext context) {
+    Get.find<OrderController>().getUserOrder();
+    Get.find<UserController>().getProfile();
     return Scaffold(
       body: SafeArea(
         child: pages[currentIndex],

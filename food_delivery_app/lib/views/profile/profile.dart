@@ -7,107 +7,115 @@ import 'package:food_delivery_app/widgets/big_text.dart';
 import 'package:food_delivery_app/widgets/small_text.dart';
 import 'package:get/get.dart';
 
-class ProfileScreen extends StatelessWidget {
+class ProfileScreen extends StatefulWidget {
   const ProfileScreen({Key? key}) : super(key: key);
 
+  @override
+  State<ProfileScreen> createState() => _ProfileScreenState();
+}
+
+class _ProfileScreenState extends State<ProfileScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: SafeArea(
         top: true,
         child: GetBuilder<UserController>(builder: (userController) {
-          return Center(
-            child: Stack(
-              children: [
-                Positioned(
-                  top: 0,
-                  left: 0,
-                  right: 0,
-                  bottom: Dimensions.height350 + 200,
-                  child: Image.network(
-                    userController.profile!.thumb!,
-                    fit: BoxFit.cover,
-                  ),
-                ),
-                Positioned(
-                  top: Dimensions.height120 - 20,
-                  left: 0,
-                  right: 0,
-                  child: Column(
+          return userController.isLoadedProfile
+              ? Center(
+                  child: Stack(
                     children: [
-                      Container(
-                        height: Dimensions.heightPadding60 + 40,
-                        width: Dimensions.widthPadding100,
-                        margin:
-                            EdgeInsets.only(top: Dimensions.heightPadding30),
-                        child: Stack(
+                      Positioned(
+                        top: 0,
+                        left: 0,
+                        right: 0,
+                        bottom: Dimensions.height350 + 200,
+                        child: Image.network(
+                          userController.profile!.thumb as String,
+                          fit: BoxFit.cover,
+                        ),
+                      ),
+                      Positioned(
+                        top: Dimensions.height120 - 20,
+                        left: 0,
+                        right: 0,
+                        child: Column(
                           children: [
-                            CircleAvatar(
-                              radius: Dimensions.radius50,
-                              backgroundImage:
-                                  NetworkImage(userController.profile!.avatar!),
-                            ),
-                            Align(
-                              alignment: Alignment.bottomRight,
-                              child: Container(
-                                height: Dimensions.heightPadding30,
-                                width: Dimensions.widthPadding30,
-                                decoration: const BoxDecoration(
-                                  color: AppColors.primaryBgColor,
-                                  shape: BoxShape.circle,
-                                ),
-                                child: Center(
-                                  heightFactor: Dimensions.heightPadding15,
-                                  widthFactor: Dimensions.widthPadding15,
-                                  child: Icon(
-                                    Icons.edit_rounded,
-                                    color: AppColors.mainBlackColor,
-                                    size: Dimensions.radius15,
+                            Container(
+                              height: Dimensions.heightPadding60 + 40,
+                              width: Dimensions.widthPadding100,
+                              margin: EdgeInsets.only(
+                                  top: Dimensions.heightPadding30),
+                              child: Stack(
+                                children: [
+                                  CircleAvatar(
+                                    radius: Dimensions.radius50,
+                                    backgroundImage: NetworkImage(userController
+                                        .profile!.avatar as String),
                                   ),
-                                ),
+                                  Align(
+                                    alignment: Alignment.bottomRight,
+                                    child: Container(
+                                      height: Dimensions.heightPadding30,
+                                      width: Dimensions.widthPadding30,
+                                      decoration: const BoxDecoration(
+                                        color: AppColors.primaryBgColor,
+                                        shape: BoxShape.circle,
+                                      ),
+                                      child: Center(
+                                        heightFactor:
+                                            Dimensions.heightPadding15,
+                                        widthFactor: Dimensions.widthPadding15,
+                                        child: Icon(
+                                          Icons.edit_rounded,
+                                          color: AppColors.mainBlackColor,
+                                          size: Dimensions.radius15,
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                                ],
                               ),
+                            ),
+                            SizedBox(
+                              height: Dimensions.heightPadding20,
+                            ),
+                            BigText(text: userController.getName),
+                            SizedBox(
+                              height: Dimensions.heightPadding10,
+                            ),
+                            SmallText(text: userController.profile!.email),
+                            SizedBox(
+                              height: Dimensions.heightPadding30,
+                            ),
+                            const ProfileListItem(
+                              icon: Icons.privacy_tip_rounded,
+                              text: 'Điều khoản',
+                            ),
+                            const ProfileListItem(
+                              icon: Icons.support_agent_rounded,
+                              text: 'Hỗ trợ',
+                            ),
+                            const ProfileListItem(
+                              icon: Icons.settings,
+                              text: 'Cài đặt',
+                            ),
+                            const ProfileListItem(
+                              icon: Icons.person_add_alt_rounded,
+                              text: 'Mời bạn bè',
+                            ),
+                            const ProfileListItem(
+                              icon: Icons.logout_rounded,
+                              text: 'Đăng xuất',
+                              hasNavigation: false,
                             ),
                           ],
                         ),
                       ),
-                      SizedBox(
-                        height: Dimensions.heightPadding20,
-                      ),
-                      BigText(text: userController.getName),
-                      SizedBox(
-                        height: Dimensions.heightPadding10,
-                      ),
-                      SmallText(text: userController.profile!.email),
-                      SizedBox(
-                        height: Dimensions.heightPadding30,
-                      ),
-                      const ProfileListItem(
-                        icon: Icons.privacy_tip_rounded,
-                        text: 'Điều khoản',
-                      ),
-                      const ProfileListItem(
-                        icon: Icons.support_agent_rounded,
-                        text: 'Hỗ trợ',
-                      ),
-                      const ProfileListItem(
-                        icon: Icons.settings,
-                        text: 'Cài đặt',
-                      ),
-                      const ProfileListItem(
-                        icon: Icons.person_add_alt_rounded,
-                        text: 'Mời bạn bè',
-                      ),
-                      const ProfileListItem(
-                        icon: Icons.logout_rounded,
-                        text: 'Đăng xuất',
-                        hasNavigation: false,
-                      ),
                     ],
                   ),
-                ),
-              ],
-            ),
-          );
+                )
+              : Container();
         }),
       ),
     );

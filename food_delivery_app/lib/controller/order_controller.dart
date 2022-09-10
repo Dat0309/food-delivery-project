@@ -23,6 +23,7 @@ class OrderController extends GetxController {
   bool isCreated = false;
 
   Future<void> getOrders() async {
+    isLoadingOrder = false;
     await orderRepo.getOrders().then((value) {
       if (value.statusCode == 200) {
         final Map<String, dynamic> resData = json.decode(value.body);
@@ -53,6 +54,7 @@ class OrderController extends GetxController {
   }
 
   Future<void> getUserOrder() async {
+    isLoadedUserOrder = false;
     String uid = await UserPreference().getUser().then((value) => value.id!);
     await orderRepo.getUserOrder(uid).then((value) {
       if (value.statusCode == 200) {

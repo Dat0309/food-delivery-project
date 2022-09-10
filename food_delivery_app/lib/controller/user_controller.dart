@@ -11,7 +11,7 @@ class UserController extends GetxController {
 
   bool isLoadedProfile = false;
 
-  Profile? profile;
+  late Profile? profile;
 
   Future<void> getProfile() async {
     await userRepo.getProfile().then((value) {

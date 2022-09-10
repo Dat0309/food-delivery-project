@@ -18,6 +18,8 @@ class SplashScreen extends StatelessWidget {
       UserPreference().getUser().then((value) {
         if (value != null) {
           check = true;
+        } else {
+          check = false;
         }
       });
       return check;
