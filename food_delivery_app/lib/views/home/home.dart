@@ -32,21 +32,11 @@ class _HomeState extends State<Home> {
             children: [
               Column(
                 children: [
-                  BigText(
-                    text: 'Quốc gia',
-                    color: AppColors.primaryColor,
-                    size: Dimensions.widthPadding25,
-                  ),
-                  Row(
-                    children: [
-                      SmallText(
-                        text: 'Thành phố',
-                        size: Dimensions.widthPadding17,
-                      ),
-                      const Icon(
-                        Icons.arrow_drop_down_rounded,
-                      ),
-                    ],
+                  Image.asset(
+                    'assets/images/logo.png',
+                    height: Dimensions.heightPadding60 + 10,
+                    width: Dimensions.widthPadding60,
+                    fit: BoxFit.cover,
                   ),
                 ],
               ),
