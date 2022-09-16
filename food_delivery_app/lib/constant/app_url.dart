@@ -10,13 +10,15 @@ class AppUrl {
   static const String ORDERS = BASEURL + "/api/orders";
   static const String USERS = BASEURL + "/api/users";
   static const String BOOKINGS = BASEURL + "/api/bookings";
+  static const String TABLES = BASEURL + "/api/tables";
 
-  static const GET_PRODUCT_BY_CATID = PRODUCTS + "/category-id/";
-  static const GET_USER_ORDER = ORDERS + "/user";
-  static const ADMIN_GET_PRODUCTS = PRODUCTS + "/all";
-  static const ADMIN_GET_RESTAURANTS = RESTAURANTS + "/all";
-  static const ADMIN_GET_ORDERS = ORDERS + "/all";
-  static const ADMIN_GET_BOOKING = BOOKINGS + "/all";
+  static const String GET_PRODUCT_BY_CATID = PRODUCTS + "/category-id/";
+  static const String GET_USER_ORDER = ORDERS + "/user";
+  static const String ADMIN_GET_PRODUCTS = PRODUCTS + "/all";
+  static const String ADMIN_GET_RESTAURANTS = RESTAURANTS + "/all";
+  static const String ADMIN_GET_ORDERS = ORDERS + "/all";
+  static const String ADMIN_GET_BOOKING = BOOKINGS + "/all";
+  static const String GET_TABLES_BY_RESID = TABLES + "/restaurant-id/";
 
   static const String LOGIN = BASEURL + "/api/users/login";
   static const String REGISTER = BASEURL + "/api/users";
