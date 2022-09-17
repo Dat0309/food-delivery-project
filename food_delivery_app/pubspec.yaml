@@ -42,6 +42,9 @@ dependencies:
   animated_splash_screen: ^1.3.0
   shared_preferences: ^2.0.15
   intl: ^0.17.0
+  google_maps_flutter: ^2.2.0
+  geocoding: ^2.0.5
+  geolocator: ^9.0.1
 
 dev_dependencies:
   flutter_test:

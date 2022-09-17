@@ -32,6 +32,6 @@ class SplashScreen extends StatelessWidget {
         splashIconSize: Dimensions.screenHeight * 0.4,
         splashTransition: SplashTransition.sizeTransition,
         pageTransitionType: PageTransitionType.rightToLeft,
-        nextScreen: checkUserLogged() ? const LoginScreen() : const HomePage());
+        nextScreen: checkUserLogged() ? const HomePage() : const LoginScreen());
   }
 }

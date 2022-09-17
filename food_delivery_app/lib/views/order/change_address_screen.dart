@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:food_delivery_app/constant/colors.dart';
+import 'package:food_delivery_app/controller/location_controller.dart';
 import 'package:food_delivery_app/controller/user_controller.dart';
 import 'package:food_delivery_app/utils/dimensions.dart';
 import 'package:food_delivery_app/views/authentication/widget/button.dart';
@@ -7,6 +8,7 @@ import 'package:food_delivery_app/views/authentication/widget/text_field.dart';
 import 'package:food_delivery_app/widgets/app_icon.dart';
 import 'package:food_delivery_app/widgets/big_text.dart';
 import 'package:get/get.dart';
+import 'package:google_maps_flutter/google_maps_flutter.dart';
 
 class ChangeAddressScreen extends StatefulWidget {
   const ChangeAddressScreen({Key? key}) : super(key: key);
@@ -16,6 +18,28 @@ class ChangeAddressScreen extends StatefulWidget {
 }
 
 class _ChangeAddressScreenState extends State<ChangeAddressScreen> {
+  CameraPosition _cameraPosition = const CameraPosition(
+      target: LatLng(11.939374494000166, 108.44515867239255), zoom: 17);
+  LatLng _initialPosition =
+      const LatLng(11.939374494000166, 108.44515867239255);
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    if (Get.find<LocationController>().addressList.isNotEmpty) {
+      _cameraPosition = CameraPosition(
+          target: LatLng(
+        double.parse(Get.find<LocationController>().getAddress['latitude']),
+        double.parse(Get.find<LocationController>().getAddress['longitude']),
+      ));
+
+      _initialPosition = LatLng(
+        double.parse(Get.find<LocationController>().getAddress['latitude']),
+        double.parse(Get.find<LocationController>().getAddress['longitude']),
+      );
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     var nameController = TextEditingController();
@@ -63,9 +87,34 @@ class _ChangeAddressScreenState extends State<ChangeAddressScreen> {
             bottom: 0,
             child: SizedBox(
               child: SingleChildScrollView(
+                physics: const BouncingScrollPhysics(),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
+                    Container(
+                      height: Dimensions.height140,
+                      width: Dimensions.screenWidth,
+                      margin: EdgeInsets.only(
+                        left: Dimensions.widthPadding5,
+                        right: Dimensions.widthPadding5,
+                        top: Dimensions.heightPadding8,
+                      ),
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(5),
+                        border: Border.all(
+                          width: 2,
+                          color: AppColors.primaryColor!,
+                        ),
+                      ),
+                      child: Stack(
+                        children: [
+                          GoogleMap(
+                            initialCameraPosition: CameraPosition(
+                                target: _initialPosition, zoom: 17),
+                          ),
+                        ],
+                      ),
+                    ),
                     const BigText(
                       text: 'Liên hệ',
                       color: AppColors.pargColor,

@@ -40,7 +40,6 @@ class MyApp extends StatelessWidget {
     Get.find<CartController>().getCartData();
     Get.find<AuthController>();
     Get.find<OrderController>();
-    Get.find<OrderController>();
     Get.find<UserController>();
     return const GetMaterialApp(
       title: 'ĂN GÌ ĐẶT NGAY!!!',

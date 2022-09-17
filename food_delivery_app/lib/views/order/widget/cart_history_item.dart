@@ -18,7 +18,7 @@ class _CartHistoryState extends State<CartHistory> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: 140,
+      height: Dimensions.height140,
       margin: EdgeInsets.only(bottom: Dimensions.heightPadding20),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -47,8 +47,8 @@ class _CartHistoryState extends State<CartHistory> {
                     }
                     return index <= 3
                         ? Container(
-                            height: 100,
-                            width: 100,
+                            height: Dimensions.height120 - 20,
+                            width: Dimensions.width140 - 30,
                             margin: EdgeInsets.only(
                               right: Dimensions.widthPadding10 / 2,
                             ),

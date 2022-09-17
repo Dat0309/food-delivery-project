@@ -266,7 +266,7 @@ class _FoodDetailState extends State<FoodDetail> {
                   product.addItem(widget.product);
                 },
                 child: Container(
-                  width: 280,
+                  width: Dimensions.widthPadding100 + 160,
                   padding: EdgeInsets.only(
                     top: Dimensions.heightPadding20,
                     bottom: Dimensions.heightPadding20,

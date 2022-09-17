@@ -27,7 +27,7 @@ class _WidgetCategoriesState extends State<WidgetCategories> {
                     left: Dimensions.widthPadding10,
                     right: Dimensions.widthPadding10,
                   ),
-                  height: Dimensions.heightPadding45,
+                  height: Dimensions.heightPadding45 + 10,
                   child: ListView.separated(
                       physics: const BouncingScrollPhysics(),
                       scrollDirection: Axis.horizontal,
