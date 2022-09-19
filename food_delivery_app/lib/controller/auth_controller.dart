@@ -13,6 +13,7 @@ class AuthController extends GetxController implements GetxService {
   });
 
   bool isLogged = false;
+  bool userLogged = false;
 
   Future<Map<String, dynamic>> login(String username, String password) async {
     var result;
@@ -42,5 +43,18 @@ class AuthController extends GetxController implements GetxService {
 
   void saveUsernamePassword(String username, String password) {
     authRepo.saveUsernamePassword(username, password);
+  }
+
+  void checkUserLogged() {
+    UserPreference().getUser().then((value) {
+      if (value.token != null) {
+        userLogged = true;
+        update();
+      } else {
+        userLogged = false;
+        update();
+      }
+    });
+    update();
   }
 }

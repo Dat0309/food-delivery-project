@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:food_delivery_app/models/ProfileModel.dart';
+import 'package:food_delivery_app/service/preferences/user_preferences.dart';
 import 'package:food_delivery_app/service/repository/user_repo.dart';
 import 'package:get/get.dart';
 
@@ -20,6 +21,15 @@ class UserController extends GetxController {
 
         if (resData.isNotEmpty) {
           profile = Profile.fromJson(resData);
+          UserPreference().saveAddress(
+            profile?.phoneNumber! as String,
+            profile?.lastName! as String,
+            profile?.firstName! as String,
+            profile?.province! as String,
+            profile?.district! as String,
+            profile?.ward! as String,
+            profile?.street! as String,
+          );
           isLoadedProfile = true;
           update();
         }

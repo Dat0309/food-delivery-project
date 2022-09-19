@@ -20,7 +20,10 @@ class ItemTime extends StatelessWidget {
             color: AppColors.signColor,
             borderRadius: BorderRadius.circular(Dimensions.radius8),
           ),
-          child: BigText(text: time),
+          child: BigText(
+            text: time,
+            color: Colors.white,
+          ),
         ),
       ),
     );

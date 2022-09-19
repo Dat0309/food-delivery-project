@@ -17,10 +17,18 @@ class DateTimeModel {
   ];
 
   static List<String> times = [
+    '10:00 AM',
     '11:30 AM',
     '12:50 AM',
+    '1:30 AM',
+    '2:30 PM',
     '3:30 PM',
+    '4:00 PM',
     '5:30 PM',
     '7:30 PM',
+    '8:00 PM',
+    '8:30 PM',
+    '9:00 PM',
+    '9:30 PM',
   ];
 }

@@ -9,8 +9,10 @@ import 'package:food_delivery_app/utils/dimensions.dart';
 import 'package:food_delivery_app/views/tables/widget/item_description.dart';
 import 'package:food_delivery_app/views/tables/widget/paint_chair.dart';
 import 'package:food_delivery_app/views/tables/widget/painter.dart';
+import 'package:food_delivery_app/widgets/app_icon.dart';
 import 'package:food_delivery_app/widgets/big_text.dart';
 import 'package:food_delivery_app/widgets/item_date.dart';
+import 'package:food_delivery_app/widgets/item_time.dart';
 import 'package:get/get.dart';
 
 class TableReservationScreen extends StatefulWidget {
@@ -79,30 +81,37 @@ class _TableReservationScreenState extends State<TableReservationScreen> {
               ),
             ),
             Positioned(
-              top: Dimensions.heightPadding30,
-              child: SizedBox(
-                width: Dimensions.screenWidth,
-                child: IconButton(
-                  onPressed: (() => Get.back()),
-                  icon: Row(
+              top: Dimensions.heightPadding60 + 5,
+              left: Dimensions.widthPadding20,
+              right: Dimensions.widthPadding20,
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  GestureDetector(
+                    onTap: () {
+                      Get.back();
+                    },
+                    child: const AppIcon(
+                      icon: Icons.arrow_back_ios,
+                    ),
+                  ),
+                  Row(
                     children: [
-                      const Icon(
-                        Icons.arrow_back_ios_new_rounded,
-                        color: Colors.white,
+                      GestureDetector(
+                        child:
+                            const AppIcon(icon: Icons.favorite_border_outlined),
                       ),
-                      SizedBox(
-                        width: Dimensions.widthPadding20,
-                      ),
-                      BigText(
-                        text: widget.restaurant.name,
+                      GestureDetector(
+                        child:
+                            const AppIcon(icon: Icons.money_off_csred_rounded),
                       ),
                     ],
                   ),
-                ),
+                ],
               ),
             ),
             Positioned(
-              top: Dimensions.height120 - 20,
+              top: Dimensions.height140,
               child: SizedBox(
                 child: Column(
                   children: [
@@ -111,8 +120,27 @@ class _TableReservationScreenState extends State<TableReservationScreen> {
                       height: Dimensions.heightPadding60 + 30,
                       width: Dimensions.screenWidth,
                       child: ListView.builder(
-                        itemBuilder: (_, index) => ItemDate(
+                        physics: const BouncingScrollPhysics(),
+                        itemCount: DateTimeModel.dates.length,
+                        scrollDirection: Axis.horizontal,
+                        itemBuilder: (contex, index) => ItemDate(
                           date: DateTimeModel.dates[index],
+                        ),
+                      ),
+                    ),
+                    SizedBox(
+                      height: Dimensions.heightPadding15,
+                    ),
+                    Container(
+                      padding: EdgeInsets.only(left: Dimensions.radius20),
+                      height: Dimensions.heightPadding45,
+                      width: Dimensions.screenWidth,
+                      child: ListView.builder(
+                        physics: const BouncingScrollPhysics(),
+                        itemCount: DateTimeModel.times.length,
+                        scrollDirection: Axis.horizontal,
+                        itemBuilder: (contex, index) => ItemTime(
+                          time: DateTimeModel.times[index],
                         ),
                       ),
                     ),
@@ -125,17 +153,18 @@ class _TableReservationScreenState extends State<TableReservationScreen> {
                       color: Colors.white,
                     ),
                     SizedBox(
-                      height: Dimensions.heightPadding45,
+                      height: Dimensions.heightPadding10,
                     ),
                     SizedBox(
-                      height: Dimensions.height220 + 20,
+                      height: Dimensions.height350,
                       width: Dimensions.screenWidth,
                       child: tableController.isLoadedTable
                           ? GridView.builder(
                               gridDelegate:
-                                  const SliverGridDelegateWithFixedCrossAxisCount(
+                                  SliverGridDelegateWithFixedCrossAxisCount(
                                 childAspectRatio: 1.0,
-                                crossAxisCount: 3,
+                                crossAxisCount:
+                                    (tableController.tables.length / 2).round(),
                                 crossAxisSpacing: 8.0,
                                 mainAxisSpacing: 8.0,
                               ),
@@ -143,11 +172,16 @@ class _TableReservationScreenState extends State<TableReservationScreen> {
                               itemCount: tableController.tables.length,
                               itemBuilder: (context, index) {
                                 if (tableController.tables[index].status) {
-                                  return const PaintChair(
-                                    color: Colors.white,
+                                  return PaintChair(
+                                    text: tableController.tables[index].capacity
+                                        .toString(),
                                   );
                                 }
-                                return const PaintChair();
+                                return PaintChair(
+                                  color: Colors.white,
+                                  text: tableController.tables[index].capacity
+                                      .toString(),
+                                );
                               },
                             )
                           : Container(),

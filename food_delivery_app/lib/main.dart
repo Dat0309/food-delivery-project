@@ -35,6 +35,7 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
+    Get.find<AuthController>().checkUserLogged();
     Get.find<ProductController>().getPopularProducts();
     Get.find<RestaurantController>().getRestaurants();
     Get.find<CategoriesController>().getCategories();

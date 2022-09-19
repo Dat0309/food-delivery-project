@@ -26,7 +26,7 @@ class Dimensions {
   static double widthPadding40 = screenWidth / 24;
   static double heightPadding45 = screenHeight / 21.3;
   static double widthPadding60 = screenWidth / 8;
-  static double heightPadding60 = screenHeight / 16;
+  static double heightPadding60 = screenHeight / 16 + 10;
   static double widthPadding100 = screenWidth / 4.8;
 
   //radius
