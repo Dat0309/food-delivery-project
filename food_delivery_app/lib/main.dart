@@ -7,6 +7,7 @@ import 'package:food_delivery_app/controller/categories_controller.dart';
 import 'package:food_delivery_app/controller/order_controller.dart';
 import 'package:food_delivery_app/controller/product_controller.dart';
 import 'package:food_delivery_app/controller/restaurant_controller.dart';
+import 'package:food_delivery_app/controller/table_controller.dart';
 import 'package:food_delivery_app/controller/user_controller.dart';
 import 'package:food_delivery_app/views/authentication/splash_screen.dart';
 import 'package:get/get.dart';
@@ -41,6 +42,7 @@ class MyApp extends StatelessWidget {
     Get.find<AuthController>();
     Get.find<OrderController>();
     Get.find<UserController>();
+    Get.find<TableController>();
     return const GetMaterialApp(
       title: 'ĂN GÌ ĐẶT NGAY!!!',
       debugShowCheckedModeBanner: false,

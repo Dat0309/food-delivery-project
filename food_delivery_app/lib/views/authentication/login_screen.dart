@@ -74,9 +74,15 @@ class _LoginScreenState extends State<LoginScreen> {
                                   height: Dimensions.heightPadding15 + 1,
                                 ),
                                 RichTextCustom(
-                                    fontSize: Dimensions.screenWidth / 15,
-                                    headerText: 'Đăng',
-                                    footerText: 'Nhập'),
+                                  fontSize: Dimensions.screenWidth / 15,
+                                  headerText: 'Đăng',
+                                  footerText: 'Nhập',
+                                ),
+                                Image.asset(
+                                  'assets/images/logo.png',
+                                  height: 80,
+                                  width: 80,
+                                ),
                               ],
                             ),
                           ),

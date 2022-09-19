@@ -20,10 +20,13 @@ class TableController extends GetxController {
       if (value.statusCode == 200) {
         final Map<String, dynamic> resData = json.decode(value.body);
 
-        if (resData.isNotEmpty) {
+        if (resData['tables'].length > 0) {
           tables.clear();
-          for (var item in resData.values) {
-            tables.add(Table.fromJson(item));
+          for (int i = 0; i < resData['tables'].length; i++) {
+            if (resData['tables'][i] != null) {
+              Map<String, dynamic> map = resData['tables'][i];
+              tables.add(Table.fromJson(map));
+            }
           }
           isLoadedTable = true;
           update();

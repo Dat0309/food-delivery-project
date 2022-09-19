@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:food_delivery_app/constant/colors.dart';
+import 'package:food_delivery_app/controller/table_controller.dart';
 import 'package:food_delivery_app/models/Restaurant.dart';
 import 'package:food_delivery_app/utils/dimensions.dart';
+import 'package:food_delivery_app/views/tables/table_reservation_screen.dart';
 import 'package:food_delivery_app/widgets/app_icon.dart';
 import 'package:food_delivery_app/widgets/big_text.dart';
 import 'package:food_delivery_app/widgets/expanable_text_widget.dart';
@@ -213,21 +215,29 @@ class _RestaurantDetailState extends State<RestaurantDetail> {
         child: Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Container(
-              padding: EdgeInsets.only(
-                top: Dimensions.heightPadding20,
-                bottom: Dimensions.heightPadding20,
-                left: Dimensions.widthPadding20,
-                right: Dimensions.widthPadding20,
-              ),
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(Dimensions.radius20),
-                color: AppColors.primaryBgColor,
-              ),
-              child: const BigText(
-                text: 'Đặt Bàn',
-                color: Colors.white,
-                textOverflow: TextOverflow.ellipsis,
+            GestureDetector(
+              onTap: () {
+                Get.find<TableController>()
+                    .getTablesByRestaurantId(widget.restaurant.id!);
+                Get.to(() =>
+                    TableReservationScreen(restaurant: widget.restaurant));
+              },
+              child: Container(
+                padding: EdgeInsets.only(
+                  top: Dimensions.heightPadding20,
+                  bottom: Dimensions.heightPadding20,
+                  left: Dimensions.widthPadding20,
+                  right: Dimensions.widthPadding20,
+                ),
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(Dimensions.radius20),
+                  color: AppColors.primaryBgColor,
+                ),
+                child: const BigText(
+                  text: 'Đặt Bàn',
+                  color: Colors.white,
+                  textOverflow: TextOverflow.ellipsis,
+                ),
               ),
             ),
           ],
