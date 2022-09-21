@@ -100,7 +100,7 @@ class _PopularRestaurantState extends State<PopularRestaurant> {
                             color: Colors.transparent,
                             width: 5,
                           ),
-                      itemCount: 10),
+                      itemCount: restaurant.restaurants.length),
                 )
               : SizedBox(
                   height: Dimensions.height220 + 20,
