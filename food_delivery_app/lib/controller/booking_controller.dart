@@ -23,9 +23,14 @@ class BookingController extends GetxController {
     await bookingRepo.getBookingByID(id).then((value) {
       if (value.statusCode == 200) {
         final Map<String, dynamic> resData = json.decode(value.body);
-        if (resData.isNotEmpty) {
-          booking = Booking.fromJson(resData);
-          isLoadingBooking = true;
+        if (resData['booking'].length > 0) {
+          for (int i = 0; i < resData['booking'].length; i++) {
+            if (resData['booking'][i] != null) {
+              Map<String, dynamic> map = resData['booking'][i];
+              bookings.add(Booking.fromJson(map));
+            }
+          }
+          isLoadedBookings = true;
           update();
         }
       } else {}
@@ -33,16 +38,18 @@ class BookingController extends GetxController {
   }
 
   Future<void> getUserBooking() async {
-    isLoadedBookings = false;
+    isLoadedUserBookings = false;
     await bookingRepo.getUserBooking().then((value) {
       if (value.statusCode == 200) {
         final Map<String, dynamic> resData = json.decode(value.body);
-        if (resData['booking'] != null) {
-          userBookings.clear();
-          for (var item in resData['booking']) {
-            userBookings.add(Booking.fromJson(item));
+        if (resData['booking'].length > 0) {
+          for (int i = 0; i < resData['booking'].length; i++) {
+            if (resData['booking'][i] != null) {
+              Map<String, dynamic> map = resData['booking'][i];
+              userBookings.add(Booking.fromJson(map));
+            }
           }
-          isLoadedBookings = true;
+          isLoadedUserBookings = true;
           update();
         }
       }

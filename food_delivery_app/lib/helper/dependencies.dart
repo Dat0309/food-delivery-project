@@ -1,4 +1,5 @@
 import 'package:food_delivery_app/controller/auth_controller.dart';
+import 'package:food_delivery_app/controller/booking_controller.dart';
 import 'package:food_delivery_app/controller/cart_controller.dart';
 import 'package:food_delivery_app/controller/categories_controller.dart';
 import 'package:food_delivery_app/controller/location_controller.dart';
@@ -8,6 +9,7 @@ import 'package:food_delivery_app/controller/restaurant_controller.dart';
 import 'package:food_delivery_app/controller/table_controller.dart';
 import 'package:food_delivery_app/controller/user_controller.dart';
 import 'package:food_delivery_app/service/repository/auth_repo.dart';
+import 'package:food_delivery_app/service/repository/booking_repo.dart';
 import 'package:food_delivery_app/service/repository/cart_repo.dart';
 import 'package:food_delivery_app/service/repository/categories_repo.dart';
 import 'package:food_delivery_app/service/repository/location_repo.dart';
@@ -33,6 +35,7 @@ class AppDependentcies {
     Get.lazyPut(() => UserRepo(sharedPreferences: Get.find()));
     Get.lazyPut(() => TableRepo());
     Get.lazyPut(() => LocationRepo(sharedPreferences: Get.find()));
+    Get.lazyPut(() => BookingRepo());
 
     Get.lazyPut(() => ProductController(productRepo: Get.find()));
     Get.lazyPut(() => RestaurantController(restaurantRepo: Get.find()));
@@ -43,5 +46,6 @@ class AppDependentcies {
     Get.lazyPut(() => UserController(userRepo: Get.find()));
     Get.lazyPut(() => TableController(tableRepo: Get.find()));
     Get.lazyPut(() => LocationController(locationRepo: Get.find()));
+    Get.lazyPut(() => BookingController(bookingRepo: Get.find()));
   }
 }

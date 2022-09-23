@@ -5,7 +5,7 @@ import 'package:food_delivery_app/utils/dimensions.dart';
 import 'package:food_delivery_app/widgets/big_text.dart';
 import 'package:food_delivery_app/widgets/small_text.dart';
 
-class ItemDate extends StatelessWidget {
+class ItemDate extends StatefulWidget {
   final DateTimeModel date;
   const ItemDate({
     Key? key,
@@ -13,16 +13,26 @@ class ItemDate extends StatelessWidget {
   }) : super(key: key);
 
   @override
+  State<ItemDate> createState() => _ItemDateState();
+}
+
+class _ItemDateState extends State<ItemDate> {
+  bool selected = false;
+  @override
   Widget build(BuildContext context) {
     return InkWell(
-      onTap: () {},
+      onTap: () {
+        setState(() {
+          selected = !selected;
+        });
+      },
       child: Padding(
         padding: EdgeInsets.only(right: Dimensions.radius8),
         child: Container(
           height: Dimensions.height120 - 20,
           width: Dimensions.widthPadding60 + 15,
           decoration: BoxDecoration(
-            color: AppColors.signColor,
+            color: selected ? AppColors.thirthColor : AppColors.signColor,
             borderRadius: BorderRadius.circular(Dimensions.radius15),
           ),
           child: Column(
@@ -38,14 +48,14 @@ class ItemDate extends StatelessWidget {
                 height: Dimensions.heightPadding10,
               ),
               SmallText(
-                text: date.day,
+                text: widget.date.day,
                 color: Colors.white,
               ),
               SizedBox(
                 height: Dimensions.heightPadding10,
               ),
               BigText(
-                text: date.number,
+                text: widget.date.number + "/" + widget.date.month,
                 color: Colors.white,
               ),
             ],

@@ -10,11 +10,13 @@ class Booking {
   List<OrderItem>? orderItems;
   String? paymentMethod;
   PaymentResult? paymentResult;
-  double? totalPrice;
+  num? totalPrice;
   bool? isPaid;
   String? paidAt;
   String? createAt;
   String? updateAt;
+  String? date;
+  String? time;
 
   Booking({
     this.id,
@@ -29,6 +31,8 @@ class Booking {
     this.paidAt,
     this.createAt,
     this.updateAt,
+    this.date,
+    this.time,
   });
 
   factory Booking.fromJson(Map<String, dynamic> res) {
@@ -41,6 +45,8 @@ class Booking {
       paymentMethod: res['payment_method'],
       paymentResult: res['payment_result'],
       totalPrice: res['total_price'],
+      date: res['date'],
+      time: res['time'],
       isPaid: res['is_paid'],
       paidAt: res['paid_at'],
       createAt: res['createAt'],

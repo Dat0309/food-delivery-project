@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:food_delivery_app/controller/auth_controller.dart';
+import 'package:food_delivery_app/controller/booking_controller.dart';
 import 'package:food_delivery_app/controller/cart_controller.dart';
 import 'package:food_delivery_app/controller/categories_controller.dart';
 import 'package:food_delivery_app/controller/order_controller.dart';
@@ -44,6 +45,7 @@ class MyApp extends StatelessWidget {
     Get.find<OrderController>();
     Get.find<UserController>();
     Get.find<TableController>();
+    Get.find<BookingController>().getUserBooking();
     return const GetMaterialApp(
       title: 'ĂN GÌ ĐẶT NGAY!!!',
       debugShowCheckedModeBanner: false,

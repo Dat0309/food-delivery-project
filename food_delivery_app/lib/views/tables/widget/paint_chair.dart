@@ -3,7 +3,7 @@ import 'package:food_delivery_app/constant/colors.dart';
 import 'package:food_delivery_app/utils/dimensions.dart';
 import 'package:food_delivery_app/widgets/small_text.dart';
 
-class PaintChair extends StatelessWidget {
+class PaintChair extends StatefulWidget {
   final Color? color;
   final String text;
 
@@ -14,29 +14,42 @@ class PaintChair extends StatelessWidget {
   }) : super(key: key);
 
   @override
+  State<PaintChair> createState() => _PaintChairState();
+}
+
+class _PaintChairState extends State<PaintChair> {
+  bool selected = false;
+  @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
-        SmallText(
-          text: '$text người',
-          color: Colors.white,
-        ),
-        Container(
-          margin: EdgeInsets.only(
-            right: Dimensions.widthPadding10,
-            left: Dimensions.widthPadding10,
-            bottom: Dimensions.heightPadding20,
+    return GestureDetector(
+      onTap: () {
+        setState(() {
+          selected = !selected;
+        });
+      },
+      child: Column(
+        children: [
+          SmallText(
+            text: '${widget.text} người',
+            color: Colors.white,
           ),
-          height: Dimensions.heightPadding30,
-          width: Dimensions.widthPadding30,
-          decoration: BoxDecoration(
-              color: color,
-              borderRadius: BorderRadius.circular(Dimensions.radius8)),
-          child: CustomPaint(
-            painter: _PainterChair(),
+          Container(
+            margin: EdgeInsets.only(
+              right: Dimensions.widthPadding10,
+              left: Dimensions.widthPadding10,
+              bottom: Dimensions.heightPadding20,
+            ),
+            height: Dimensions.heightPadding30,
+            width: Dimensions.widthPadding30,
+            decoration: BoxDecoration(
+                color: selected ? AppColors.thirthColor : widget.color,
+                borderRadius: BorderRadius.circular(Dimensions.radius8)),
+            child: CustomPaint(
+              painter: _PainterChair(),
+            ),
           ),
-        ),
-      ],
+        ],
+      ),
     );
   }
 }

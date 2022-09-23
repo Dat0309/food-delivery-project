@@ -1,19 +1,21 @@
 class DateTimeModel {
   final String day;
   final String number;
+  final String month;
+  final String year;
 
-  DateTimeModel(this.day, this.number);
+  DateTimeModel(this.day, this.number, this.month, this.year);
 
   DateTime now = DateTime.now();
 
   static List<DateTimeModel> dates = [
-    DateTimeModel('Thứ Hai', '1'),
-    DateTimeModel('Thứ Ba', '2'),
-    DateTimeModel('Thứ Tư', '3'),
-    DateTimeModel('Thứ Năm', '4'),
-    DateTimeModel('Thứ Sáu', '5'),
-    DateTimeModel('Thứ Bảy', '6'),
-    DateTimeModel('Chủ Nhật', '7'),
+    DateTimeModel('Thứ Hai', '24', '09', '2022'),
+    DateTimeModel('Thứ Ba', '25', '09', '2022'),
+    DateTimeModel('Thứ Tư', '26', '09', '2022'),
+    DateTimeModel('Thứ Năm', '27', '09', '2022'),
+    DateTimeModel('Thứ Sáu', '28', '09', '2022'),
+    DateTimeModel('Thứ Bảy', '29', '09', '2022'),
+    DateTimeModel('Chủ Nhật', '30', '09', '2022'),
   ];
 
   static List<String> times = [
