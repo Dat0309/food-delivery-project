@@ -21,7 +21,7 @@ class _SplashScreenState extends State<SplashScreen> {
   Widget build(BuildContext context) {
     return GetBuilder<AuthController>(builder: (controller) {
       return AnimatedSplashScreen(
-          duration: 3500,
+          duration: 3000,
           backgroundColor: AppColors.primaryColor!,
           splash: Lottie.asset('assets/images/foody.json'),
           splashIconSize: Dimensions.screenHeight * 0.4,

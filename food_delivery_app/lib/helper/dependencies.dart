@@ -1,3 +1,4 @@
+import 'package:food_delivery_app/controller/animation_controller.dart';
 import 'package:food_delivery_app/controller/auth_controller.dart';
 import 'package:food_delivery_app/controller/booking_controller.dart';
 import 'package:food_delivery_app/controller/cart_controller.dart';
@@ -35,7 +36,7 @@ class AppDependentcies {
     Get.lazyPut(() => UserRepo(sharedPreferences: Get.find()));
     Get.lazyPut(() => TableRepo());
     Get.lazyPut(() => LocationRepo(sharedPreferences: Get.find()));
-    Get.lazyPut(() => BookingRepo());
+    Get.lazyPut(() => BookingRepo(sharedPreferences: Get.find()));
 
     Get.lazyPut(() => ProductController(productRepo: Get.find()));
     Get.lazyPut(() => RestaurantController(restaurantRepo: Get.find()));
@@ -47,5 +48,6 @@ class AppDependentcies {
     Get.lazyPut(() => TableController(tableRepo: Get.find()));
     Get.lazyPut(() => LocationController(locationRepo: Get.find()));
     Get.lazyPut(() => BookingController(bookingRepo: Get.find()));
+    Get.lazyPut(() => AnimController());
   }
 }

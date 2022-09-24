@@ -2,10 +2,12 @@ import 'dart:ui';
 
 import 'package:flutter/material.dart';
 import 'package:food_delivery_app/constant/colors.dart';
+import 'package:food_delivery_app/controller/product_controller.dart';
 import 'package:food_delivery_app/controller/table_controller.dart';
 import 'package:food_delivery_app/models/DateTimeModel.dart';
 import 'package:food_delivery_app/models/Restaurant.dart';
 import 'package:food_delivery_app/utils/dimensions.dart';
+import 'package:food_delivery_app/views/booking/booking_screen.dart';
 import 'package:food_delivery_app/views/tables/widget/item_description.dart';
 import 'package:food_delivery_app/views/tables/widget/paint_chair.dart';
 import 'package:food_delivery_app/views/tables/widget/painter.dart';
@@ -199,7 +201,11 @@ class _TableReservationScreenState extends State<TableReservationScreen> {
               right: 60,
               bottom: 20,
               child: InkWell(
-                onTap: () {},
+                onTap: () {
+                  Get.find<ProductController>()
+                      .getRestaurantProduct(widget.restaurant.id!);
+                  Get.to(() => BookingScreen());
+                },
                 child: Container(
                   alignment: Alignment.center,
                   height: 55,

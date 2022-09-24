@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:food_delivery_app/constant/colors.dart';
+import 'package:food_delivery_app/controller/booking_controller.dart';
 import 'package:food_delivery_app/controller/cart_controller.dart';
 import 'package:food_delivery_app/controller/product_controller.dart';
 import 'package:food_delivery_app/models/Product.dart';
@@ -23,8 +24,8 @@ class FoodDetail extends StatefulWidget {
 class _FoodDetailState extends State<FoodDetail> {
   @override
   Widget build(BuildContext context) {
-    Get.find<ProductController>()
-        .initProduct(widget.product, Get.find<CartController>());
+    Get.find<ProductController>().initProduct(widget.product,
+        Get.find<CartController>(), Get.find<BookingController>());
     return Scaffold(
       backgroundColor: Colors.white,
       body: Stack(

@@ -1,0 +1,1 @@
+enum AnimationState { normal, cart }

@@ -13,6 +13,7 @@ class AppUrl {
   static const String TABLES = BASEURL + "/api/tables";
 
   static const String GET_PRODUCT_BY_CATID = PRODUCTS + "/category-id/";
+  static const String GET_PRODUCT_BY_RESTAURANTID = PRODUCTS + "/menu-id/";
   static const String GET_USER_ORDER = ORDERS + "/user";
   static const String ADMIN_GET_PRODUCTS = PRODUCTS + "/all";
   static const String ADMIN_GET_RESTAURANTS = RESTAURANTS + "/all";
