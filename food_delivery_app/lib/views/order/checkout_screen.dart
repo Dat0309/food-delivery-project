@@ -154,7 +154,7 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
                     backgroundColor: AppColors.primaryColor,
                   ),
                 ),
-                const BigText(text: 'Giỏ Hàng'),
+                const BigText(text: 'Thanh toán'),
                 SizedBox(
                   width: Dimensions.widthPadding20 * 8,
                 ),

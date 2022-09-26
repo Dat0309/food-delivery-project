@@ -16,7 +16,6 @@ import 'package:food_delivery_app/widgets/big_text.dart';
 import 'package:food_delivery_app/widgets/item_date.dart';
 import 'package:food_delivery_app/widgets/item_time.dart';
 import 'package:get/get.dart';
-import 'package:shimmer/shimmer.dart';
 
 class TableReservationScreen extends StatefulWidget {
   final Restaurant restaurant;
@@ -206,7 +205,9 @@ class _TableReservationScreenState extends State<TableReservationScreen> {
                 onTap: () {
                   Get.find<ProductController>()
                       .getRestaurantProduct(widget.restaurant.id!);
-                  Get.to(() => const BookingScreen());
+                  Get.to(() => BookingScreen(
+                        restaurant: widget.restaurant,
+                      ));
                 },
                 child: Container(
                   alignment: Alignment.center,

@@ -1,16 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:food_delivery_app/constant/colors.dart';
 import 'package:food_delivery_app/controller/product_controller.dart';
+import 'package:food_delivery_app/models/Restaurant.dart';
 import 'package:food_delivery_app/utils/dimensions.dart';
+import 'package:food_delivery_app/views/booking/payment_booking_screen.dart';
 import 'package:food_delivery_app/views/booking/widget/booking_card.dart';
 import 'package:food_delivery_app/views/booking/widget/cart_short_view.dart';
 import 'package:food_delivery_app/widgets/app_icon.dart';
 import 'package:food_delivery_app/widgets/big_text.dart';
 import 'package:get/get.dart';
-import 'package:shimmer/shimmer.dart';
 
 class BookingScreen extends StatefulWidget {
-  const BookingScreen({Key? key}) : super(key: key);
+  final Restaurant restaurant;
+  const BookingScreen({Key? key, required this.restaurant}) : super(key: key);
 
   @override
   State<BookingScreen> createState() => _BookingScreenState();
@@ -109,7 +111,10 @@ class _BookingScreenState extends State<BookingScreen> {
               left: Dimensions.widthPadding20,
               right: Dimensions.widthPadding20,
               child: GestureDetector(
-                onTap: () {},
+                onTap: () {
+                  Get.to(() =>
+                      PaymentBookingScreen(restaurant: widget.restaurant));
+                },
                 child: Container(
                   margin: EdgeInsets.only(bottom: Dimensions.widthPadding10),
                   alignment: Alignment.center,

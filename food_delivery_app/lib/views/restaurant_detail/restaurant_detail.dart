@@ -223,19 +223,12 @@ class _RestaurantDetailState extends State<RestaurantDetail> {
                     TableReservationScreen(restaurant: widget.restaurant));
               },
               child: Container(
-                padding: EdgeInsets.only(
-                  top: Dimensions.heightPadding20,
-                  bottom: Dimensions.heightPadding20,
-                  left: Dimensions.widthPadding20,
-                  right: Dimensions.widthPadding20,
-                ),
+                padding: EdgeInsets.all(Dimensions.radius20),
                 decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(Dimensions.radius20),
-                  color: AppColors.primaryBgColor,
-                ),
+                    borderRadius: BorderRadius.circular(Dimensions.radius15),
+                    color: AppColors.thirthColor),
                 child: const BigText(
                   text: 'Đặt Bàn',
-                  color: Colors.white,
                   textOverflow: TextOverflow.ellipsis,
                 ),
               ),

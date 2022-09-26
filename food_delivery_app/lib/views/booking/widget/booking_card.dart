@@ -76,13 +76,18 @@ class _BookingCardState extends State<BookingCard> {
                         onTap: () {
                           if (qty == 1) {
                             setState(() {
-                              qty = qty - 1;
+                              qty -= 1;
                             });
-                            bookingController.removeItem(widget.product);
+                            // bookingController.removeItem(widget.product);
+                            productController.removeBookingItem(widget.product);
                           } else if (qty > 0) {
                             setState(() {
-                              qty = qty - 1;
+                              qty -= 1;
                             });
+                            // bookingController.updateItemQty(
+                            //     widget.product.id!, qty);
+                            productController.updateBookingQty(
+                                widget.product.id!, qty);
                           }
                         },
                         child: const AppIcon(
@@ -98,15 +103,17 @@ class _BookingCardState extends State<BookingCard> {
                         onTap: () {
                           if (qty == 0) {
                             setState(() {
-                              qty = qty + 1;
+                              qty += 1;
                             });
                             productController.addBookingItem(
                                 widget.product, qty);
                           } else {
                             setState(() {
-                              qty = qty + 1;
+                              qty += 1;
                             });
-                            bookingController.updateItemQty(
+                            // bookingController.updateItemQty(
+                            //     widget.product.id!, qty);
+                            productController.updateBookingQty(
                                 widget.product.id!, qty);
                           }
                         },

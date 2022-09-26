@@ -4,6 +4,7 @@ import 'package:food_delivery_app/models/Booking.dart';
 import 'package:food_delivery_app/models/BookingItem.dart';
 import 'package:food_delivery_app/models/Cart.dart';
 import 'package:food_delivery_app/models/Product.dart';
+import 'package:food_delivery_app/service/preferences/user_preferences.dart';
 import 'package:food_delivery_app/service/repository/booking_repo.dart';
 import 'package:get/get.dart';
 
@@ -57,7 +58,7 @@ class BookingController extends GetxController {
                 foodId: value.foodId,
                 image: value.image,
                 price: value.price,
-                qty: value.qty! + qty,
+                qty: qty,
               ));
     }
     update();
@@ -155,5 +156,45 @@ class BookingController extends GetxController {
         }
       }
     });
+  }
+
+  Future<Map<String, dynamic>> createOrder(
+    List<BookingItem> booking,
+    String paymentMethod,
+    String tableId,
+    int itemPrice,
+    double totalPrice,
+    String date,
+    String time,
+  ) async {
+    var result;
+    String uid = await UserPreference().getUser().then((value) => value.id!);
+    await bookingRepo
+        .createBooking(uid, booking, paymentMethod, tableId, itemPrice,
+            totalPrice, date, time)
+        .then((value) {
+      print(value.body);
+      if (value.statusCode == 200) {
+        final Map<String, dynamic> resData = json.decode(value.body);
+        Booking booking = Booking.fromJson(resData);
+        isCreated = true;
+
+        result = {
+          'status': true,
+          'message': 'Successful',
+          'booking': booking,
+        };
+
+        clearBooking();
+        update();
+      } else {
+        result = {
+          'status': false,
+          'message': 'error',
+        };
+        update();
+      }
+    });
+    return result;
   }
 }

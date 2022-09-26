@@ -201,7 +201,15 @@ class ProductController extends GetxController {
   }
 
   void removeBookingItem(Product product) {
-    _booking.removeItem(product);
+    if (_booking.existInBooking(product)) {
+      _booking.removeItem(product);
+    }
+    update();
+  }
+
+  void updateBookingQty(String id, int qty) {
+    _booking.updateItemQty(id, qty);
+    update();
   }
 
   List<Cart> get getItems {

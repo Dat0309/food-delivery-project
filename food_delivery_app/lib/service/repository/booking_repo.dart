@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:food_delivery_app/constant/app_constant.dart';
 import 'package:food_delivery_app/constant/app_url.dart';
+import 'package:food_delivery_app/controller/booking_controller.dart';
 import 'package:food_delivery_app/models/BookingItem.dart';
 import 'package:food_delivery_app/service/preferences/user_preferences.dart';
 import 'package:get/get.dart';
@@ -67,5 +68,42 @@ class BookingRepo extends GetxService {
       },
     );
     return res;
+  }
+
+  Future<http.Response> createBooking(
+    String uid,
+    List<BookingItem> booking,
+    String paymentMethod,
+    String tableId,
+    int itemPrice,
+    double totalPrice,
+    String date,
+    String time,
+  ) async {
+    String token = await UserPreference().getToken();
+    var bookingItem = jsonEncode(booking.map((e) => e.toJson()).toList());
+    print(bookingItem);
+
+    final Map<String, dynamic> bookings = {
+      "booking_items": Get.find<BookingController>().getItems,
+      "table_id": tableId,
+      "paymentMethod": paymentMethod,
+      "user": uid,
+      "itemsPrice": itemPrice,
+      "totalPrice": totalPrice,
+      "date": date,
+      "time": time,
+    };
+
+    http.Response response = await http.post(
+      Uri.parse(AppUrl.BOOKINGS),
+      body: json.encode(bookings),
+      headers: {
+        'Authorization': 'Bearer $token',
+        'Accept': 'application/json',
+        'Content-Type': 'application/json',
+      },
+    );
+    return response;
   }
 }
