@@ -1,3 +1,4 @@
+import 'package:flutter/rendering.dart';
 import 'package:get/get.dart';
 
 class Dimensions {
@@ -28,6 +29,7 @@ class Dimensions {
   static double widthPadding60 = screenWidth / 8;
   static double heightPadding60 = screenHeight / 16 + 10;
   static double widthPadding100 = screenWidth / 4.8;
+  static double widthPadding300 = widthPadding100 + 200;
 
   //radius
   static double radius15 = screenHeight / 64.35;

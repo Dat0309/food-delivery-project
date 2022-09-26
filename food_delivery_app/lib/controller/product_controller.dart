@@ -37,7 +37,7 @@ class ProductController extends GetxController {
   int _quantity = 1;
   int get quantity => _quantity;
 
-  int _bookingQuantity = 1;
+  int _bookingQuantity = 0;
   int get bookingQuantity => _bookingQuantity;
 
   int _inCartItem = 0;
@@ -65,7 +65,7 @@ class ProductController extends GetxController {
     _itemExist = cartController.existInCart(product);
 
     _booking = bookingController;
-    _bookingQuantity = 1;
+    _bookingQuantity = 0;
     _inBookingItem = 0;
     _itemBookingExist = bookingController.existInBooking(product);
   }
@@ -148,7 +148,7 @@ class ProductController extends GetxController {
     if (isIncrement) {
       _bookingQuantity = checkQty(_bookingQuantity + 1);
     } else {
-      _quantity = checkQty(_quantity - 1);
+      _bookingQuantity = checkQty(_bookingQuantity - 1);
     }
     update();
   }
@@ -182,9 +182,9 @@ class ProductController extends GetxController {
     update();
   }
 
-  void addBookingItem(Product product) {
-    if (_bookingQuantity > 0) {
-      _booking.addItem(product, _bookingQuantity);
+  void addBookingItem(Product product, int qty) {
+    if (qty > 0) {
+      _booking.addItem(product, qty);
     } else {
       Get.snackbar(
         'Lỗi',
@@ -200,8 +200,8 @@ class ProductController extends GetxController {
     _cart.removeItem(cart);
   }
 
-  void removeBookingItem(BookingItem booking) {
-    _booking.removeItem(booking);
+  void removeBookingItem(Product product) {
+    _booking.removeItem(product);
   }
 
   List<Cart> get getItems {

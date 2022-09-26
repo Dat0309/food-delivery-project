@@ -29,7 +29,7 @@ class BookingController extends GetxController {
     items.forEach((key, value) {
       totalQuantity += value.qty!;
     });
-    update();
+    //update();
     return totalQuantity;
   }
 
@@ -63,8 +63,8 @@ class BookingController extends GetxController {
     update();
   }
 
-  void removeItem(BookingItem booking) {
-    items.remove(booking.foodId);
+  void removeItem(Product product) {
+    items.remove(product.id);
     bookingRepo.addToBookingList(getItems);
     update();
   }

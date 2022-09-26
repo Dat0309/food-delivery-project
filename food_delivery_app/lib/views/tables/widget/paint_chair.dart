@@ -37,7 +37,7 @@ class _PaintChairState extends State<PaintChair> {
             margin: EdgeInsets.only(
               right: Dimensions.widthPadding10,
               left: Dimensions.widthPadding10,
-              bottom: Dimensions.heightPadding20,
+              bottom: Dimensions.heightPadding10,
             ),
             height: Dimensions.heightPadding30,
             width: Dimensions.widthPadding30,

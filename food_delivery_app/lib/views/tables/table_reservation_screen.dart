@@ -16,6 +16,7 @@ import 'package:food_delivery_app/widgets/big_text.dart';
 import 'package:food_delivery_app/widgets/item_date.dart';
 import 'package:food_delivery_app/widgets/item_time.dart';
 import 'package:get/get.dart';
+import 'package:shimmer/shimmer.dart';
 
 class TableReservationScreen extends StatefulWidget {
   final Restaurant restaurant;
@@ -158,36 +159,37 @@ class _TableReservationScreenState extends State<TableReservationScreen> {
                       height: Dimensions.heightPadding10,
                     ),
                     SizedBox(
-                      height: Dimensions.height350,
-                      width: Dimensions.screenWidth,
-                      child: tableController.isLoadedTable
-                          ? GridView.builder(
-                              gridDelegate:
-                                  SliverGridDelegateWithFixedCrossAxisCount(
-                                childAspectRatio: 1.0,
-                                crossAxisCount:
-                                    (tableController.tables.length / 2).round(),
-                                crossAxisSpacing: 8.0,
-                                mainAxisSpacing: 8.0,
-                              ),
-                              physics: const NeverScrollableScrollPhysics(),
-                              itemCount: tableController.tables.length,
-                              itemBuilder: (context, index) {
-                                if (tableController.tables[index].status) {
+                        height: Dimensions.height350,
+                        width: Dimensions.screenWidth,
+                        child: tableController.isLoadedTable
+                            ? GridView.builder(
+                                gridDelegate:
+                                    SliverGridDelegateWithFixedCrossAxisCount(
+                                  childAspectRatio: 1.0,
+                                  crossAxisCount:
+                                      (tableController.tables.length / 2)
+                                          .round(),
+                                  crossAxisSpacing: 8.0,
+                                  mainAxisSpacing: 8.0,
+                                ),
+                                physics: const NeverScrollableScrollPhysics(),
+                                itemCount: tableController.tables.length,
+                                itemBuilder: (context, index) {
+                                  if (tableController.tables[index].status) {
+                                    return PaintChair(
+                                      text: tableController
+                                          .tables[index].capacity
+                                          .toString(),
+                                    );
+                                  }
                                   return PaintChair(
+                                    color: Colors.white,
                                     text: tableController.tables[index].capacity
                                         .toString(),
                                   );
-                                }
-                                return PaintChair(
-                                  color: Colors.white,
-                                  text: tableController.tables[index].capacity
-                                      .toString(),
-                                );
-                              },
-                            )
-                          : Container(),
-                    ),
+                                },
+                              )
+                            : const SizedBox()),
                     SizedBox(
                       height: Dimensions.heightPadding10,
                     ),
@@ -197,23 +199,23 @@ class _TableReservationScreenState extends State<TableReservationScreen> {
               ),
             ),
             Positioned(
-              left: 60,
-              right: 60,
-              bottom: 20,
+              left: Dimensions.widthPadding60,
+              right: Dimensions.widthPadding60,
+              bottom: Dimensions.heightPadding20,
               child: InkWell(
                 onTap: () {
                   Get.find<ProductController>()
                       .getRestaurantProduct(widget.restaurant.id!);
-                  Get.to(() => BookingScreen());
+                  Get.to(() => const BookingScreen());
                 },
                 child: Container(
                   alignment: Alignment.center,
-                  height: 55,
+                  height: Dimensions.heightPadding60,
                   decoration: BoxDecoration(
                     color: AppColors.thirthColor,
-                    borderRadius: BorderRadius.circular(8.0),
+                    borderRadius: BorderRadius.circular(Dimensions.radius15),
                   ),
-                  child: const BigText(text: 'Đặt bàn'),
+                  child: const BigText(text: 'Tiếp tục'),
                 ),
               ),
             ),
