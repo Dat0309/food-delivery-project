@@ -91,30 +91,30 @@ class _ChangeAddressScreenState extends State<ChangeAddressScreen> {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    // Container(
-                    //   height: Dimensions.height140,
-                    //   width: Dimensions.screenWidth,
-                    //   margin: EdgeInsets.only(
-                    //     left: Dimensions.widthPadding5,
-                    //     right: Dimensions.widthPadding5,
-                    //     top: Dimensions.heightPadding8,
-                    //   ),
-                    //   decoration: BoxDecoration(
-                    //     borderRadius: BorderRadius.circular(5),
-                    //     border: Border.all(
-                    //       width: 2,
-                    //       color: AppColors.primaryColor!,
-                    //     ),
-                    //   ),
-                    //   child: Stack(
-                    //     children: [
-                    //       GoogleMap(
-                    //         initialCameraPosition: CameraPosition(
-                    //             target: _initialPosition, zoom: 17),
-                    //       ),
-                    //     ],
-                    //   ),
-                    // ),
+                    Container(
+                      height: Dimensions.height140,
+                      width: Dimensions.screenWidth,
+                      margin: EdgeInsets.only(
+                        left: Dimensions.widthPadding5,
+                        right: Dimensions.widthPadding5,
+                        top: Dimensions.heightPadding8,
+                      ),
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(5),
+                        border: Border.all(
+                          width: 2,
+                          color: AppColors.primaryColor!,
+                        ),
+                      ),
+                      child: Stack(
+                        children: [
+                          GoogleMap(
+                            initialCameraPosition: CameraPosition(
+                                target: _initialPosition, zoom: 17),
+                          ),
+                        ],
+                      ),
+                    ),
                     const BigText(
                       text: 'Liên hệ',
                       color: AppColors.pargColor,
