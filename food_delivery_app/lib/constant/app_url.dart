@@ -20,6 +20,7 @@ class AppUrl {
   static const String ADMIN_GET_ORDERS = ORDERS + "/all";
   static const String ADMIN_GET_BOOKING = BOOKINGS + "/all";
   static const String GET_TABLES_BY_RESID = TABLES + "/restaurant-id/";
+  static const String UPDATE_STATUS_TABLE = TABLES + "/status/";
 
   static const String LOGIN = BASEURL + "/api/users/login";
   static const String REGISTER = BASEURL + "/api/users";

@@ -173,8 +173,7 @@ class BookingController extends GetxController {
         .createBooking(uid, booking, paymentMethod, tableId, itemPrice,
             totalPrice, date, time)
         .then((value) {
-      print(value.body);
-      if (value.statusCode == 200) {
+      if (value.statusCode == 201) {
         final Map<String, dynamic> resData = json.decode(value.body);
         Booking booking = Booking.fromJson(resData);
         isCreated = true;

@@ -82,4 +82,17 @@ class TableRepo extends GetxService {
     );
     return res;
   }
+
+  Future<http.Response> updateStatusTable(String id) async {
+    String token = await UserPreference().getToken();
+    http.Response res = await http.put(
+      Uri.parse(AppUrl.UPDATE_STATUS_TABLE + id),
+      headers: {
+        'Authorization': 'Bearer $token',
+        'Accept': 'application/json',
+        'Content-Type': 'application/json',
+      },
+    );
+    return res;
+  }
 }

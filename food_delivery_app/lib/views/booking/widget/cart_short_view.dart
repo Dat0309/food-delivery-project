@@ -23,7 +23,7 @@ class CardShordView extends StatelessWidget {
             child: SingleChildScrollView(
               scrollDirection: Axis.horizontal,
               child: SizedBox(
-                height: 50,
+                height: Dimensions.heightPadding60,
                 child: ListView.builder(
                     physics: const BouncingScrollPhysics(),
                     scrollDirection: Axis.horizontal,
@@ -69,11 +69,36 @@ class CardShordView extends StatelessWidget {
               ),
             ),
           ),
-          CircleAvatar(
-            backgroundColor: Colors.white,
-            child: SmallText(
-              text: productController.bookingTotalItem.toString(),
-            ),
+          Column(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Container(
+                height: Dimensions.heightPadding30 + 5,
+                width: Dimensions.widthPadding60 + 25,
+                decoration: BoxDecoration(
+                  color: AppColors.signColor,
+                  borderRadius: BorderRadius.circular(Dimensions.radius15),
+                ),
+                child: Center(
+                  child: SmallText(
+                    text: productController.bookingTotalItem.toString(),
+                  ),
+                ),
+              ),
+              Container(
+                height: Dimensions.heightPadding30 + 5,
+                width: Dimensions.widthPadding60 + 25,
+                decoration: BoxDecoration(
+                  color: AppColors.signColor,
+                  borderRadius: BorderRadius.circular(Dimensions.radius15),
+                ),
+                child: Center(
+                  child: SmallText(
+                    text: productController.bookingTotalPrice.toString(),
+                  ),
+                ),
+              ),
+            ],
           ),
         ],
       );

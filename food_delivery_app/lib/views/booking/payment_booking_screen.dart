@@ -6,6 +6,7 @@ import 'package:food_delivery_app/controller/table_controller.dart';
 import 'package:food_delivery_app/models/Restaurant.dart';
 import 'package:food_delivery_app/utils/dimensions.dart';
 import 'package:food_delivery_app/views/authentication/widget/button.dart';
+import 'package:food_delivery_app/views/booking/detail_booking_screen.dart';
 import 'package:food_delivery_app/views/home/home_page.dart';
 import 'package:food_delivery_app/views/order/widget/add_cart.dart';
 import 'package:food_delivery_app/views/order/widget/payment_cart.dart';
@@ -45,7 +46,12 @@ class _PaymentBookingScreenState extends State<PaymentBookingScreen> {
       )
           .then((value) {
         if (value['status']) {
-          print(value);
+          Get.find<TableController>()
+              .updateStatus(Get.find<TableController>().getTableId);
+          Get.to(() => DetailBookingScreen(
+                bookingResult: value['booking'],
+                restaurant: widget.restaurant,
+              ));
         } else {
           Get.snackbar(
             'Không ổn rồi',
@@ -135,7 +141,7 @@ class _PaymentBookingScreenState extends State<PaymentBookingScreen> {
                         height: Dimensions.height200,
                         width: Dimensions.screenWidth,
                         decoration: BoxDecoration(
-                          color: AppColors.signColor,
+                          color: AppColors.secondaryColor,
                           borderRadius:
                               BorderRadius.circular(Dimensions.radius20),
                         ),
