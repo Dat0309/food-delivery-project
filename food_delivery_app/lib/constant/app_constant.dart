@@ -13,4 +13,9 @@ class AppConstant {
   static String STREET = "STREET";
   static String PHONE_NUMBER = "PHONE_NUMBER";
   static String NAME = "NAME";
+
+  static String TABLE_ID = "TABLE_ID";
+  static String TABLE_CODE = "TABLE_CODE";
+  static String DATE = "DATE";
+  static String TIME = "TIME";
 }

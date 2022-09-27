@@ -1,10 +1,10 @@
-import 'package:food_delivery_app/models/Table.dart';
+import 'package:food_delivery_app/models/TableModel.dart';
 
 class TableList {
   int? count;
   int? page;
   int? pages;
-  List<Table>? tables;
+  List<TableModel>? tables;
 
   TableList({
     this.count,

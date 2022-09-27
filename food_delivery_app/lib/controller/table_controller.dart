@@ -1,6 +1,6 @@
 import 'dart:convert';
 
-import 'package:food_delivery_app/models/Table.dart';
+import 'package:food_delivery_app/models/TableModel.dart';
 import 'package:food_delivery_app/service/repository/table_repo.dart';
 import 'package:get/get.dart';
 
@@ -10,7 +10,7 @@ class TableController extends GetxController {
   TableController({required this.tableRepo});
 
   List<dynamic> tables = [];
-  Table? table;
+  TableModel? table;
 
   bool isLoadedTable = false;
 
@@ -25,7 +25,7 @@ class TableController extends GetxController {
           for (int i = 0; i < resData['tables'].length; i++) {
             if (resData['tables'][i] != null) {
               Map<String, dynamic> map = resData['tables'][i];
-              tables.add(Table.fromJson(map));
+              tables.add(TableModel.fromJson(map));
             }
           }
           isLoadedTable = true;
@@ -33,5 +33,50 @@ class TableController extends GetxController {
         }
       }
     });
+  }
+
+  Future<void> saveTable(TableModel table) async {
+    await tableRepo.saveTableReserve(table);
+    update();
+  }
+
+  Future<void> saveDate(String date) async {
+    await tableRepo.saveDate(date);
+    update();
+  }
+
+  Future<void> saveTime(String time) async {
+    await tableRepo.saveTime(time);
+    update();
+  }
+
+  void clearTable() {
+    tableRepo.removeTable();
+    update();
+  }
+
+  void clearDate() {
+    tableRepo.removeDate();
+    update();
+  }
+
+  void clearTime() {
+    tableRepo.removeTime();
+  }
+
+  String get getTableId {
+    return tableRepo.getTableStorage()['table_id'];
+  }
+
+  String get getTableCode {
+    return tableRepo.getTableStorage()['table_code'];
+  }
+
+  String get date {
+    return tableRepo.getDate();
+  }
+
+  String get time {
+    return tableRepo.getTime();
   }
 }

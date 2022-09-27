@@ -1,9 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:food_delivery_app/constant/colors.dart';
+import 'package:food_delivery_app/controller/table_controller.dart';
+import 'package:food_delivery_app/models/TableModel.dart';
 import 'package:food_delivery_app/utils/dimensions.dart';
 import 'package:food_delivery_app/widgets/small_text.dart';
+import 'package:get/get.dart';
 
 class PaintChair extends StatefulWidget {
+  final TableModel table;
   final Color? color;
   final String text;
 
@@ -11,6 +15,7 @@ class PaintChair extends StatefulWidget {
     Key? key,
     this.color = const Color(0xff4d525a),
     required this.text,
+    required this.table,
   }) : super(key: key);
 
   @override
@@ -21,36 +26,43 @@ class _PaintChairState extends State<PaintChair> {
   bool selected = false;
   @override
   Widget build(BuildContext context) {
-    return GestureDetector(
-      onTap: () {
-        setState(() {
-          selected = !selected;
-        });
-      },
-      child: Column(
-        children: [
-          SmallText(
-            text: '${widget.text} người',
-            color: Colors.white,
-          ),
-          Container(
-            margin: EdgeInsets.only(
-              right: Dimensions.widthPadding10,
-              left: Dimensions.widthPadding10,
-              bottom: Dimensions.heightPadding10,
+    return GetBuilder<TableController>(builder: (tableController) {
+      return GestureDetector(
+        onTap: () {
+          setState(() {
+            selected = !selected;
+          });
+          if (selected) {
+            tableController.saveTable(widget.table);
+          } else {
+            tableController.clearTable();
+          }
+        },
+        child: Column(
+          children: [
+            SmallText(
+              text: '${widget.text} người',
+              color: Colors.white,
             ),
-            height: Dimensions.heightPadding30,
-            width: Dimensions.widthPadding30,
-            decoration: BoxDecoration(
-                color: selected ? AppColors.thirthColor : widget.color,
-                borderRadius: BorderRadius.circular(Dimensions.radius8)),
-            child: CustomPaint(
-              painter: _PainterChair(),
+            Container(
+              margin: EdgeInsets.only(
+                right: Dimensions.widthPadding10,
+                left: Dimensions.widthPadding10,
+                bottom: Dimensions.heightPadding10,
+              ),
+              height: Dimensions.heightPadding30,
+              width: Dimensions.widthPadding30,
+              decoration: BoxDecoration(
+                  color: selected ? AppColors.thirthColor : widget.color,
+                  borderRadius: BorderRadius.circular(Dimensions.radius8)),
+              child: CustomPaint(
+                painter: _PainterChair(),
+              ),
             ),
-          ),
-        ],
-      ),
-    );
+          ],
+        ),
+      );
+    });
   }
 }
 

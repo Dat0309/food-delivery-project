@@ -34,7 +34,7 @@ class AppDependentcies {
     Get.lazyPut(() => AuthRepo(sharedPreferences: Get.find()));
     Get.lazyPut(() => OrderRepo());
     Get.lazyPut(() => UserRepo(sharedPreferences: Get.find()));
-    Get.lazyPut(() => TableRepo());
+    Get.lazyPut(() => TableRepo(sharedPreferences: Get.find()));
     Get.lazyPut(() => LocationRepo(sharedPreferences: Get.find()));
     Get.lazyPut(() => BookingRepo(sharedPreferences: Get.find()));
 

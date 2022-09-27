@@ -91,6 +91,9 @@ class _TableReservationScreenState extends State<TableReservationScreen> {
                 children: [
                   GestureDetector(
                     onTap: () {
+                      tableController.clearDate();
+                      tableController.clearTime();
+                      tableController.clearTable();
                       Get.back();
                     },
                     child: const AppIcon(
@@ -179,12 +182,14 @@ class _TableReservationScreenState extends State<TableReservationScreen> {
                                       text: tableController
                                           .tables[index].capacity
                                           .toString(),
+                                      table: tableController.tables[index],
                                     );
                                   }
                                   return PaintChair(
                                     color: Colors.white,
                                     text: tableController.tables[index].capacity
                                         .toString(),
+                                    table: tableController.tables[index],
                                   );
                                 },
                               )

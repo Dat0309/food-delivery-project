@@ -158,7 +158,7 @@ class BookingController extends GetxController {
     });
   }
 
-  Future<Map<String, dynamic>> createOrder(
+  Future<Map<String, dynamic>> createBooking(
     List<BookingItem> booking,
     String paymentMethod,
     String tableId,

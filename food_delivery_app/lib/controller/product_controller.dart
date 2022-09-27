@@ -27,6 +27,7 @@ class ProductController extends GetxController {
   BookingController _booking = Get.find<BookingController>();
 
   double get amount => cartTotalPrice + taxPrice + shipPrice;
+  double get amountBooking => bookingTotalPrice.toDouble();
 
   final int _shipPrice = 3000;
   int get shipPrice => _shipPrice;

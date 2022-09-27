@@ -1,6 +1,5 @@
 import 'package:food_delivery_app/constant/app_constant.dart';
 import 'package:food_delivery_app/models/AuthModel.dart';
-import 'package:food_delivery_app/models/ProfileModel.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class UserPreference {
