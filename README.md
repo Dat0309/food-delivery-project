@@ -17,6 +17,7 @@ This is an e-commerce app for food delivery using flutter with backend (NodeJS) 
 ```
 ## Hình ảnh demo
 ![image](https://github.com/Dat0309/food-delivery-project/blob/main/demo/Demo_state1.png)
+![image](https://github.com/Dat0309/food-delivery-project/blob/main/demo/309067366_1274742243292373_8434992884184321725_n.png)
 ## Mục lục
 
 
