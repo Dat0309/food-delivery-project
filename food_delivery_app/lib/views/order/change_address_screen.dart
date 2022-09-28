@@ -88,109 +88,121 @@ class _ChangeAddressScreenState extends State<ChangeAddressScreen> {
             child: SizedBox(
               child: SingleChildScrollView(
                 physics: const BouncingScrollPhysics(),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Container(
-                      height: Dimensions.height140,
-                      width: Dimensions.screenWidth,
-                      margin: EdgeInsets.only(
-                        left: Dimensions.widthPadding5,
-                        right: Dimensions.widthPadding5,
-                        top: Dimensions.heightPadding8,
-                      ),
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(5),
-                        border: Border.all(
-                          width: 2,
-                          color: AppColors.primaryColor!,
+                child: GetBuilder<LocationController>(
+                    builder: (locationController) {
+                  return Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Container(
+                        height: Dimensions.height140,
+                        width: Dimensions.screenWidth,
+                        margin: EdgeInsets.only(
+                          left: Dimensions.widthPadding5,
+                          right: Dimensions.widthPadding5,
+                          top: Dimensions.heightPadding8,
+                        ),
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(5),
+                          border: Border.all(
+                            width: 2,
+                            color: AppColors.primaryColor!,
+                          ),
+                        ),
+                        child: Stack(
+                          children: [
+                            GoogleMap(
+                              initialCameraPosition: CameraPosition(
+                                  target: _initialPosition, zoom: 17),
+                              zoomControlsEnabled: false,
+                              compassEnabled: false,
+                              indoorViewEnabled: true,
+                              mapToolbarEnabled: false,
+                              onCameraIdle: () {},
+                              onCameraMove: ((pos) => _cameraPosition = pos),
+                              onMapCreated: (GoogleMapController controller) {
+                                locationController.setMapController(controller);
+                              },
+                            ),
+                          ],
                         ),
                       ),
-                      child: Stack(
-                        children: [
-                          GoogleMap(
-                            initialCameraPosition: CameraPosition(
-                                target: _initialPosition, zoom: 17),
-                          ),
-                        ],
+                      const BigText(
+                        text: 'Liên hệ',
+                        color: AppColors.pargColor,
                       ),
-                    ),
-                    const BigText(
-                      text: 'Liên hệ',
-                      color: AppColors.pargColor,
-                    ),
-                    SizedBox(
-                      height: Dimensions.heightPadding10,
-                    ),
-                    TextFieldCustom(
-                      hint: 'Họ và Tên',
-                      icon: Icons.text_fields,
-                      controller: nameController,
-                    ),
-                    SizedBox(
-                      height: Dimensions.heightPadding10,
-                    ),
-                    TextFieldCustom(
-                      hint: 'Số điện thoại',
-                      icon: Icons.phone_android,
-                      controller: phoneNumber,
-                    ),
-                    SizedBox(
-                      height: Dimensions.heightPadding20,
-                    ),
-                    const BigText(
-                      text: 'Địa chỉ',
-                      color: AppColors.pargColor,
-                    ),
-                    SizedBox(
-                      height: Dimensions.heightPadding10,
-                    ),
-                    TextFieldCustom(
-                      hint: 'Tỉnh/Thành phố ',
-                      icon: Icons.location_city,
-                      controller: provinceController,
-                    ),
-                    SizedBox(
-                      height: Dimensions.heightPadding10,
-                    ),
-                    TextFieldCustom(
-                      hint: 'Quận/Huyện',
-                      icon: Icons.location_city,
-                      controller: districtController,
-                    ),
-                    SizedBox(
-                      height: Dimensions.heightPadding10,
-                    ),
-                    TextFieldCustom(
-                      hint: 'Phường/Xã',
-                      icon: Icons.location_city,
-                      controller: wardController,
-                    ),
-                    SizedBox(
-                      height: Dimensions.heightPadding10,
-                    ),
-                    TextFieldCustom(
-                      hint: 'Tên đường, Toà nhà, Số nhà',
-                      icon: Icons.location_city,
-                      controller: streetController,
-                    ),
-                    SizedBox(
-                      height: Dimensions.heightPadding60,
-                    ),
-                    GestureDetector(
-                        onTap: () {
-                          Get.find<UserController>().updateAddress(
-                              phoneNumber.text,
-                              nameController.text,
-                              provinceController.text,
-                              districtController.text,
-                              wardController.text,
-                              streetController.text);
-                          Get.back();
-                        },
-                        child: const CustomButton(text: 'Hoàn Thành')),
-                  ],
-                ),
+                      SizedBox(
+                        height: Dimensions.heightPadding10,
+                      ),
+                      TextFieldCustom(
+                        hint: 'Họ và Tên',
+                        icon: Icons.text_fields,
+                        controller: nameController,
+                      ),
+                      SizedBox(
+                        height: Dimensions.heightPadding10,
+                      ),
+                      TextFieldCustom(
+                        hint: 'Số điện thoại',
+                        icon: Icons.phone_android,
+                        controller: phoneNumber,
+                      ),
+                      SizedBox(
+                        height: Dimensions.heightPadding20,
+                      ),
+                      const BigText(
+                        text: 'Địa chỉ',
+                        color: AppColors.pargColor,
+                      ),
+                      SizedBox(
+                        height: Dimensions.heightPadding10,
+                      ),
+                      TextFieldCustom(
+                        hint: 'Tỉnh/Thành phố ',
+                        icon: Icons.location_city,
+                        controller: provinceController,
+                      ),
+                      SizedBox(
+                        height: Dimensions.heightPadding10,
+                      ),
+                      TextFieldCustom(
+                        hint: 'Quận/Huyện',
+                        icon: Icons.location_city,
+                        controller: districtController,
+                      ),
+                      SizedBox(
+                        height: Dimensions.heightPadding10,
+                      ),
+                      TextFieldCustom(
+                        hint: 'Phường/Xã',
+                        icon: Icons.location_city,
+                        controller: wardController,
+                      ),
+                      SizedBox(
+                        height: Dimensions.heightPadding10,
+                      ),
+                      TextFieldCustom(
+                        hint: 'Tên đường, Toà nhà, Số nhà',
+                        icon: Icons.location_city,
+                        controller: streetController,
+                      ),
+                      SizedBox(
+                        height: Dimensions.heightPadding60,
+                      ),
+                      GestureDetector(
+                          onTap: () {
+                            Get.find<UserController>().updateAddress(
+                                phoneNumber.text,
+                                nameController.text,
+                                provinceController.text,
+                                districtController.text,
+                                wardController.text,
+                                streetController.text);
+                            Get.back();
+                          },
+                          child: const CustomButton(text: 'Hoàn Thành')),
+                    ],
+                  );
+                }),
               ),
             ),
           ),

@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:food_delivery_app/constant/colors.dart';
 import 'package:food_delivery_app/controller/user_controller.dart';
 import 'package:food_delivery_app/utils/dimensions.dart';
+import 'package:food_delivery_app/views/authentication/register_screen.dart';
 import 'package:food_delivery_app/views/profile/widget/profile_list_item.dart';
 import 'package:food_delivery_app/widgets/big_text.dart';
 import 'package:food_delivery_app/widgets/small_text.dart';
@@ -139,10 +140,15 @@ class _ProfileScreenState extends State<ProfileScreen> {
                             icon: Icons.person_add_alt_rounded,
                             text: 'Mời bạn bè',
                           ),
-                          const ProfileListItem(
-                            icon: Icons.logout_rounded,
-                            text: 'Đăng xuất',
-                            hasNavigation: false,
+                          GestureDetector(
+                            onTap: () {
+                              Get.to(() => const RegisterScreen());
+                            },
+                            child: const ProfileListItem(
+                              icon: Icons.logout_rounded,
+                              text: 'Đăng xuất',
+                              hasNavigation: false,
+                            ),
                           ),
                         ],
                       ),

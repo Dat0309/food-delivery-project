@@ -1,0 +1,295 @@
+import 'package:flutter/material.dart';
+import 'package:food_delivery_app/constant/colors.dart';
+import 'package:food_delivery_app/controller/auth_controller.dart';
+import 'package:food_delivery_app/controller/location_controller.dart';
+import 'package:food_delivery_app/models/User.dart';
+import 'package:food_delivery_app/utils/dimensions.dart';
+import 'package:food_delivery_app/views/authentication/login_screen.dart';
+import 'package:food_delivery_app/views/authentication/widget/avatar_upload.dart';
+import 'package:food_delivery_app/views/authentication/widget/button.dart';
+import 'package:food_delivery_app/views/authentication/widget/rich_text.dart';
+import 'package:food_delivery_app/views/authentication/widget/text_field.dart';
+import 'package:food_delivery_app/views/authentication/widget/thumb_upload.dart';
+import 'package:food_delivery_app/widgets/big_text.dart';
+import 'package:get/get.dart';
+import 'package:google_maps_flutter/google_maps_flutter.dart';
+
+class RegisterScreen extends StatefulWidget {
+  const RegisterScreen({Key? key}) : super(key: key);
+
+  @override
+  State<RegisterScreen> createState() => _RegisterScreenState();
+}
+
+class _RegisterScreenState extends State<RegisterScreen> {
+  CameraPosition _cameraPosition = const CameraPosition(
+      target: LatLng(11.939374494000166, 108.44515867239255), zoom: 17);
+  LatLng _initialPosition =
+      const LatLng(11.939374494000166, 108.44515867239255);
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    if (Get.find<LocationController>().addressList.isNotEmpty) {
+      _cameraPosition = CameraPosition(
+          target: LatLng(
+        double.parse(Get.find<LocationController>().getAddress['latitude']),
+        double.parse(Get.find<LocationController>().getAddress['longitude']),
+      ));
+
+      _initialPosition = LatLng(
+        double.parse(Get.find<LocationController>().getAddress['latitude']),
+        double.parse(Get.find<LocationController>().getAddress['longitude']),
+      );
+    }
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    var firstnameController = TextEditingController();
+    var lastnameController = TextEditingController();
+    var emailController = TextEditingController();
+    var phonenumberController = TextEditingController();
+    var usernameController = TextEditingController();
+    var passwordController = TextEditingController();
+    var provinceController = TextEditingController();
+    var districtController = TextEditingController();
+    var wardController = TextEditingController();
+    var streetController = TextEditingController();
+
+    void register(AuthController controller) {
+      User user = User(
+          firstName: firstnameController.text,
+          lastName: lastnameController.text,
+          email: emailController.text,
+          phoneNumber: phonenumberController.text,
+          username: usernameController.text,
+          password: passwordController.text,
+          province: provinceController.text,
+          district: districtController.text,
+          ward: wardController.text,
+          street: streetController.text,
+          avatar: '',
+          thumb: '',
+          latitude: '',
+          longitude: '',
+          role: 'guest');
+
+      controller.register(user).then((value) {
+        if (value['status']) {
+          print('success');
+        } else {
+          Get.snackbar(
+            'Đăng ký thất bại',
+            'Đã có lỗi sảy ra trong quá trình đăng ký',
+            backgroundColor: AppColors.primaryColor,
+            colorText: Colors.white,
+          );
+        }
+      });
+    }
+
+    return GetBuilder<AuthController>(builder: (authController) {
+      return Scaffold(
+        backgroundColor: AppColors.primaryColor,
+        body: SafeArea(
+          child: SizedBox(
+            width: Dimensions.screenWidth,
+            height: Dimensions.screenHeight,
+            child: Padding(
+              padding: EdgeInsets.symmetric(
+                horizontal: Dimensions.screenWidth * 0.06,
+              ),
+              child: SingleChildScrollView(
+                physics: const BouncingScrollPhysics(),
+                child: Column(
+                  children: [
+                    SizedBox(
+                      height: Dimensions.heightPadding15,
+                    ),
+                    RichTextCustom(
+                      fontSize: Dimensions.screenWidth / 15,
+                      headerText: 'Đăng',
+                      footerText: 'Ký',
+                    ),
+                    Image.asset(
+                      'assets/images/logo.png',
+                      height: Dimensions.heightPadding60 + 20,
+                      width: Dimensions.widthPadding60 + 20,
+                    ),
+                    SizedBox(
+                      height: Dimensions.heightPadding20,
+                    ),
+                    const BigText(
+                      text: 'Thông tin người dùng',
+                      color: Colors.white,
+                    ),
+                    SizedBox(
+                      height: Dimensions.heightPadding20,
+                    ),
+                    Stack(
+                      children: const [
+                        ThumUpload(),
+                        Positioned(
+                          top: 50,
+                          left: 0,
+                          right: 0,
+                          child: AvatarUpload(),
+                        ),
+                      ],
+                    ),
+                    SizedBox(
+                      height: Dimensions.heightPadding20,
+                    ),
+                    TextFieldCustom(
+                      hint: 'Họ',
+                      icon: Icons.text_fields,
+                      controller: lastnameController,
+                    ),
+                    SizedBox(
+                      height: Dimensions.heightPadding10,
+                    ),
+                    TextFieldCustom(
+                      hint: 'Tên',
+                      icon: Icons.text_fields,
+                      controller: firstnameController,
+                    ),
+                    SizedBox(
+                      height: Dimensions.heightPadding10,
+                    ),
+                    TextFieldCustom(
+                      hint: 'email',
+                      icon: Icons.email,
+                      controller: emailController,
+                    ),
+                    SizedBox(
+                      height: Dimensions.heightPadding10,
+                    ),
+                    TextFieldCustom(
+                      hint: 'Số điện thoại',
+                      icon: Icons.phone,
+                      controller: phonenumberController,
+                    ),
+                    SizedBox(
+                      height: Dimensions.heightPadding20,
+                    ),
+                    const BigText(
+                      text: 'Thông tin đăng nhập',
+                      color: Colors.white,
+                    ),
+                    SizedBox(
+                      height: Dimensions.heightPadding20,
+                    ),
+                    TextFieldCustom(
+                      hint: 'Tên đăng nhập',
+                      icon: Icons.text_fields,
+                      controller: usernameController,
+                    ),
+                    SizedBox(
+                      height: Dimensions.heightPadding10,
+                    ),
+                    TextFieldCustom(
+                      hint: 'Mật khẩu',
+                      icon: Icons.lock,
+                      controller: passwordController,
+                    ),
+                    SizedBox(
+                      height: Dimensions.heightPadding20,
+                    ),
+                    const BigText(
+                      text: 'Thông tin địa chỉ',
+                      color: Colors.white,
+                    ),
+                    SizedBox(
+                      height: Dimensions.heightPadding20,
+                    ),
+                    TextFieldCustom(
+                      hint: 'Tỉnh',
+                      icon: Icons.location_city,
+                      controller: provinceController,
+                    ),
+                    SizedBox(
+                      height: Dimensions.heightPadding10,
+                    ),
+                    TextFieldCustom(
+                      hint: 'Quận/Huyện/Thành Phố',
+                      icon: Icons.location_city,
+                      controller: districtController,
+                    ),
+                    SizedBox(
+                      height: Dimensions.heightPadding10,
+                    ),
+                    TextFieldCustom(
+                      hint: 'Xã/Phường/Thị trấn',
+                      icon: Icons.location_city,
+                      controller: wardController,
+                    ),
+                    SizedBox(
+                      height: Dimensions.heightPadding10,
+                    ),
+                    TextFieldCustom(
+                      hint: 'Đường/Số nhà',
+                      icon: Icons.location_city,
+                      controller: streetController,
+                    ),
+                    GetBuilder<LocationController>(
+                        builder: (locationController) {
+                      return Container(
+                        height: Dimensions.height140,
+                        width: Dimensions.screenWidth,
+                        margin: EdgeInsets.only(
+                          left: Dimensions.widthPadding5,
+                          right: Dimensions.widthPadding5,
+                          top: Dimensions.heightPadding8,
+                        ),
+                        decoration: BoxDecoration(
+                          borderRadius:
+                              BorderRadius.circular(Dimensions.radius8),
+                          border: Border.all(
+                            width: 2,
+                            color: Colors.white,
+                          ),
+                        ),
+                        child: Stack(
+                          children: [
+                            GoogleMap(
+                              initialCameraPosition: CameraPosition(
+                                  target: _initialPosition, zoom: 17),
+                              zoomControlsEnabled: false,
+                              compassEnabled: false,
+                              indoorViewEnabled: true,
+                              mapToolbarEnabled: false,
+                              onCameraIdle: () {},
+                              onCameraMove: ((pos) => _cameraPosition = pos),
+                              onMapCreated: (GoogleMapController controller) {
+                                locationController.setMapController(controller);
+                              },
+                            ),
+                          ],
+                        ),
+                      );
+                    }),
+                    SizedBox(
+                      height: Dimensions.heightPadding30,
+                    ),
+                    GestureDetector(
+                      onTap: () {
+                        register(authController);
+                      },
+                      child: const CustomButton(
+                        text: 'Đăng ký',
+                      ),
+                    ),
+                    SizedBox(
+                      height: Dimensions.heightPadding15 + 1,
+                    ),
+                  ],
+                ),
+              ),
+            ),
+          ),
+        ),
+      );
+    });
+  }
+}

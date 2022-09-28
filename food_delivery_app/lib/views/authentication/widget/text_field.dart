@@ -23,7 +23,7 @@ class TextFieldCustom extends StatelessWidget {
       height: Dimensions.screenHeight / 13,
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(Dimensions.radius15),
-        color: color != null ? color : AppColors.primaryBgColor,
+        color: color ?? AppColors.primaryBgColor,
       ),
       child: Padding(
         padding: EdgeInsets.symmetric(horizontal: Dimensions.heightPadding15),
