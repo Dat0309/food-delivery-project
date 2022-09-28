@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:food_delivery_app/constant/colors.dart';
+import 'package:food_delivery_app/controller/location_controller.dart';
 import 'package:food_delivery_app/controller/order_controller.dart';
 import 'package:food_delivery_app/controller/product_controller.dart';
 import 'package:food_delivery_app/controller/user_controller.dart';
@@ -32,11 +33,15 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
 
     void createOrder(OrderController orderController) {
       Map<String, dynamic> address = {
-        "province": Get.find<UserController>().getProvince,
-        "district": Get.find<UserController>().getDistrict,
-        "ward": Get.find<UserController>().getWard,
-        "street": Get.find<UserController>().getStreet
+        "province":
+            Get.find<LocationController>().placemark.name!.split(',')[4],
+        "district":
+            Get.find<LocationController>().placemark.name!.split(',')[3],
+        "ward": Get.find<LocationController>().placemark.name!.split(',')[2],
+        "street":
+            '${Get.find<LocationController>().placemark.name!.split(',')[0]}, ${Get.find<LocationController>().placemark.name!.split(',')[1]}'
       };
+
       orderController
           .createOrder(
         Get.find<ProductController>().getItems,
@@ -201,8 +206,9 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
                           SizedBox(
                             width: Dimensions.screenWidth * 0.4,
                             child: BigText(
-                              text: Get.find<UserController>().address,
-                              textOverflow: TextOverflow.visible,
+                              text: Get.find<LocationController>()
+                                  .addressDelivery,
+                              textOverflow: TextOverflow.ellipsis,
                             ),
                           ),
                           TextButton(

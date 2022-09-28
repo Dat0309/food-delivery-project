@@ -18,6 +18,12 @@ class ChangeAddressScreen extends StatefulWidget {
 }
 
 class _ChangeAddressScreenState extends State<ChangeAddressScreen> {
+  var nameController = TextEditingController();
+  var phoneNumber = TextEditingController();
+  var provinceController = TextEditingController();
+  var districtController = TextEditingController();
+  var wardController = TextEditingController();
+  var streetController = TextEditingController();
   CameraPosition _cameraPosition = const CameraPosition(
       target: LatLng(11.939374494000166, 108.44515867239255), zoom: 17);
   LatLng _initialPosition =
@@ -42,19 +48,8 @@ class _ChangeAddressScreenState extends State<ChangeAddressScreen> {
 
   @override
   Widget build(BuildContext context) {
-    var nameController = TextEditingController();
-    var phoneNumber = TextEditingController();
-    var provinceController = TextEditingController();
-    var districtController = TextEditingController();
-    var wardController = TextEditingController();
-    var streetController = TextEditingController();
-
     nameController.text = Get.find<UserController>().getName;
     phoneNumber.text = Get.find<UserController>().getPhone;
-    provinceController.text = Get.find<UserController>().getProvince;
-    districtController.text = Get.find<UserController>().getDistrict;
-    wardController.text = Get.find<UserController>().getWard;
-    streetController.text = Get.find<UserController>().getStreet;
 
     return Scaffold(
       body: Stack(
@@ -90,6 +85,17 @@ class _ChangeAddressScreenState extends State<ChangeAddressScreen> {
                 physics: const BouncingScrollPhysics(),
                 child: GetBuilder<LocationController>(
                     builder: (locationController) {
+                  if (locationController.placemark.name != null) {
+                    provinceController.text =
+                        locationController.placemark.name!.split(',')[4];
+                    districtController.text =
+                        locationController.placemark.name!.split(',')[3];
+                    wardController.text =
+                        locationController.placemark.name!.split(',')[2];
+                    streetController.text =
+                        '${locationController.placemark.name!.split(',')[0]}, ${locationController.placemark.name!.split(',')[1]}';
+                  }
+
                   return Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
@@ -117,7 +123,10 @@ class _ChangeAddressScreenState extends State<ChangeAddressScreen> {
                               compassEnabled: false,
                               indoorViewEnabled: true,
                               mapToolbarEnabled: false,
-                              onCameraIdle: () {},
+                              onCameraIdle: () {
+                                locationController.updatePos(
+                                    _cameraPosition, true);
+                              },
                               onCameraMove: ((pos) => _cameraPosition = pos),
                               onMapCreated: (GoogleMapController controller) {
                                 locationController.setMapController(controller);

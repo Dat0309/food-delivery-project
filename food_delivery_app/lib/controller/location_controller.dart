@@ -1,5 +1,7 @@
 // ignore_for_file: unused_field, prefer_final_fields
 
+import 'dart:convert';
+
 import 'package:food_delivery_app/models/AddressModel.dart';
 import 'package:food_delivery_app/service/repository/location_repo.dart';
 import 'package:geocoding/geocoding.dart';
@@ -18,7 +20,10 @@ class LocationController extends GetxController implements GetxService {
   late Position _pickPosition;
 
   Placemark _placemark = Placemark();
+  Placemark get placemark => _placemark;
+
   Placemark _pickPlacemark = Placemark();
+  Placemark get pickPlacemark => _pickPlacemark;
 
   List<AddressModel> _addressList = [];
   List<AddressModel> get addressList => _addressList;
@@ -28,6 +33,8 @@ class LocationController extends GetxController implements GetxService {
   int _addressTypeIndex = 0;
   late Map<String, dynamic> _getAddress;
   Map get getAddress => _getAddress;
+
+  String get addressDelivery => placemark.name ?? '';
 
   late GoogleMapController _mapController;
   void setMapController(GoogleMapController mapController) {
@@ -64,16 +71,30 @@ class LocationController extends GetxController implements GetxService {
         if (_changeAddress) {
           String _address = await getAddressfromGeocode(LatLng(
               cameraPosition.target.latitude, cameraPosition.target.longitude));
+          fromAddress
+              ? _placemark = Placemark(name: _address)
+              : _pickPlacemark = Placemark(name: _address);
+          update();
         }
       } catch (e) {
-        print(e);
+        print('error $e');
       }
     }
   }
 
   Future<String> getAddressfromGeocode(LatLng latLng) async {
     String _address = "Unknow location found";
-    Response response = await locationRepo.getAddressfromGeocode(latLng);
+    await locationRepo.getAddressfromGeocode(latLng).then((value) {
+      if (value.statusCode == 200) {
+        Map<String, dynamic> res = json.decode(value.body);
+        _address =
+            res['location']['results'][0]['formatted_address'].toString();
+        print('your pick location is $_address');
+        update();
+      } else {
+        print('Error getting the google api');
+      }
+    });
     return _address;
   }
 }
