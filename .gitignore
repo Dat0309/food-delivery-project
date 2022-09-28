@@ -19,3 +19,4 @@ doc/api/
 *.js_
 *.js.deps
 *.js.map
+food_delivery_app/android/app/src/main/AndroidManifest.xml
