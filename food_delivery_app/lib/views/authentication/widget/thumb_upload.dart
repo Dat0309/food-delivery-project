@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:food_delivery_app/constant/colors.dart';
 import 'package:food_delivery_app/utils/dimensions.dart';
-import 'package:food_delivery_app/widgets/small_text.dart';
 
 class ThumUpload extends StatefulWidget {
   const ThumUpload({Key? key}) : super(key: key);

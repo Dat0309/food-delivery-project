@@ -14,10 +14,12 @@ class LocationController extends GetxController implements GetxService {
   LocationController({required this.locationRepo});
 
   bool _loading = false;
+  bool get loading => _loading;
   bool _updateAddressData = true;
   bool _changeAddress = true;
   late Position _position;
   late Position _pickPosition;
+  Position get pickPosition => _pickPosition;
 
   Placemark _placemark = Placemark();
   Placemark get placemark => _placemark;
@@ -31,12 +33,13 @@ class LocationController extends GetxController implements GetxService {
   late List<AddressModel> _allAddressList = [];
   List<String> addressTypeList = ['Nhà riêng', 'Cơ quan', 'Khác'];
   int _addressTypeIndex = 0;
-  late Map<String, dynamic> _getAddress;
+  late Map<String, dynamic> _getAddress = {};
   Map get getAddress => _getAddress;
 
   String get addressDelivery => placemark.name ?? '';
 
   late GoogleMapController _mapController;
+  GoogleMapController get mapController => _mapController;
   void setMapController(GoogleMapController mapController) {
     _mapController = mapController;
   }
@@ -69,32 +72,67 @@ class LocationController extends GetxController implements GetxService {
         }
 
         if (_changeAddress) {
-          String _address = await getAddressfromGeocode(LatLng(
+          Map<String, dynamic> result = await getAddressfromGeocode(LatLng(
               cameraPosition.target.latitude, cameraPosition.target.longitude));
           fromAddress
-              ? _placemark = Placemark(name: _address)
-              : _pickPlacemark = Placemark(name: _address);
+              ? _placemark = Placemark(name: result['address'])
+              : _pickPlacemark = Placemark(name: result["address"]);
           update();
         }
       } catch (e) {
-        print('error $e');
+        rethrow;
       }
+
+      _loading = false;
+      update();
+    } else {
+      _updateAddressData = true;
     }
   }
 
-  Future<String> getAddressfromGeocode(LatLng latLng) async {
-    String _address = "Unknow location found";
+  Future<Map<String, dynamic>> getAddressfromGeocode(LatLng latLng) async {
+    Map<String, dynamic> result = {};
+    String address = "Unknow address";
+    double lat;
+    double long;
     await locationRepo.getAddressfromGeocode(latLng).then((value) {
       if (value.statusCode == 200) {
         Map<String, dynamic> res = json.decode(value.body);
-        _address =
-            res['location']['results'][0]['formatted_address'].toString();
-        print('your pick location is $_address');
+        address = res['location']['results'][0]['formatted_address'].toString();
+        lat = res['location']['results'][0]['geometry']['location']['lat'];
+        long = res['location']['results'][0]['geometry']['location']['lng'];
+
+        result = {"address": address, "lat": lat, "long": long};
+        _getAddress = result;
+        print('your pick location is $result');
         update();
       } else {
         print('Error getting the google api');
       }
     });
-    return _address;
+    return result;
+  }
+
+  // AddressModel getUserAddress() {
+  //   late AddressModel _addressModel;
+  //   _getAddress = jsonDecode(addressDelivery);
+  //   try {
+  //     _addressModel = AddressModel.fromJson(jsonDecode(addressDelivery));
+  //   } catch (e) {
+  //     rethrow;
+  //   }
+  //   return _addressModel;
+  // }
+
+  void setAddressTypesIndex(int index) {
+    _addressTypeIndex = index;
+    update();
+  }
+
+  void setAddAddressData() {
+    _position = _pickPosition;
+    _placemark = _pickPlacemark;
+    _updateAddressData = false;
+    update();
   }
 }

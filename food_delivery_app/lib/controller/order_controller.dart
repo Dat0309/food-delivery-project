@@ -88,7 +88,6 @@ class OrderController extends GetxController {
         .createOrder(uid, cart, paymentMethod, phoneNumber, taxPrice,
             shippingPrice, itemPrice, address, totalPrice)
         .then((value) {
-      print(value.body);
       if (value.statusCode == 201) {
         final Map<String, dynamic> resData = json.decode(value.body);
         Order order = Order.fromJson(resData);

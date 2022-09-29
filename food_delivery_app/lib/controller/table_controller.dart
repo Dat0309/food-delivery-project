@@ -37,7 +37,6 @@ class TableController extends GetxController {
 
   Future<void> updateStatus(String id) async {
     await tableRepo.updateStatusTable(id).then((value) {
-      print(value);
       if (value.statusCode == 200) {
         final Map<String, dynamic> resData = json.decode(value.body);
 

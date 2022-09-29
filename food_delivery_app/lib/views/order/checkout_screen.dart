@@ -206,8 +206,7 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
                           SizedBox(
                             width: Dimensions.screenWidth * 0.4,
                             child: BigText(
-                              text: Get.find<LocationController>()
-                                  .addressDelivery,
+                              text: Get.find<UserController>().address,
                               textOverflow: TextOverflow.ellipsis,
                             ),
                           ),

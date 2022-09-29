@@ -2,7 +2,6 @@ import 'dart:convert';
 
 import 'package:food_delivery_app/models/Booking.dart';
 import 'package:food_delivery_app/models/BookingItem.dart';
-import 'package:food_delivery_app/models/Cart.dart';
 import 'package:food_delivery_app/models/Product.dart';
 import 'package:food_delivery_app/service/preferences/user_preferences.dart';
 import 'package:food_delivery_app/service/repository/booking_repo.dart';

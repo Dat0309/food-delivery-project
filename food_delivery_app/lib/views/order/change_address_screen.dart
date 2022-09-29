@@ -5,6 +5,8 @@ import 'package:food_delivery_app/controller/user_controller.dart';
 import 'package:food_delivery_app/utils/dimensions.dart';
 import 'package:food_delivery_app/views/authentication/widget/button.dart';
 import 'package:food_delivery_app/views/authentication/widget/text_field.dart';
+import 'package:food_delivery_app/views/order/checkout_screen.dart';
+import 'package:food_delivery_app/views/order/pick_address_map.dart';
 import 'package:food_delivery_app/widgets/app_icon.dart';
 import 'package:food_delivery_app/widgets/big_text.dart';
 import 'package:get/get.dart';
@@ -32,16 +34,16 @@ class _ChangeAddressScreenState extends State<ChangeAddressScreen> {
   void initState() {
     // TODO: implement initState
     super.initState();
-    if (Get.find<LocationController>().addressList.isNotEmpty) {
+    if (Get.find<LocationController>().getAddress.isNotEmpty) {
       _cameraPosition = CameraPosition(
           target: LatLng(
-        double.parse(Get.find<LocationController>().getAddress['latitude']),
-        double.parse(Get.find<LocationController>().getAddress['longitude']),
+        Get.find<LocationController>().getAddress['lat'],
+        Get.find<LocationController>().getAddress['long'],
       ));
 
       _initialPosition = LatLng(
-        double.parse(Get.find<LocationController>().getAddress['latitude']),
-        double.parse(Get.find<LocationController>().getAddress['longitude']),
+        Get.find<LocationController>().getAddress['lat'],
+        Get.find<LocationController>().getAddress['long'],
       );
     }
   }
@@ -117,6 +119,14 @@ class _ChangeAddressScreenState extends State<ChangeAddressScreen> {
                         child: Stack(
                           children: [
                             GoogleMap(
+                              onTap: (latlng) {
+                                Get.to(() => PickAddressMap(
+                                      fromSignup: false,
+                                      fromAddress: true,
+                                      googleMapController:
+                                          locationController.mapController,
+                                    ));
+                              },
                               initialCameraPosition: CameraPosition(
                                   target: _initialPosition, zoom: 17),
                               zoomControlsEnabled: false,
@@ -206,7 +216,7 @@ class _ChangeAddressScreenState extends State<ChangeAddressScreen> {
                                 districtController.text,
                                 wardController.text,
                                 streetController.text);
-                            Get.back();
+                            Get.off(() => const CheckOutScreen());
                           },
                           child: const CustomButton(text: 'Hoàn Thành')),
                     ],
