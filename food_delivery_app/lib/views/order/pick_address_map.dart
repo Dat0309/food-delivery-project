@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:food_delivery_app/constant/colors.dart';
 import 'package:food_delivery_app/controller/location_controller.dart';
 import 'package:food_delivery_app/utils/dimensions.dart';
+import 'package:food_delivery_app/views/authentication/register_screen.dart';
 import 'package:food_delivery_app/views/authentication/widget/button.dart';
 import 'package:food_delivery_app/views/order/change_address_screen.dart';
 import 'package:food_delivery_app/widgets/app_icon.dart';
@@ -35,6 +36,12 @@ class _PickAddressMapState extends State<PickAddressMap> {
     // TODO: implement initState
     super.initState();
     if (Get.find<LocationController>().addressDelivery == null) {
+      _initialPosition = const LatLng(11.954310889146619, 108.44416023266137);
+      _cameraPosition = CameraPosition(target: _initialPosition, zoom: 17);
+    } else if (Get.find<LocationController>().addressSignUp == null) {
+      _initialPosition = const LatLng(11.954310889146619, 108.44416023266137);
+      _cameraPosition = CameraPosition(target: _initialPosition, zoom: 17);
+    } else if (Get.find<LocationController>().getAddress['lat'] == null) {
       _initialPosition = const LatLng(11.954310889146619, 108.44416023266137);
       _cameraPosition = CameraPosition(target: _initialPosition, zoom: 17);
     } else {
@@ -156,6 +163,23 @@ class _PickAddressMapState extends State<PickAddressMap> {
                               locationController.setAddAddressData();
                             }
                             Get.off(() => const ChangeAddressScreen());
+                          } else if (widget.fromSignup) {
+                            if (widget.googleMapController != null) {
+                              widget.googleMapController!.moveCamera(
+                                CameraUpdate.newCameraPosition(
+                                  CameraPosition(
+                                    target: LatLng(
+                                      locationController
+                                          .pickSignUpPosition.latitude,
+                                      locationController
+                                          .pickSignUpPosition.longitude,
+                                    ),
+                                  ),
+                                ),
+                              );
+                              locationController.setSignAddressData();
+                            }
+                            Get.off(() => const RegisterScreen());
                           }
                         }
                       },
