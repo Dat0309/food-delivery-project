@@ -20,3 +20,4 @@ doc/api/
 *.js.deps
 *.js.map
 food_delivery_app/android/app/src/main/AndroidManifest.xml
+food_delivery_app/lib/constant/app_url.dart

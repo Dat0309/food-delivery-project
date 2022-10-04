@@ -2,6 +2,8 @@
 
 import 'dart:convert';
 
+import 'package:flutter/material.dart';
+import 'package:food_delivery_app/constant/colors.dart';
 import 'package:food_delivery_app/models/AddressModel.dart';
 import 'package:food_delivery_app/models/ResponseModel.dart';
 import 'package:food_delivery_app/service/repository/location_repo.dart';
@@ -16,9 +18,12 @@ class LocationController extends GetxController implements GetxService {
 
   bool _loading = false;
   bool get loading => _loading;
+  bool _loadingSignup = false;
+  bool get loadingSignup => _loadingSignup;
   bool _updateAddressData = true;
   bool _updateSignUpData = true;
   bool _changeAddress = true;
+  bool loadingCurrentPos = false;
 
   /*
    service zone
@@ -40,9 +45,11 @@ class LocationController extends GetxController implements GetxService {
   late Position _pickPosition;
   Position get pickPosition => _pickPosition;
 
-  late Position _signUpPosition;
-  late Position _pickSignUpPosition;
-  Position get pickSignUpPosition => _pickSignUpPosition;
+  // late Position _signUpPosition;
+  // late Position _pickSignUpPosition;
+  // Position get pickSignUpPosition => _pickSignUpPosition;
+
+  late Position currentPos;
 
   Placemark _placemark = Placemark();
   Placemark get placemark => _placemark;
@@ -65,6 +72,7 @@ class LocationController extends GetxController implements GetxService {
 
   String get addressDelivery => placemark.name ?? '';
   String get addressSignUp => signPlacemark.name ?? '';
+  String currentAddress = '';
 
   late GoogleMapController _mapController;
   GoogleMapController get mapController => _mapController;
@@ -126,59 +134,59 @@ class LocationController extends GetxController implements GetxService {
     }
   }
 
-  void updateSignPos(CameraPosition cameraPosition, bool fromAddress) async {
-    if (_updateAddressData) {
-      _loading = true;
-      update();
-      try {
-        if (fromAddress) {
-          _signUpPosition = Position(
-              longitude: cameraPosition.target.longitude,
-              latitude: cameraPosition.target.latitude,
-              timestamp: DateTime.now(),
-              accuracy: 1,
-              altitude: 1,
-              heading: 1,
-              speed: 1,
-              speedAccuracy: 1);
-        } else {
-          _pickSignUpPosition = Position(
-              longitude: cameraPosition.target.longitude,
-              latitude: cameraPosition.target.latitude,
-              timestamp: DateTime.now(),
-              accuracy: 1,
-              altitude: 1,
-              heading: 1,
-              speed: 1,
-              speedAccuracy: 1);
-        }
+  // void updateSignPos(CameraPosition cameraPosition, bool fromAddress) async {
+  //   if (_updateSignUpData) {
+  //     _loadingSignup = true;
+  //     update();
+  //     try {
+  //       if (fromAddress) {
+  //         _signUpPosition = Position(
+  //             longitude: cameraPosition.target.longitude,
+  //             latitude: cameraPosition.target.latitude,
+  //             timestamp: DateTime.now(),
+  //             accuracy: 1,
+  //             altitude: 1,
+  //             heading: 1,
+  //             speed: 1,
+  //             speedAccuracy: 1);
+  //       } else {
+  //         _pickSignUpPosition = Position(
+  //             longitude: cameraPosition.target.longitude,
+  //             latitude: cameraPosition.target.latitude,
+  //             timestamp: DateTime.now(),
+  //             accuracy: 1,
+  //             altitude: 1,
+  //             heading: 1,
+  //             speed: 1,
+  //             speedAccuracy: 1);
+  //       }
 
-        ResponseModel _responseModel = await getZone(
-          cameraPosition.target.latitude.toString(),
-          cameraPosition.target.longitude.toString(),
-          false,
-        );
+  //       ResponseModel _responseModel = await getZone(
+  //         cameraPosition.target.latitude.toString(),
+  //         cameraPosition.target.longitude.toString(),
+  //         false,
+  //       );
 
-        _buttonDisabled = !_responseModel.isSuccess;
+  //       _buttonDisabled = !_responseModel.isSuccess;
 
-        if (_changeAddress) {
-          Map<String, dynamic> result = await getAddressfromGeocode(LatLng(
-              cameraPosition.target.latitude, cameraPosition.target.longitude));
-          fromAddress
-              ? _signPlacemark = Placemark(name: result['address'])
-              : _pickSignPlacemark = Placemark(name: result["address"]);
-          update();
-        }
-      } catch (e) {
-        rethrow;
-      }
+  //       if (_changeAddress) {
+  //         Map<String, dynamic> result = await getAddressfromGeocode(LatLng(
+  //             cameraPosition.target.latitude, cameraPosition.target.longitude));
+  //         fromAddress
+  //             ? _signPlacemark = Placemark(name: result['address'])
+  //             : _pickSignPlacemark = Placemark(name: result["address"]);
+  //         update();
+  //       }
+  //     } catch (e) {
+  //       rethrow;
+  //     }
 
-      _loading = false;
-      update();
-    } else {
-      _updateAddressData = true;
-    }
-  }
+  //     _loadingSignup = false;
+  //     update();
+  //   } else {
+  //     _updateSignUpData = true;
+  //   }
+  // }
 
   Future<Map<String, dynamic>> getAddressfromGeocode(LatLng latLng) async {
     Map<String, dynamic> result = {};
@@ -246,10 +254,89 @@ class LocationController extends GetxController implements GetxService {
     update();
   }
 
-  void setSignAddressData() {
-    _signUpPosition = _pickSignUpPosition;
-    _signPlacemark = _pickSignPlacemark;
-    _updateSignUpData = false;
+  // void setSignAddressData() {
+  //   _signUpPosition = _pickSignUpPosition;
+  //   _signPlacemark = _pickSignPlacemark;
+  //   _updateSignUpData = false;
+  //   update();
+  // }
+
+  Future<void> getLocationFromAddress(String address) async {
+    if (address.isNotEmpty) {
+      try {
+        List<Location> location = await locationFromAddress(address);
+        print(location[0].latitude);
+        update();
+      } catch (e) {
+        print(e);
+      }
+    }
+  }
+
+  Future<bool> handleLocationPermission() async {
+    bool serviceEnabled;
+    LocationPermission permission;
+
+    serviceEnabled = await Geolocator.isLocationServiceEnabled();
+    if (!serviceEnabled) {
+      Get.snackbar(
+        'Permission Denied',
+        'Cho phép quyền truy cập vị trí trên thiết bị để tiếp tục',
+        backgroundColor: AppColors.primaryColor,
+        colorText: Colors.white,
+      );
+      return false;
+    }
+
+    permission = await Geolocator.checkPermission();
+    if (permission == LocationPermission.denied) {
+      permission = await Geolocator.requestPermission();
+
+      if (permission == LocationPermission.denied) {
+        Get.snackbar(
+          'Permission Denied',
+          'Quyền truy cập vị trí bị từ chối',
+          backgroundColor: AppColors.primaryColor,
+          colorText: Colors.white,
+        );
+        return false;
+      }
+    }
+    if (permission == LocationPermission.deniedForever) {
+      Get.snackbar(
+        'Permission Denied',
+        'Chúng tôi không thể kích hoạt quyền truy cập vị trí trên thiết bị cua bạn',
+        backgroundColor: AppColors.primaryColor,
+        colorText: Colors.white,
+      );
+      return false;
+    }
+    return true;
+  }
+
+  Future<void> getCurrentPos() async {
+    final hasPermission = await handleLocationPermission();
+    if (!hasPermission) return;
+
+    await Geolocator.getCurrentPosition(desiredAccuracy: LocationAccuracy.high)
+        .then((Position pos) {
+      currentPos = pos;
+      getAddressFromLatlng(pos);
+      loadingCurrentPos = true;
+    }).catchError((e) {
+      debugPrint(e);
+    });
+    update();
+  }
+
+  Future<void> getAddressFromLatlng(Position pos) async {
+    await placemarkFromCoordinates(currentPos.latitude, currentPos.longitude)
+        .then((List<Placemark> placeMarks) {
+      _signPlacemark = placeMarks[0];
+      _placemark = placeMarks[0];
+    }).catchError((e) {
+      debugPrint(e);
+    });
     update();
   }
 }

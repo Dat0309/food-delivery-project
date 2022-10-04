@@ -1,18 +1,15 @@
-import 'dart:math';
-
 import 'package:flutter/material.dart';
 import 'package:food_delivery_app/constant/colors.dart';
 import 'package:food_delivery_app/controller/auth_controller.dart';
 import 'package:food_delivery_app/controller/location_controller.dart';
 import 'package:food_delivery_app/models/User.dart';
 import 'package:food_delivery_app/utils/dimensions.dart';
+import 'package:food_delivery_app/views/authentication/login_screen.dart';
 import 'package:food_delivery_app/views/authentication/widget/button.dart';
 import 'package:food_delivery_app/views/authentication/widget/rich_text.dart';
 import 'package:food_delivery_app/views/authentication/widget/text_field.dart';
-import 'package:food_delivery_app/views/order/pick_address_map.dart';
 import 'package:food_delivery_app/widgets/big_text.dart';
 import 'package:get/get.dart';
-import 'package:google_maps_flutter/google_maps_flutter.dart';
 
 class RegisterScreen extends StatefulWidget {
   const RegisterScreen({Key? key}) : super(key: key);
@@ -33,27 +30,27 @@ class _RegisterScreenState extends State<RegisterScreen> {
   var wardController = TextEditingController();
   var streetController = TextEditingController();
 
-  CameraPosition _cameraPosition = const CameraPosition(
-      target: LatLng(11.939374494000166, 108.44515867239255), zoom: 17);
-  LatLng _initialPosition =
-      const LatLng(11.939374494000166, 108.44515867239255);
-  @override
-  void initState() {
-    // TODO: implement initState
-    super.initState();
-    if (Get.find<LocationController>().addressList.isNotEmpty) {
-      _cameraPosition = CameraPosition(
-          target: LatLng(
-        double.parse(Get.find<LocationController>().getAddress['latitude']),
-        double.parse(Get.find<LocationController>().getAddress['longitude']),
-      ));
+  // CameraPosition _cameraPosition = const CameraPosition(
+  //     target: LatLng(11.939374494000166, 108.44515867239255), zoom: 17);
+  // LatLng _initialPosition =
+  //     const LatLng(11.939374494000166, 108.44515867239255);
+  // @override
+  // void initState() {
+  //   // TODO: implement initState
+  //   super.initState();
+  //   if (Get.find<LocationController>().addressList.isNotEmpty) {
+  //     _cameraPosition = CameraPosition(
+  //         target: LatLng(
+  //       double.parse(Get.find<LocationController>().getAddress['latitude']),
+  //       double.parse(Get.find<LocationController>().getAddress['longitude']),
+  //     ));
 
-      _initialPosition = LatLng(
-        double.parse(Get.find<LocationController>().getAddress['latitude']),
-        double.parse(Get.find<LocationController>().getAddress['longitude']),
-      );
-    }
-  }
+  //     _initialPosition = LatLng(
+  //       double.parse(Get.find<LocationController>().getAddress['latitude']),
+  //       double.parse(Get.find<LocationController>().getAddress['longitude']),
+  //     );
+  //   }
+  // }
 
   @override
   Widget build(BuildContext context) {
@@ -80,7 +77,8 @@ class _RegisterScreenState extends State<RegisterScreen> {
       'https://res.cloudinary.com/devdaz/image/upload/v1664528109/images_cndod8.jpg'
     ];
 
-    void register(AuthController controller) {
+    void register(
+        AuthController controller, LocationController locationController) {
       User user = User(
           firstName: firstnameController.text,
           lastName: lastnameController.text,
@@ -94,13 +92,14 @@ class _RegisterScreenState extends State<RegisterScreen> {
           street: streetController.text,
           avatar: (avatarsUrl..shuffle()).first,
           thumb: (thumbs..shuffle()).first,
-          latitude: Get.find<LocationController>().getAddress['latitude'],
-          longitude: Get.find<LocationController>().getAddress['longitude'],
+          latitude:
+              Get.find<LocationController>().currentPos.latitude.toString(),
+          longitude:
+              Get.find<LocationController>().currentPos.longitude.toString(),
           role: 'guest');
-
       controller.register(user).then((value) {
         if (value['status']) {
-          print('signup success');
+          Get.off(() => const LoginScreen());
         } else {
           Get.snackbar(
             'Đăng ký thất bại',
@@ -114,16 +113,18 @@ class _RegisterScreenState extends State<RegisterScreen> {
 
     return GetBuilder<AuthController>(builder: (authController) {
       return GetBuilder<LocationController>(builder: (locationController) {
-        if (locationController.signPlacemark.name != null) {
-          provinceController.text =
-              locationController.signPlacemark.name!.split(',')[4];
-          districtController.text =
-              locationController.signPlacemark.name!.split(',')[3];
-          wardController.text =
-              locationController.signPlacemark.name!.split(',')[2];
-          streetController.text =
-              '${locationController.signPlacemark.name!.split(',')[0]}, ${locationController.signPlacemark.name!.split(',')[1]}';
-        }
+        locationController.loadingCurrentPos
+            ? {
+                provinceController.text =
+                    locationController.signPlacemark.subAdministrativeArea!,
+                districtController.text =
+                    locationController.signPlacemark.locality!,
+                wardController.text =
+                    locationController.signPlacemark.thoroughfare!,
+                streetController.text =
+                    locationController.signPlacemark.street!,
+              }
+            : '';
         return Scaffold(
           backgroundColor: AppColors.primaryColor,
           body: SafeArea(
@@ -266,61 +267,61 @@ class _RegisterScreenState extends State<RegisterScreen> {
                         icon: Icons.location_city,
                         controller: streetController,
                       ),
-                      GetBuilder<LocationController>(
-                          builder: (locationController) {
-                        return Container(
-                          height: Dimensions.height140,
-                          width: Dimensions.screenWidth,
-                          margin: EdgeInsets.only(
-                            left: Dimensions.widthPadding5,
-                            right: Dimensions.widthPadding5,
-                            top: Dimensions.heightPadding8,
-                          ),
-                          decoration: BoxDecoration(
-                            borderRadius:
-                                BorderRadius.circular(Dimensions.radius8),
-                            border: Border.all(
-                              width: 2,
-                              color: Colors.white,
-                            ),
-                          ),
-                          child: Stack(
-                            children: [
-                              GoogleMap(
-                                onTap: (latlng) {
-                                  Get.to(() => PickAddressMap(
-                                        fromSignup: true,
-                                        fromAddress: false,
-                                        googleMapController:
-                                            locationController.mapController,
-                                      ));
-                                },
-                                initialCameraPosition: CameraPosition(
-                                    target: _initialPosition, zoom: 17),
-                                zoomControlsEnabled: false,
-                                compassEnabled: false,
-                                indoorViewEnabled: true,
-                                mapToolbarEnabled: false,
-                                onCameraIdle: () {
-                                  locationController.updateSignPos(
-                                      _cameraPosition, true);
-                                },
-                                onCameraMove: ((pos) => _cameraPosition = pos),
-                                onMapCreated: (GoogleMapController controller) {
-                                  locationController
-                                      .setMapController(controller);
-                                },
-                              ),
-                            ],
-                          ),
-                        );
-                      }),
+                      // GetBuilder<LocationController>(
+                      //     builder: (locationController) {
+                      //   return Container(
+                      //     height: Dimensions.height140,
+                      //     width: Dimensions.screenWidth,
+                      //     margin: EdgeInsets.only(
+                      //       left: Dimensions.widthPadding5,
+                      //       right: Dimensions.widthPadding5,
+                      //       top: Dimensions.heightPadding8,
+                      //     ),
+                      //     decoration: BoxDecoration(
+                      //       borderRadius:
+                      //           BorderRadius.circular(Dimensions.radius8),
+                      //       border: Border.all(
+                      //         width: 2,
+                      //         color: Colors.white,
+                      //       ),
+                      //     ),
+                      //     child: Stack(
+                      //       children: [
+                      //         GoogleMap(
+                      //           onTap: (latlng) {
+                      //             Get.to(() => PickAddressMap(
+                      //                   fromSignup: true,
+                      //                   fromAddress: false,
+                      //                   googleMapController:
+                      //                       locationController.mapController,
+                      //                 ));
+                      //           },
+                      //           initialCameraPosition: CameraPosition(
+                      //               target: _initialPosition, zoom: 17),
+                      //           zoomControlsEnabled: false,
+                      //           compassEnabled: false,
+                      //           indoorViewEnabled: true,
+                      //           mapToolbarEnabled: false,
+                      //           onCameraIdle: () {
+                      //             locationController.updateSignPos(
+                      //                 _cameraPosition, true);
+                      //           },
+                      //           onCameraMove: ((pos) => _cameraPosition = pos),
+                      //           onMapCreated: (GoogleMapController controller) {
+                      //             locationController
+                      //                 .setMapController(controller);
+                      //           },
+                      //         ),
+                      //       ],
+                      //     ),
+                      //   );
+                      // }),
                       SizedBox(
                         height: Dimensions.heightPadding30,
                       ),
                       GestureDetector(
                         onTap: () {
-                          register(authController);
+                          register(authController, locationController);
                         },
                         child: const CustomButton(
                           text: 'Đăng ký',

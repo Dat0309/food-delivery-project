@@ -165,19 +165,19 @@ class _PickAddressMapState extends State<PickAddressMap> {
                             Get.off(() => const ChangeAddressScreen());
                           } else if (widget.fromSignup) {
                             if (widget.googleMapController != null) {
-                              widget.googleMapController!.moveCamera(
-                                CameraUpdate.newCameraPosition(
-                                  CameraPosition(
-                                    target: LatLng(
-                                      locationController
-                                          .pickSignUpPosition.latitude,
-                                      locationController
-                                          .pickSignUpPosition.longitude,
-                                    ),
-                                  ),
-                                ),
-                              );
-                              locationController.setSignAddressData();
+                              // widget.googleMapController!.moveCamera(
+                              //   CameraUpdate.newCameraPosition(
+                              //     CameraPosition(
+                              //       target: LatLng(
+                              //         locationController
+                              //             .pickSignUpPosition.latitude,
+                              //         locationController
+                              //             .pickSignUpPosition.longitude,
+                              //       ),
+                              //     ),
+                              //   ),
+                              // );
+                              // locationController.setSignAddressData();
                             }
                             Get.off(() => const RegisterScreen());
                           }

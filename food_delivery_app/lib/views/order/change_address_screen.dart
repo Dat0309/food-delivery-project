@@ -26,27 +26,27 @@ class _ChangeAddressScreenState extends State<ChangeAddressScreen> {
   var districtController = TextEditingController();
   var wardController = TextEditingController();
   var streetController = TextEditingController();
-  CameraPosition _cameraPosition = const CameraPosition(
-      target: LatLng(11.939374494000166, 108.44515867239255), zoom: 17);
-  LatLng _initialPosition =
-      const LatLng(11.939374494000166, 108.44515867239255);
-  @override
-  void initState() {
-    // TODO: implement initState
-    super.initState();
-    if (Get.find<LocationController>().getAddress.isNotEmpty) {
-      _cameraPosition = CameraPosition(
-          target: LatLng(
-        Get.find<LocationController>().getAddress['lat'],
-        Get.find<LocationController>().getAddress['long'],
-      ));
+  // CameraPosition _cameraPosition = const CameraPosition(
+  //     target: LatLng(11.939374494000166, 108.44515867239255), zoom: 17);
+  // LatLng _initialPosition =
+  //     const LatLng(11.939374494000166, 108.44515867239255);
+  // @override
+  // void initState() {
+  //   // TODO: implement initState
+  //   super.initState();
+  //   if (Get.find<LocationController>().getAddress.isNotEmpty) {
+  //     _cameraPosition = CameraPosition(
+  //         target: LatLng(
+  //       Get.find<LocationController>().getAddress['lat'],
+  //       Get.find<LocationController>().getAddress['long'],
+  //     ));
 
-      _initialPosition = LatLng(
-        Get.find<LocationController>().getAddress['lat'],
-        Get.find<LocationController>().getAddress['long'],
-      );
-    }
-  }
+  //     _initialPosition = LatLng(
+  //       Get.find<LocationController>().getAddress['lat'],
+  //       Get.find<LocationController>().getAddress['long'],
+  //     );
+  //   }
+  // }
 
   @override
   Widget build(BuildContext context) {
@@ -87,64 +87,66 @@ class _ChangeAddressScreenState extends State<ChangeAddressScreen> {
                 physics: const BouncingScrollPhysics(),
                 child: GetBuilder<LocationController>(
                     builder: (locationController) {
-                  if (locationController.placemark.name != null) {
-                    provinceController.text =
-                        locationController.placemark.name!.split(',')[4];
-                    districtController.text =
-                        locationController.placemark.name!.split(',')[3];
-                    wardController.text =
-                        locationController.placemark.name!.split(',')[2];
-                    streetController.text =
-                        '${locationController.placemark.name!.split(',')[0]}, ${locationController.placemark.name!.split(',')[1]}';
-                  }
+                  locationController.loadingCurrentPos
+                      ? {
+                          provinceController.text = locationController
+                              .placemark.subAdministrativeArea!,
+                          districtController.text =
+                              locationController.placemark.locality!,
+                          wardController.text =
+                              locationController.placemark.thoroughfare!,
+                          streetController.text =
+                              locationController.placemark.street!,
+                        }
+                      : '';
 
                   return Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Container(
-                        height: Dimensions.height140,
-                        width: Dimensions.screenWidth,
-                        margin: EdgeInsets.only(
-                          left: Dimensions.widthPadding5,
-                          right: Dimensions.widthPadding5,
-                          top: Dimensions.heightPadding8,
-                        ),
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(5),
-                          border: Border.all(
-                            width: 2,
-                            color: AppColors.primaryColor!,
-                          ),
-                        ),
-                        child: Stack(
-                          children: [
-                            GoogleMap(
-                              onTap: (latlng) {
-                                Get.to(() => PickAddressMap(
-                                      fromSignup: false,
-                                      fromAddress: true,
-                                      googleMapController:
-                                          locationController.mapController,
-                                    ));
-                              },
-                              initialCameraPosition: CameraPosition(
-                                  target: _initialPosition, zoom: 17),
-                              zoomControlsEnabled: false,
-                              compassEnabled: false,
-                              indoorViewEnabled: true,
-                              mapToolbarEnabled: false,
-                              onCameraIdle: () {
-                                locationController.updatePos(
-                                    _cameraPosition, true);
-                              },
-                              onCameraMove: ((pos) => _cameraPosition = pos),
-                              onMapCreated: (GoogleMapController controller) {
-                                locationController.setMapController(controller);
-                              },
-                            ),
-                          ],
-                        ),
-                      ),
+                      // Container(
+                      //   height: Dimensions.height140,
+                      //   width: Dimensions.screenWidth,
+                      //   margin: EdgeInsets.only(
+                      //     left: Dimensions.widthPadding5,
+                      //     right: Dimensions.widthPadding5,
+                      //     top: Dimensions.heightPadding8,
+                      //   ),
+                      //   decoration: BoxDecoration(
+                      //     borderRadius: BorderRadius.circular(5),
+                      //     border: Border.all(
+                      //       width: 2,
+                      //       color: AppColors.primaryColor!,
+                      //     ),
+                      //   ),
+                      //   child: Stack(
+                      //     children: [
+                      //       GoogleMap(
+                      //         onTap: (latlng) {
+                      //           Get.to(() => PickAddressMap(
+                      //                 fromSignup: false,
+                      //                 fromAddress: true,
+                      //                 googleMapController:
+                      //                     locationController.mapController,
+                      //               ));
+                      //         },
+                      //         initialCameraPosition: CameraPosition(
+                      //             target: _initialPosition, zoom: 17),
+                      //         zoomControlsEnabled: false,
+                      //         compassEnabled: false,
+                      //         indoorViewEnabled: true,
+                      //         mapToolbarEnabled: false,
+                      //         onCameraIdle: () {
+                      //           locationController.updatePos(
+                      //               _cameraPosition, true);
+                      //         },
+                      //         onCameraMove: ((pos) => _cameraPosition = pos),
+                      //         onMapCreated: (GoogleMapController controller) {
+                      //           locationController.setMapController(controller);
+                      //         },
+                      //       ),
+                      //     ],
+                      //   ),
+                      // ),
                       const BigText(
                         text: 'Liên hệ',
                         color: AppColors.pargColor,

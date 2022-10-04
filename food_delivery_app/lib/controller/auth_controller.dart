@@ -46,7 +46,7 @@ class AuthController extends GetxController implements GetxService {
   Future<Map<String, dynamic>> register(User user) async {
     var result;
     await authRepo.register(user).then((value) {
-      if (value.statusCode == 200) {
+      if (value.statusCode == 201) {
         final Map<String, dynamic> resData = json.decode(value.body);
         User userRegister = User.fromJson(resData);
         isRegistated = true;
@@ -58,8 +58,9 @@ class AuthController extends GetxController implements GetxService {
         update();
       } else {
         result = {
+          'status_code': value.statusCode,
           'status': false,
-          'message': 'error',
+          'message': value.body,
         };
         update();
       }
