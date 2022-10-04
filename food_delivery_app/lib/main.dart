@@ -47,7 +47,6 @@ class MyApp extends StatelessWidget {
     Get.find<UserController>();
     Get.find<TableController>();
     Get.find<BookingController>().getUserBooking();
-    Get.find<LocationController>().getCurrentPos();
     return const GetMaterialApp(
       title: 'ĂN GÌ ĐẶT NGAY!!!',
       debugShowCheckedModeBanner: false,

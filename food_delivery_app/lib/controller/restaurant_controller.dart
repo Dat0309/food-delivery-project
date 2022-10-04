@@ -10,7 +10,9 @@ class RestaurantController extends GetxController {
   RestaurantController({required this.restaurantRepo});
 
   List<dynamic> restaurants = [];
+  late Restaurant restaurant;
   bool isLoaded = false;
+  bool isLoadedRestaurant = false;
 
   Future<void> getRestaurants() async {
     await restaurantRepo.getRestaurants().then((value) {
@@ -31,5 +33,22 @@ class RestaurantController extends GetxController {
       } else {}
       return value;
     });
+  }
+
+  Future<Restaurant> getSingleRestaurant(String id) async {
+    isLoadedRestaurant = false;
+    Restaurant result = Restaurant();
+    await restaurantRepo.getSingleRestaurant(id).then((value) {
+      if (value.statusCode == 200) {
+        final Map<String, dynamic> resData = json.decode(value.body);
+
+        if (resData.isNotEmpty) {
+          result = Restaurant.fromJson(resData);
+        }
+        isLoadedRestaurant = true;
+        update();
+      }
+    });
+    return result;
   }
 }

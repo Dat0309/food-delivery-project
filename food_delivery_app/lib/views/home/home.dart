@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:food_delivery_app/constant/colors.dart';
+import 'package:food_delivery_app/controller/booking_controller.dart';
 import 'package:food_delivery_app/utils/dimensions.dart';
+import 'package:food_delivery_app/views/booking/my_booking_screen.dart';
 import 'package:food_delivery_app/views/cart/cart_page.dart';
 import 'package:food_delivery_app/views/home/food_page_body.dart';
 import 'package:get/get.dart';
@@ -46,7 +48,7 @@ class _HomeState extends State<Home> {
                         Get.to(() => const CartPage());
                       },
                       child: Container(
-                        width: Dimensions.widthPadding60,
+                        width: Dimensions.widthPadding60 + 10,
                         height: Dimensions.heightPadding60,
                         decoration: BoxDecoration(
                           borderRadius:
@@ -63,18 +65,24 @@ class _HomeState extends State<Home> {
                   ),
                   SizedBox(width: Dimensions.widthPadding5),
                   Center(
-                    child: Container(
-                      width: Dimensions.widthPadding60,
-                      height: Dimensions.heightPadding60,
-                      decoration: BoxDecoration(
-                        borderRadius:
-                            BorderRadius.circular(Dimensions.radius15),
-                        color: AppColors.primaryColor,
-                      ),
-                      child: Icon(
-                        Icons.search,
-                        color: Colors.white,
-                        size: Dimensions.heightPadding30,
+                    child: GestureDetector(
+                      onTap: () {
+                        Get.find<BookingController>().getUserBooking();
+                        Get.to(() => const MyBookingScreen());
+                      },
+                      child: Container(
+                        width: Dimensions.widthPadding60 + 10,
+                        height: Dimensions.heightPadding60,
+                        decoration: BoxDecoration(
+                          borderRadius:
+                              BorderRadius.circular(Dimensions.radius15),
+                          color: AppColors.primaryColor,
+                        ),
+                        child: Icon(
+                          Icons.card_giftcard_outlined,
+                          color: Colors.white,
+                          size: Dimensions.heightPadding30,
+                        ),
                       ),
                     ),
                   ),

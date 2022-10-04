@@ -5,9 +5,9 @@ import 'package:food_delivery_app/models/Order.dart';
 class Booking {
   String? id;
   String? userId;
-  String? restaurantId;
   String? tableId;
-  List<OrderItem>? orderItems;
+  String? restaurantId;
+  List<dynamic>? bookingItem;
   String? paymentMethod;
   PaymentResult? paymentResult;
   num? totalPrice;
@@ -17,13 +17,13 @@ class Booking {
   String? updateAt;
   String? date;
   String? time;
+  bool? status;
 
   Booking({
     this.id,
     this.userId,
-    this.restaurantId,
     this.tableId,
-    this.orderItems,
+    this.bookingItem,
     this.paymentMethod,
     this.paymentResult,
     this.totalPrice,
@@ -33,15 +33,17 @@ class Booking {
     this.updateAt,
     this.date,
     this.time,
+    this.status,
+    this.restaurantId,
   });
 
   factory Booking.fromJson(Map<String, dynamic> res) {
     return Booking(
       id: res['id'],
       userId: res['user_id'],
-      restaurantId: res['restaurant_id'],
       tableId: res['table_id'],
-      orderItems: res['orderItems'],
+      restaurantId: res['restaurant_id'],
+      bookingItem: res['booking_items'],
       paymentMethod: res['payment_method'],
       paymentResult: res['payment_result'],
       totalPrice: res['total_price'],
@@ -51,6 +53,7 @@ class Booking {
       paidAt: res['paid_at'],
       createAt: res['createAt'],
       updateAt: res['updateAt'],
+      status: res['status'],
     );
   }
 }

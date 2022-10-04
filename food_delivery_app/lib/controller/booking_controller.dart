@@ -128,7 +128,7 @@ class BookingController extends GetxController {
           for (int i = 0; i < resData['booking'].length; i++) {
             if (resData['booking'][i] != null) {
               Map<String, dynamic> map = resData['booking'][i];
-              bookings.add(Booking.fromJson(map));
+              booking = Booking.fromJson(map);
             }
           }
           isLoadedBookings = true;
@@ -140,6 +140,7 @@ class BookingController extends GetxController {
 
   Future<void> getUserBooking() async {
     isLoadedUserBookings = false;
+    userBookings.clear();
     await bookingRepo.getUserBooking().then((value) {
       if (value.statusCode == 200) {
         final Map<String, dynamic> resData = json.decode(value.body);

@@ -212,6 +212,7 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
                           ),
                           TextButton(
                             onPressed: () {
+                              Get.find<LocationController>().getCurrentPos();
                               Get.to(() => const ChangeAddressScreen());
                             },
                             child: const BigText(
