@@ -70,6 +70,19 @@ class TableRepo extends GetxService {
     return res;
   }
 
+  Future<http.Response> getTableById(String id) async {
+    String token = await UserPreference().getToken();
+    http.Response res = await http.get(
+      Uri.parse(AppUrl.TABLES + '/$id'),
+      headers: {
+        'Authorization': 'Bearer $token',
+        'Accept': 'application/json',
+        'Content-Type': 'application/json',
+      },
+    );
+    return res;
+  }
+
   Future<http.Response> getTablesByRestaurantID(String id) async {
     String token = await UserPreference().getToken();
     http.Response res = await http.get(

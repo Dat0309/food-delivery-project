@@ -13,6 +13,7 @@ class TableController extends GetxController {
   TableModel? table;
 
   bool isLoadedTable = false;
+  bool isLoadedSingleTable = false;
 
   Future<void> getTablesByRestaurantId(String id) async {
     isLoadedTable = false;
@@ -33,6 +34,23 @@ class TableController extends GetxController {
         }
       }
     });
+  }
+
+  Future<TableModel> getTableById(String id) async {
+    isLoadedSingleTable = false;
+    TableModel result = TableModel();
+    await tableRepo.getTableById(id).then((value) {
+      if (value.statusCode == 200) {
+        final Map<String, dynamic> resData = json.decode(value.body);
+
+        if (resData.isNotEmpty) {
+          result = TableModel.fromJson(resData);
+        }
+        isLoadedSingleTable = true;
+        update();
+      }
+    });
+    return result;
   }
 
   Future<void> updateStatus(String id) async {
