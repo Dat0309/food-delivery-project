@@ -7,6 +7,7 @@ import 'package:food_delivery_app/views/food_detail/widget/rating_widget.dart';
 import 'package:food_delivery_app/widgets/app_icon.dart';
 import 'package:food_delivery_app/widgets/big_text.dart';
 import 'package:get/get.dart';
+import 'package:smooth_star_rating/smooth_star_rating.dart';
 
 class RatingScreen extends StatefulWidget {
   final Product product;
@@ -87,6 +88,111 @@ class _RatingScreenState extends State<RatingScreen> {
             ),
           ),
         ],
+      ),
+      bottomNavigationBar: Container(
+        margin: EdgeInsets.only(
+          bottom: Dimensions.heightPadding10,
+          left: Dimensions.heightPadding10,
+          right: Dimensions.heightPadding10,
+        ),
+        height: Dimensions.height140,
+        padding: EdgeInsets.only(
+          top: Dimensions.heightPadding30,
+          bottom: Dimensions.heightPadding30,
+          left: Dimensions.widthPadding20,
+          right: Dimensions.widthPadding20,
+        ),
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(Dimensions.radius20 + 2),
+          color: AppColors.buttoBackgroundColor,
+        ),
+        child: GestureDetector(
+          onTap: () {
+            showModalBottomSheet(
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(20),
+                ),
+                isScrollControlled: true,
+                isDismissible: false,
+                context: context,
+                builder: (context) {
+                  return Padding(
+                    padding: EdgeInsets.symmetric(
+                      horizontal: Dimensions.heightPadding20,
+                    ),
+                    child: SizedBox(
+                      height: Dimensions.screenHeight * 0.7,
+                      child: Column(
+                        children: [
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.end,
+                            children: [
+                              IconButton(
+                                onPressed: () {
+                                  Get.back();
+                                },
+                                icon: const Icon(Icons.clear),
+                              ),
+                            ],
+                          ),
+                          SizedBox(
+                            height: Dimensions.heightPadding20,
+                          ),
+                          SmoothStarRating(
+                            starCount: 5,
+                            rating: 0,
+                            size: Dimensions.heightPadding60,
+                            color: AppColors.yellowColor,
+                            borderColor: AppColors.yellowColor,
+                            onRated: (v) {
+                              print(v);
+                            },
+                          ),
+                          SizedBox(
+                            height: Dimensions.heightPadding20,
+                          ),
+                          TextFormField(
+                            minLines: 2,
+                            maxLines: 5,
+                            keyboardType: TextInputType.multiline,
+                            decoration: InputDecoration(
+                              hintText: 'Viết bình luận đánh giá',
+                              hintStyle: const TextStyle(
+                                color: AppColors.primaryColor,
+                              ),
+                              border: OutlineInputBorder(
+                                borderRadius: BorderRadius.all(
+                                    Radius.circular(Dimensions.radius15)),
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  );
+                });
+          },
+          child: Container(
+            width: Dimensions.widthPadding100 + 160,
+            padding: EdgeInsets.only(
+              top: Dimensions.heightPadding20,
+              bottom: Dimensions.heightPadding20,
+              left: Dimensions.widthPadding20,
+              right: Dimensions.widthPadding20,
+            ),
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(Dimensions.radius20),
+              color: AppColors.primaryColor,
+            ),
+            child: const Center(
+              child: BigText(
+                text: 'Đánh giá',
+                color: Colors.white,
+                textOverflow: TextOverflow.ellipsis,
+              ),
+            ),
+          ),
+        ),
       ),
     );
   }

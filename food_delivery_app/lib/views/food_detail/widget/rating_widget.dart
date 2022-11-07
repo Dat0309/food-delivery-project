@@ -64,10 +64,12 @@ class _RatingWidgetState extends State<RatingWidget> {
           Row(
             children: [
               SmoothStarRating(
+                isReadOnly: true,
                 starCount: 5,
                 rating: widget.rating,
                 size: Dimensions.heightPadding30,
                 color: AppColors.yellowColor,
+                borderColor: AppColors.yellowColor,
               ),
               SizedBox(
                 width: Dimensions.widthPadding10,
