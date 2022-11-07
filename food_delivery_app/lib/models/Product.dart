@@ -7,7 +7,7 @@ class Product {
   String? categoriesId;
   String? menuId;
   String? description;
-  List<Review>? reviews;
+  List<dynamic>? reviews;
   num? rating;
   int? numReview;
   int? price;

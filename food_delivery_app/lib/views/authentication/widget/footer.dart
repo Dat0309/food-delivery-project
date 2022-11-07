@@ -1,10 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:food_delivery_app/constant/colors.dart';
 import 'package:food_delivery_app/utils/dimensions.dart';
+import 'package:food_delivery_app/views/authentication/register_screen.dart';
+import 'package:get/get.dart';
 
 class BuildFooter extends StatelessWidget {
-  final Function function;
-  const BuildFooter({Key? key, required this.function}) : super(key: key);
+  const BuildFooter({
+    Key? key,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -12,7 +15,7 @@ class BuildFooter extends StatelessWidget {
       alignment: Alignment.center,
       child: GestureDetector(
         onTap: () {
-          function;
+          Get.to(() => const RegisterScreen());
         },
         child: Text.rich(
           TextSpan(

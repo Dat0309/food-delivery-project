@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:food_delivery_app/constant/colors.dart';
 import 'package:food_delivery_app/controller/auth_controller.dart';
 import 'package:food_delivery_app/utils/dimensions.dart';
+import 'package:food_delivery_app/views/authentication/register_screen.dart';
 import 'package:food_delivery_app/views/authentication/widget/button.dart';
 import 'package:food_delivery_app/views/authentication/widget/check_box.dart';
 import 'package:food_delivery_app/views/authentication/widget/continues_text.dart';
@@ -164,7 +165,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                 SizedBox(
                                   height: Dimensions.heightPadding15 + 1,
                                 ),
-                                BuildFooter(function: () {}),
+                                const BuildFooter(),
                               ],
                             ),
                           ),

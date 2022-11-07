@@ -6,6 +6,8 @@ import 'package:food_delivery_app/controller/product_controller.dart';
 import 'package:food_delivery_app/models/Product.dart';
 import 'package:food_delivery_app/utils/dimensions.dart';
 import 'package:food_delivery_app/views/cart/cart_page.dart';
+import 'package:food_delivery_app/views/food_detail/rating_screen.dart';
+import 'package:food_delivery_app/views/food_detail/widget/rating_overview.dart';
 import 'package:food_delivery_app/widgets/app_icon.dart';
 import 'package:food_delivery_app/widgets/big_text.dart';
 import 'package:food_delivery_app/widgets/expanable_text_widget.dart';
@@ -35,7 +37,7 @@ class _FoodDetailState extends State<FoodDetail> {
             right: 0,
             child: Container(
               width: double.maxFinite,
-              height: 370,
+              height: Dimensions.height350 + 20,
               decoration: BoxDecoration(
                 image: DecorationImage(
                   fit: BoxFit.cover,
@@ -189,8 +191,22 @@ class _FoodDetailState extends State<FoodDetail> {
                   Expanded(
                     child: SingleChildScrollView(
                       physics: const BouncingScrollPhysics(),
-                      child: ExpandableTextWidget(
-                        text: widget.product.description!,
+                      child: Column(
+                        children: [
+                          ExpandableTextWidget(
+                            text: widget.product.description!,
+                          ),
+                          GestureDetector(
+                            onTap: () {
+                              Get.to(() => RatingScreen(
+                                    product: widget.product,
+                                  ));
+                            },
+                            child: RatingOverview(
+                                rating: widget.product.rating!,
+                                numReviews: widget.product.numReview!),
+                          ),
+                        ],
                       ),
                     ),
                   ),

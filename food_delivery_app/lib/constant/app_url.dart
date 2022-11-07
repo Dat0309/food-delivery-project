@@ -27,4 +27,5 @@ class AppUrl {
   static const String PROFILE = BASEURL + "/api/users/profile";
 
   static const String GEOCODE_URI = '/api/config/geocode';
+  static const String GEOCODE_KEY = "AIzaSyBy86vTxXR6bVzfR2u_MnI8pmJNePRos6M";
 }
