@@ -28,4 +28,6 @@ class AppUrl {
 
   static const String GEOCODE_URI = '/api/config/geocode';
   static const String GEOCODE_KEY = "AIzaSyBy86vTxXR6bVzfR2u_MnI8pmJNePRos6M";
+
+  static const String PRODUCT_REVIEW = BASEURL + '/api/product/';
 }

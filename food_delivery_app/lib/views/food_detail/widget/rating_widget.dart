@@ -7,7 +7,7 @@ import 'package:smooth_star_rating/smooth_star_rating.dart';
 
 class RatingWidget extends StatefulWidget {
   final String image, name, date, comment;
-  final double rating;
+  final num rating;
   final Function onTap, onPressed;
   const RatingWidget({
     Key? key,
@@ -66,7 +66,7 @@ class _RatingWidgetState extends State<RatingWidget> {
               SmoothStarRating(
                 isReadOnly: true,
                 starCount: 5,
-                rating: widget.rating,
+                rating: widget.rating.toDouble(),
                 size: Dimensions.heightPadding30,
                 color: AppColors.yellowColor,
                 borderColor: AppColors.yellowColor,

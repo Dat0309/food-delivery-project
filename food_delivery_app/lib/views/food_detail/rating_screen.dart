@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:food_delivery_app/constant/colors.dart';
+import 'package:food_delivery_app/controller/product_controller.dart';
 import 'package:food_delivery_app/models/Product.dart';
 import 'package:food_delivery_app/utils/dimensions.dart';
+import 'package:food_delivery_app/views/food_detail/food_detail.dart';
 import 'package:food_delivery_app/views/food_detail/widget/rating_overview.dart';
 import 'package:food_delivery_app/views/food_detail/widget/rating_widget.dart';
+import 'package:food_delivery_app/views/home/home_page.dart';
 import 'package:food_delivery_app/widgets/app_icon.dart';
 import 'package:food_delivery_app/widgets/big_text.dart';
 import 'package:get/get.dart';
@@ -18,6 +21,8 @@ class RatingScreen extends StatefulWidget {
 }
 
 class _RatingScreenState extends State<RatingScreen> {
+  double rating = 0.0;
+  var commentController = TextEditingController();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -66,11 +71,11 @@ class _RatingScreenState extends State<RatingScreen> {
                     child: ListView.separated(
                       itemBuilder: (context, index) {
                         return RatingWidget(
-                            image: widget.product.reviews![index].image,
-                            name: widget.product.reviews![index].name,
+                            image: widget.product.reviews![index]['image'],
+                            name: widget.product.reviews![index]['name'],
                             date: '01/11/2022',
-                            comment: widget.product.reviews![index].comment,
-                            rating: widget.product.reviews![index].rating,
+                            comment: widget.product.reviews![index]['comment'],
+                            rating: widget.product.reviews![index]['rating'],
                             onPressed: () {},
                             onTap: () {});
                       },
@@ -89,111 +94,157 @@ class _RatingScreenState extends State<RatingScreen> {
           ),
         ],
       ),
-      bottomNavigationBar: Container(
-        margin: EdgeInsets.only(
-          bottom: Dimensions.heightPadding10,
-          left: Dimensions.heightPadding10,
-          right: Dimensions.heightPadding10,
-        ),
-        height: Dimensions.height140,
-        padding: EdgeInsets.only(
-          top: Dimensions.heightPadding30,
-          bottom: Dimensions.heightPadding30,
-          left: Dimensions.widthPadding20,
-          right: Dimensions.widthPadding20,
-        ),
-        decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(Dimensions.radius20 + 2),
-          color: AppColors.buttoBackgroundColor,
-        ),
-        child: GestureDetector(
-          onTap: () {
-            showModalBottomSheet(
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(20),
-                ),
-                isScrollControlled: true,
-                isDismissible: false,
-                context: context,
-                builder: (context) {
-                  return Padding(
-                    padding: EdgeInsets.symmetric(
-                      horizontal: Dimensions.heightPadding20,
-                    ),
-                    child: SizedBox(
-                      height: Dimensions.screenHeight * 0.7,
-                      child: Column(
-                        children: [
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.end,
-                            children: [
-                              IconButton(
-                                onPressed: () {
-                                  Get.back();
-                                },
-                                icon: const Icon(Icons.clear),
-                              ),
-                            ],
-                          ),
-                          SizedBox(
-                            height: Dimensions.heightPadding20,
-                          ),
-                          SmoothStarRating(
-                            starCount: 5,
-                            rating: 0,
-                            size: Dimensions.heightPadding60,
-                            color: AppColors.yellowColor,
-                            borderColor: AppColors.yellowColor,
-                            onRated: (v) {
-                              print(v);
-                            },
-                          ),
-                          SizedBox(
-                            height: Dimensions.heightPadding20,
-                          ),
-                          TextFormField(
-                            minLines: 2,
-                            maxLines: 5,
-                            keyboardType: TextInputType.multiline,
-                            decoration: InputDecoration(
-                              hintText: 'Viết bình luận đánh giá',
-                              hintStyle: const TextStyle(
-                                color: AppColors.primaryColor,
-                              ),
-                              border: OutlineInputBorder(
-                                borderRadius: BorderRadius.all(
-                                    Radius.circular(Dimensions.radius15)),
+      bottomNavigationBar:
+          GetBuilder<ProductController>(builder: (productController) {
+        return Container(
+          margin: EdgeInsets.only(
+            bottom: Dimensions.heightPadding10,
+            left: Dimensions.heightPadding10,
+            right: Dimensions.heightPadding10,
+          ),
+          height: Dimensions.height140,
+          padding: EdgeInsets.only(
+            top: Dimensions.heightPadding30,
+            bottom: Dimensions.heightPadding30,
+            left: Dimensions.widthPadding20,
+            right: Dimensions.widthPadding20,
+          ),
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(Dimensions.radius20 + 2),
+            color: AppColors.buttoBackgroundColor,
+          ),
+          child: GestureDetector(
+            onTap: () {
+              showModalBottomSheet(
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(20),
+                  ),
+                  isScrollControlled: true,
+                  isDismissible: false,
+                  context: context,
+                  builder: (context) {
+                    return Padding(
+                      padding: EdgeInsets.symmetric(
+                        horizontal: Dimensions.heightPadding20,
+                      ),
+                      child: SizedBox(
+                        height: Dimensions.screenHeight * 0.7,
+                        child: Column(
+                          children: [
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.end,
+                              children: [
+                                IconButton(
+                                  onPressed: () {
+                                    Get.back();
+                                  },
+                                  icon: const Icon(Icons.clear),
+                                ),
+                              ],
+                            ),
+                            SizedBox(
+                              height: Dimensions.heightPadding20,
+                            ),
+                            SmoothStarRating(
+                              starCount: 5,
+                              rating: 0,
+                              size: Dimensions.heightPadding60,
+                              color: AppColors.yellowColor,
+                              borderColor: AppColors.yellowColor,
+                              onRated: (v) {
+                                setState(() {
+                                  rating = v;
+                                });
+                              },
+                            ),
+                            SizedBox(
+                              height: Dimensions.heightPadding20,
+                            ),
+                            TextFormField(
+                              minLines: 4,
+                              controller: commentController,
+                              maxLines: 6,
+                              keyboardType: TextInputType.multiline,
+                              decoration: InputDecoration(
+                                hintText: 'Viết bình luận đánh giá',
+                                hintStyle: const TextStyle(
+                                  color: AppColors.primaryColor,
+                                ),
+                                border: OutlineInputBorder(
+                                  borderRadius: BorderRadius.all(
+                                      Radius.circular(Dimensions.radius15)),
+                                ),
                               ),
                             ),
-                          ),
-                        ],
+                            SizedBox(
+                              height: Dimensions.heightPadding20,
+                            ),
+                            GestureDetector(
+                              onTap: () {
+                                productController
+                                    .productReview(widget.product.id!, rating,
+                                        commentController.text)
+                                    .then((value) {
+                                  if (value['status']) {
+                                    Get.snackbar('Hệ thống', value['message']);
+                                    Get.off(() => const HomePage());
+                                  } else {
+                                    Get.snackbar('Hệ thống',
+                                        'Có lỗi trong quá trình xử lý, xin thử lại sau!');
+                                  }
+                                });
+                              },
+                              child: Container(
+                                width: Dimensions.widthPadding100 + 160,
+                                padding: EdgeInsets.only(
+                                  top: Dimensions.heightPadding20,
+                                  bottom: Dimensions.heightPadding20,
+                                  left: Dimensions.widthPadding20,
+                                  right: Dimensions.widthPadding20,
+                                ),
+                                decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(
+                                      Dimensions.radius20),
+                                  color: AppColors.primaryColor,
+                                ),
+                                child: const Center(
+                                  child: BigText(
+                                    text: 'Đánh giá',
+                                    color: Colors.white,
+                                    textOverflow: TextOverflow.ellipsis,
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
                       ),
-                    ),
-                  );
-                });
-          },
-          child: Container(
-            width: Dimensions.widthPadding100 + 160,
-            padding: EdgeInsets.only(
-              top: Dimensions.heightPadding20,
-              bottom: Dimensions.heightPadding20,
-              left: Dimensions.widthPadding20,
-              right: Dimensions.widthPadding20,
-            ),
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(Dimensions.radius20),
-              color: AppColors.primaryColor,
-            ),
-            child: const Center(
-              child: BigText(
-                text: 'Đánh giá',
-                color: Colors.white,
-                textOverflow: TextOverflow.ellipsis,
+                    );
+                  });
+            },
+            child: Container(
+              width: Dimensions.widthPadding100 + 160,
+              padding: EdgeInsets.only(
+                top: Dimensions.heightPadding20,
+                bottom: Dimensions.heightPadding20,
+                left: Dimensions.widthPadding20,
+                right: Dimensions.widthPadding20,
+              ),
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(Dimensions.radius20),
+                color: AppColors.primaryColor,
+              ),
+              child: const Center(
+                child: BigText(
+                  text: 'Đánh giá',
+                  color: Colors.white,
+                  textOverflow: TextOverflow.ellipsis,
+                ),
               ),
             ),
           ),
-        ),
-      ),
+        );
+      }),
     );
   }
 }

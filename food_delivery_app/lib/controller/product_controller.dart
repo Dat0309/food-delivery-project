@@ -22,6 +22,7 @@ class ProductController extends GetxController {
   bool isLoaded = false;
   bool isLoadedCategoryProducts = false;
   bool isLoadedRestaurantProduct = false;
+  bool isLoadedReview = false;
 
   CartController _cart = Get.find<CartController>();
   BookingController _booking = Get.find<BookingController>();
@@ -134,6 +135,38 @@ class ProductController extends GetxController {
       } else {}
       return value;
     });
+  }
+
+  Future<Map<String, dynamic>> productReview(
+      String id, double rating, String comment) async {
+    var result;
+    await productRepo.productReview(id, rating, comment).then((value) {
+      if (value.statusCode == 201) {
+        final Map<String, dynamic> resData = json.decode(value.body);
+        Product product = Product.fromJson(resData);
+        getPopularProducts();
+        isLoadedReview = true;
+        result = {
+          'status': true,
+          'message': 'Đánh giá thành công',
+          'product': product,
+        };
+        update();
+      } else if (value.statusCode == 400) {
+        result = {
+          'status': true,
+          'message': 'Bạn đã đánh giá sản phẩm này',
+        };
+        update();
+      } else {
+        result = {
+          'status': false,
+          'message': 'error',
+        };
+        update();
+      }
+    });
+    return result;
   }
 
   void setQuantity(bool isIncrement) {
