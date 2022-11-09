@@ -4,6 +4,7 @@ import 'package:food_delivery_app/constant/colors.dart';
 import 'package:food_delivery_app/controller/order_controller.dart';
 import 'package:food_delivery_app/controller/user_controller.dart';
 import 'package:food_delivery_app/utils/dimensions.dart';
+import 'package:food_delivery_app/views/favorite/favorite_screen.dart';
 import 'package:food_delivery_app/views/home/home.dart';
 import 'package:food_delivery_app/views/order/order_history.dart';
 import 'package:food_delivery_app/views/profile/profile.dart';
@@ -21,9 +22,7 @@ class _HomePageState extends State<HomePage> {
   var currentIndex = 0;
   List pages = [
     const Home(),
-    const Center(
-      child: Text("Page 2"),
-    ),
+    const FavoriteScreen(),
     const OrderHistory(),
     const ProfileScreen(),
   ];

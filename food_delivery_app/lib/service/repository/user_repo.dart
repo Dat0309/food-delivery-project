@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:food_delivery_app/constant/app_constant.dart';
 import 'package:food_delivery_app/constant/app_url.dart';
 import 'package:food_delivery_app/service/preferences/user_preferences.dart';
@@ -26,6 +28,50 @@ class UserRepo extends GetxService {
     String token = await UserPreference().getToken();
     http.Response res = await http.get(
       Uri.parse(AppUrl.USERS),
+      headers: {
+        'Authorization': 'Bearer $token',
+        'Accept': 'application/json',
+        'Content-Type': 'application/json',
+      },
+    );
+    return res;
+  }
+
+  Future<http.Response> favoriteProducts(
+      String name, String image, int price, String id) async {
+    final Map<String, dynamic> favData = {
+      'name': name,
+      'iamge': image,
+      'price': price,
+      'product': id,
+    };
+
+    String token = await UserPreference().getToken();
+    http.Response res = await http.post(
+      Uri.parse(AppUrl.FAVORITE_PRODUCTS),
+      body: json.encode(favData),
+      headers: {
+        'Authorization': 'Bearer $token',
+        'Accept': 'application/json',
+        'Content-Type': 'application/json',
+      },
+    );
+    return res;
+  }
+
+  Future<http.Response> favoriteRestaurants(
+      String name, String image, int thumb, String id) async {
+    final Map<String, dynamic> favData = {
+      'name': name,
+      'iamge': image,
+      'thumb': thumb,
+      'restaurant': id,
+    };
+
+    String token = await UserPreference().getToken();
+    http.Response res = await http.post(
+      Uri.parse(AppUrl.FAVORITE_RESTAURANT),
+      body: json.encode(favData),
       headers: {
         'Authorization': 'Bearer $token',
         'Accept': 'application/json',

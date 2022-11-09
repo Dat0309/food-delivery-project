@@ -13,24 +13,29 @@ class Profile {
   String? street;
   String? longitude;
   String? latitude;
+  List<dynamic>? favoriteProducts;
+  List<dynamic>? favoriteRestaurants;
   String? role;
 
-  Profile(
-      {this.firstName,
-      this.lastName,
-      this.email,
-      this.phoneNumber,
-      this.username,
-      this.password,
-      this.avatar,
-      this.thumb,
-      this.province,
-      this.district,
-      this.ward,
-      this.street,
-      this.longitude,
-      this.latitude,
-      this.role});
+  Profile({
+    this.firstName,
+    this.lastName,
+    this.email,
+    this.phoneNumber,
+    this.username,
+    this.password,
+    this.avatar,
+    this.thumb,
+    this.province,
+    this.district,
+    this.ward,
+    this.street,
+    this.longitude,
+    this.latitude,
+    this.favoriteProducts,
+    this.favoriteRestaurants,
+    this.role,
+  });
 
   factory Profile.fromJson(Map<String, dynamic> res) {
     return Profile(
@@ -48,6 +53,8 @@ class Profile {
       street: res['street'],
       longitude: res['longitude'],
       latitude: res['latitude'],
+      favoriteProducts: res['favoriteProducts'],
+      favoriteRestaurants: res['favoriteRestaurants'],
       role: res['role'],
     );
   }
@@ -68,6 +75,8 @@ class Profile {
       "street": street,
       "longitude": longitude,
       "latitude": latitude,
+      "favoriteProducts": favoriteProducts,
+      "favoriteRestaurants": favoriteRestaurants,
       "role": role,
     };
   }
