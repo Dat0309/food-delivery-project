@@ -41,7 +41,7 @@ class UserRepo extends GetxService {
       String name, String image, int price, String id) async {
     final Map<String, dynamic> favData = {
       'name': name,
-      'iamge': image,
+      'image': image,
       'price': price,
       'product': id,
     };
@@ -63,7 +63,7 @@ class UserRepo extends GetxService {
       String name, String image, int thumb, String id) async {
     final Map<String, dynamic> favData = {
       'name': name,
-      'iamge': image,
+      'image': image,
       'thumb': thumb,
       'restaurant': id,
     };

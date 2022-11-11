@@ -1,6 +1,5 @@
 import 'dart:convert';
 
-import 'package:food_delivery_app/models/FavoriteProductModel.dart';
 import 'package:food_delivery_app/models/ProfileModel.dart';
 import 'package:food_delivery_app/service/preferences/user_preferences.dart';
 import 'package:food_delivery_app/service/repository/user_repo.dart';
@@ -49,6 +48,7 @@ class UserController extends GetxController {
       String name, String image, int price, String id) async {
     var result;
     await userRepo.favoriteProducts(name, image, price, id).then((value) {
+      print(value.body);
       if (value.statusCode == 201) {
         final Map<String, dynamic> resData = json.decode(value.body);
         result = {
@@ -56,6 +56,7 @@ class UserController extends GetxController {
           'message': 'Successfull',
           'data': resData,
         };
+        getProfile();
         update();
       } else {
         result = {
@@ -79,6 +80,7 @@ class UserController extends GetxController {
           'message': 'Successfull',
           'data': resData,
         };
+        getProfile();
         update();
       } else {
         result = {

@@ -6,6 +6,7 @@ import 'package:food_delivery_app/controller/user_controller.dart';
 import 'package:food_delivery_app/utils/dimensions.dart';
 import 'package:food_delivery_app/views/cart/cart_page.dart';
 import 'package:food_delivery_app/views/favorite/widget/favorite_cart.dart';
+import 'package:food_delivery_app/views/favorite/widget/favorite_restaurant_card.dart';
 import 'package:food_delivery_app/widgets/app_icon.dart';
 import 'package:food_delivery_app/widgets/big_text.dart';
 import 'package:get/get.dart';
@@ -79,7 +80,46 @@ class _FavoriteScreenState extends State<FavoriteScreen> {
             bottom: 0,
             child: GetBuilder<UserController>(builder: (controller) {
               return controller.favProductList.isNotEmpty
-                  ? FavoriteCart(controller: controller)
+                  ? DefaultTabController(
+                      length: 2,
+                      initialIndex: 0,
+                      child: Column(
+                        children: [
+                          TabBar(
+                            isScrollable: true,
+                            indicatorColor: AppColors.primaryColor,
+                            tabs: [
+                              Tab(
+                                text: 'Món ăn yêu thích'.toUpperCase(),
+                              ),
+                              Tab(
+                                text: 'Nhà hàng yêu thích'.toUpperCase(),
+                              ),
+                            ],
+                            labelColor: Colors.black,
+                            unselectedLabelColor: Colors.black.withOpacity(0.3),
+                            labelStyle: const TextStyle(
+                              fontSize: 12,
+                              fontWeight: FontWeight.w600,
+                            ),
+                            labelPadding: EdgeInsets.symmetric(
+                              horizontal: Dimensions.heightPadding30,
+                            ),
+                          ),
+                          Divider(
+                            color: Colors.black.withOpacity(0.3),
+                          ),
+                          Expanded(
+                            child: TabBarView(
+                              children: [
+                                FavoriteCart(controller: controller),
+                                FavoriteRestaurantCard(controller: controller),
+                              ],
+                            ),
+                          ),
+                        ],
+                      ),
+                    )
                   : const NoDataPage(
                       text: 'Hiện không có sản phẩm nào tỏng mục Yêu thích');
             }),

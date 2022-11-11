@@ -3,6 +3,7 @@ import 'package:food_delivery_app/constant/colors.dart';
 import 'package:food_delivery_app/controller/booking_controller.dart';
 import 'package:food_delivery_app/controller/cart_controller.dart';
 import 'package:food_delivery_app/controller/product_controller.dart';
+import 'package:food_delivery_app/controller/user_controller.dart';
 import 'package:food_delivery_app/models/Product.dart';
 import 'package:food_delivery_app/utils/dimensions.dart';
 import 'package:food_delivery_app/views/cart/cart_page.dart';
@@ -28,6 +29,12 @@ class _FoodDetailState extends State<FoodDetail> {
   Widget build(BuildContext context) {
     Get.find<ProductController>().initProduct(widget.product,
         Get.find<CartController>(), Get.find<BookingController>());
+    bool checkFavorite = false;
+    Get.find<UserController>().favProductList.forEach((e) {
+      if (e['product'] == widget.product.id) {
+        checkFavorite = true;
+      }
+    });
     return Scaffold(
       backgroundColor: Colors.white,
       body: Stack(
@@ -120,13 +127,46 @@ class _FoodDetailState extends State<FoodDetail> {
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Padding(
-                        padding:
-                            EdgeInsets.only(bottom: Dimensions.heightPadding10),
-                        child: BigText(
-                          text: widget.product.name,
-                          size: Dimensions.font32,
-                        ),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Padding(
+                            padding: EdgeInsets.only(
+                                bottom: Dimensions.heightPadding10),
+                            child: BigText(
+                              text: widget.product.name,
+                              size: Dimensions.font32,
+                            ),
+                          ),
+                          checkFavorite
+                              ? const AppIcon(
+                                  icon: Icons.favorite_rounded,
+                                  iconColor: Colors.redAccent,
+                                )
+                              : GestureDetector(
+                                  onTap: () {
+                                    Get.find<UserController>()
+                                        .favoriteProduct(
+                                            widget.product.name!,
+                                            widget.product.image!,
+                                            widget.product.price!,
+                                            widget.product.id!)
+                                        .then((value) {
+                                      if (value['status']) {
+                                        Get.back();
+                                        Get.snackbar('Thành công',
+                                            'Đã thêm vào danh mục yêu thích');
+                                      } else {
+                                        Get.snackbar('Lỗi',
+                                            'Đã có lỗi trong quá trình xử lý.');
+                                      }
+                                    });
+                                  },
+                                  child: const AppIcon(
+                                    icon: Icons.favorite_rounded,
+                                  ),
+                                )
+                        ],
                       ),
                       Padding(
                         padding:

@@ -19,6 +19,7 @@ class _FavoriteCartState extends State<FavoriteCart> {
   Widget build(BuildContext context) {
     return SizedBox(
       child: ListView.builder(
+          shrinkWrap: true,
           physics: const BouncingScrollPhysics(),
           itemCount: widget.controller.favProductList.length,
           itemBuilder: ((context, index) {
@@ -88,18 +89,6 @@ class _FavoriteCartState extends State<FavoriteCart> {
                             SmallText(
                               text:
                                   "${widget.controller.favProductList[index]['price']} vnđ",
-                            ),
-                            Container(
-                              height: Dimensions.heightPadding30,
-                              width: Dimensions.widthPadding60,
-                              decoration: BoxDecoration(
-                                color: AppColors.primaryBgColor,
-                                borderRadius:
-                                    BorderRadius.circular(Dimensions.radius15),
-                              ),
-                              child: const Icon(
-                                Icons.add_card,
-                              ),
                             ),
                           ],
                         ),
