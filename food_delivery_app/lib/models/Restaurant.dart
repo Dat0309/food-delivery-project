@@ -11,7 +11,7 @@ class Restaurant {
   String? contact;
   String? image;
   String? thumb;
-  List<Review>? reviews;
+  List<dynamic>? reviews;
   num? rating;
   num? numReviews;
   String? logitude;
@@ -51,7 +51,7 @@ class Restaurant {
       contact: responseData['contact'],
       image: responseData['image'],
       thumb: responseData['thumb'],
-      reviews: responseData['reviews'],
+      reviews: responseData['revirews'],
       rating: responseData['rating'],
       numReviews: responseData['num_reviews'],
       logitude: responseData['longitude'],

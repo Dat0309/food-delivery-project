@@ -28,7 +28,10 @@ class _FavoriteCartState extends State<FavoriteCart> {
                   EdgeInsets.symmetric(vertical: Dimensions.widthPadding10),
               child: Dismissible(
                 key: UniqueKey(),
-                onDismissed: (direction) {},
+                onDismissed: (direction) {
+                  widget.controller.deletedFavoriteProduct(
+                      widget.controller.favProductList[index]['_id']);
+                },
                 background: Container(
                   padding: EdgeInsets.symmetric(
                       horizontal: Dimensions.heightPadding20),

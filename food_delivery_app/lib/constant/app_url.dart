@@ -30,8 +30,14 @@ class AppUrl {
   static const String GEOCODE_KEY = "AIzaSyBy86vTxXR6bVzfR2u_MnI8pmJNePRos6M";
 
   static const String PRODUCT_REVIEW = BASEURL + '/api/product/';
+  static const String RESTAURATN_REVIEW = BASEURL + '/api/restaurants/';
   static const String FAVORITE_PRODUCTS =
       BASEURL + '/api/users/favoriteProduct';
   static const String FAVORITE_RESTAURANT =
-      BASEURL + '/api/users/favoriteRestaurant';
+      BASEURL + '/api/users/favoriteRetaurant';
+
+  static const String DELETE_FAVORITE_PRODUCT =
+      BASEURL + '/api/users/delete-favoriteProduct';
+  static const String DELETE_FAVORITE_RESTAURANT =
+      BASEURL + '/api/users/delete-favoriteRestaurant';
 }

@@ -28,7 +28,10 @@ class _FavoriteRestaurantCardState extends State<FavoriteRestaurantCard> {
               ),
               child: Dismissible(
                 key: UniqueKey(),
-                onDismissed: (direction) {},
+                onDismissed: (direction) {
+                  widget.controller.deletedFavoriteRestaurant(
+                      widget.controller.favRestaurantList[index]['_id']);
+                },
                 background: Container(
                   padding: EdgeInsets.symmetric(
                       horizontal: Dimensions.heightPadding20),

@@ -7,6 +7,7 @@ import 'package:food_delivery_app/controller/user_controller.dart';
 import 'package:food_delivery_app/models/Product.dart';
 import 'package:food_delivery_app/utils/dimensions.dart';
 import 'package:food_delivery_app/views/cart/cart_page.dart';
+import 'package:food_delivery_app/views/favorite/favorite_screen.dart';
 import 'package:food_delivery_app/views/food_detail/rating_screen.dart';
 import 'package:food_delivery_app/views/food_detail/widget/rating_overview.dart';
 import 'package:food_delivery_app/widgets/app_icon.dart';
@@ -153,7 +154,7 @@ class _FoodDetailState extends State<FoodDetail> {
                                             widget.product.id!)
                                         .then((value) {
                                       if (value['status']) {
-                                        Get.back();
+                                        Get.off(() => const FavoriteScreen());
                                         Get.snackbar('Thành công',
                                             'Đã thêm vào danh mục yêu thích');
                                       } else {

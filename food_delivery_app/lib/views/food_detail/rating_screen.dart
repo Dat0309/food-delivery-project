@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:food_delivery_app/constant/colors.dart';
 import 'package:food_delivery_app/controller/product_controller.dart';
+import 'package:food_delivery_app/controller/restaurant_controller.dart';
 import 'package:food_delivery_app/models/Product.dart';
+import 'package:food_delivery_app/models/Restaurant.dart';
 import 'package:food_delivery_app/utils/dimensions.dart';
 import 'package:food_delivery_app/views/food_detail/food_detail.dart';
 import 'package:food_delivery_app/views/food_detail/widget/rating_overview.dart';
@@ -13,8 +15,10 @@ import 'package:get/get.dart';
 import 'package:smooth_star_rating/smooth_star_rating.dart';
 
 class RatingScreen extends StatefulWidget {
-  final Product product;
-  const RatingScreen({Key? key, required this.product}) : super(key: key);
+  final Product? product;
+  final Restaurant? restaurant;
+  const RatingScreen({Key? key, this.product, this.restaurant})
+      : super(key: key);
 
   @override
   State<RatingScreen> createState() => _RatingScreenState();
@@ -61,35 +65,80 @@ class _RatingScreenState extends State<RatingScreen> {
                 right: Dimensions.widthPadding20,
                 top: Dimensions.heightPadding20,
               ),
-              child: Column(
-                children: [
-                  RatingOverview(
-                    rating: widget.product.rating!,
-                    numReviews: widget.product.numReview!,
-                  ),
-                  Expanded(
-                    child: ListView.separated(
-                      itemBuilder: (context, index) {
-                        return RatingWidget(
-                            image: widget.product.reviews![index]['image'],
-                            name: widget.product.reviews![index]['name'],
-                            date: '01/11/2022',
-                            comment: widget.product.reviews![index]['comment'],
-                            rating: widget.product.reviews![index]['rating'],
-                            onPressed: () {},
-                            onTap: () {});
-                      },
-                      separatorBuilder: (context, index) {
-                        return const Divider(
-                          thickness: 2.0,
-                          color: AppColors.primaryColor,
-                        );
-                      },
-                      itemCount: widget.product.reviews!.length,
-                    ),
-                  ),
-                ],
-              ),
+              child: widget.product != null
+                  ? Column(
+                      children: [
+                        RatingOverview(
+                          rating: widget.product!.rating!,
+                          numReviews: widget.product!.numReview!,
+                        ),
+                        Expanded(
+                          child: ListView.separated(
+                            itemBuilder: (context, index) {
+                              return RatingWidget(
+                                  image: widget.product!.reviews![index]
+                                      ['image'],
+                                  name: widget.product!.reviews![index]['name'],
+                                  date: widget
+                                      .product!.reviews![index]['createdAt']
+                                      .toString()
+                                      .split('T')[0],
+                                  comment: widget.product!.reviews![index]
+                                      ['comment'],
+                                  rating: widget.product!.reviews![index]
+                                      ['rating'],
+                                  onPressed: () {},
+                                  onTap: () {});
+                            },
+                            separatorBuilder: (context, index) {
+                              return const Divider(
+                                thickness: 2.0,
+                                color: AppColors.primaryColor,
+                              );
+                            },
+                            itemCount: widget.product!.reviews!.length,
+                          ),
+                        ),
+                      ],
+                    )
+                  : widget.restaurant != null
+                      ? Column(
+                          children: [
+                            RatingOverview(
+                              rating: widget.restaurant!.rating!,
+                              numReviews: widget.restaurant!.numReviews!,
+                            ),
+                            Expanded(
+                              child: ListView.separated(
+                                itemBuilder: (context, index) {
+                                  return RatingWidget(
+                                      image: widget.restaurant!.reviews![index]
+                                          ['image'],
+                                      name: widget.restaurant!.reviews![index]
+                                          ['name'],
+                                      date: widget.restaurant!
+                                          .reviews![index]['createdAt']
+                                          .toString()
+                                          .split('T')[0],
+                                      comment: widget.restaurant!
+                                          .reviews![index]['comment'],
+                                      rating: widget.restaurant!.reviews![index]
+                                          ['rating'],
+                                      onPressed: () {},
+                                      onTap: () {});
+                                },
+                                separatorBuilder: (context, index) {
+                                  return const Divider(
+                                    thickness: 2.0,
+                                    color: AppColors.primaryColor,
+                                  );
+                                },
+                                itemCount: widget.restaurant!.reviews!.length,
+                              ),
+                            ),
+                          ],
+                        )
+                      : Container(),
             ),
           ),
         ],
@@ -181,18 +230,35 @@ class _RatingScreenState extends State<RatingScreen> {
                             ),
                             GestureDetector(
                               onTap: () {
-                                productController
-                                    .productReview(widget.product.id!, rating,
-                                        commentController.text)
-                                    .then((value) {
-                                  if (value['status']) {
-                                    Get.snackbar('Hệ thống', value['message']);
-                                    Get.off(() => const HomePage());
-                                  } else {
-                                    Get.snackbar('Hệ thống',
-                                        'Có lỗi trong quá trình xử lý, xin thử lại sau!');
-                                  }
-                                });
+                                if (widget.product != null) {
+                                  productController
+                                      .productReview(widget.product!.id!,
+                                          rating, commentController.text)
+                                      .then((value) {
+                                    if (value['status']) {
+                                      Get.snackbar(
+                                          'Hệ thống', value['message']);
+                                      Get.off(() => const HomePage());
+                                    } else {
+                                      Get.snackbar('Hệ thống',
+                                          'Có lỗi trong quá trình xử lý, xin thử lại sau!');
+                                    }
+                                  });
+                                } else if (widget.restaurant != null) {
+                                  Get.find<RestaurantController>()
+                                      .restaurantReview(widget.restaurant!.id!,
+                                          rating, commentController.text)
+                                      .then((value) {
+                                    if (value['status']) {
+                                      Get.snackbar(
+                                          'Hệ thống', value['message']);
+                                      Get.off(() => const HomePage());
+                                    } else {
+                                      Get.snackbar('Hệ thống',
+                                          'Có lỗi trong quá trình xử lý, xin thử lại sau!');
+                                    }
+                                  });
+                                }
                               },
                               child: Container(
                                 width: Dimensions.widthPadding100 + 160,

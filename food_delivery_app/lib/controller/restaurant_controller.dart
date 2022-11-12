@@ -51,4 +51,36 @@ class RestaurantController extends GetxController {
     });
     return result;
   }
+
+  Future<Map<String, dynamic>> restaurantReview(
+      String id, double rating, String comment) async {
+    var result;
+    await restaurantRepo.restaurantReview(id, rating, comment).then((value) {
+      print(value.body);
+      if (value.statusCode == 201) {
+        final Map<String, dynamic> resData = json.decode(value.body);
+        Restaurant restaurant = Restaurant.fromJson(resData);
+        getRestaurants();
+        result = {
+          'status': true,
+          'message': 'Đánh giá thành công',
+          'restaurant': restaurant,
+        };
+        update();
+      } else if (value.statusCode == 400) {
+        result = {
+          'status': true,
+          'message': 'Bạn đã đánh giá sản phẩm này',
+        };
+        update();
+      } else {
+        result = {
+          'status': false,
+          'message': 'Error',
+        };
+        update();
+      }
+    });
+    return result;
+  }
 }

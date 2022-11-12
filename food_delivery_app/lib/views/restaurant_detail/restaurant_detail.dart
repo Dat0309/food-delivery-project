@@ -1,8 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:food_delivery_app/constant/colors.dart';
 import 'package:food_delivery_app/controller/table_controller.dart';
+import 'package:food_delivery_app/controller/user_controller.dart';
 import 'package:food_delivery_app/models/Restaurant.dart';
 import 'package:food_delivery_app/utils/dimensions.dart';
+import 'package:food_delivery_app/views/favorite/favorite_screen.dart';
+import 'package:food_delivery_app/views/food_detail/rating_screen.dart';
+import 'package:food_delivery_app/views/food_detail/widget/rating_overview.dart';
 import 'package:food_delivery_app/views/tables/table_reservation_screen.dart';
 import 'package:food_delivery_app/widgets/app_icon.dart';
 import 'package:food_delivery_app/widgets/big_text.dart';
@@ -23,6 +27,12 @@ class _RestaurantDetailState extends State<RestaurantDetail> {
   @override
   Widget build(BuildContext context) {
     List<String>? thumbs = widget.restaurant.thumb?.split(',');
+    bool checkFavorite = false;
+    Get.find<UserController>().favRestaurantList.forEach((e) {
+      if (e['restaurant'] == widget.restaurant.id) {
+        checkFavorite = true;
+      }
+    });
     return Scaffold(
       backgroundColor: Colors.white,
       body: Stack(
@@ -58,10 +68,34 @@ class _RestaurantDetailState extends State<RestaurantDetail> {
                 ),
                 Row(
                   children: [
-                    GestureDetector(
-                      child:
-                          const AppIcon(icon: Icons.favorite_border_outlined),
-                    ),
+                    checkFavorite
+                        ? const AppIcon(
+                            icon: Icons.favorite_rounded,
+                            iconColor: Colors.redAccent,
+                          )
+                        : GestureDetector(
+                            onTap: () {
+                              Get.find<UserController>()
+                                  .favoriteRestaurant(
+                                      widget.restaurant.name!,
+                                      widget.restaurant.image!,
+                                      widget.restaurant.thumb!,
+                                      widget.restaurant.id!)
+                                  .then((value) {
+                                if (value['status']) {
+                                  Get.off(() => const FavoriteScreen());
+                                  Get.snackbar('Thành công',
+                                      'Đã thêm vào danh mục yêu thích');
+                                } else {
+                                  Get.snackbar('Lỗi',
+                                      'Đã có lỗi trong quá trình xử lý.');
+                                }
+                              });
+                            },
+                            child: const AppIcon(
+                              icon: Icons.favorite_rounded,
+                            ),
+                          ),
                     GestureDetector(
                       child: const AppIcon(icon: Icons.money_off_csred_rounded),
                     ),
@@ -183,6 +217,22 @@ class _RestaurantDetailState extends State<RestaurantDetail> {
                                   ),
                                 );
                               },
+                            ),
+                          ),
+                          SizedBox(
+                            height: Dimensions.heightPadding20,
+                          ),
+                          GestureDetector(
+                            onTap: () {
+                              Get.to(
+                                () => RatingScreen(
+                                  restaurant: widget.restaurant,
+                                ),
+                              );
+                            },
+                            child: RatingOverview(
+                              rating: widget.restaurant.rating!,
+                              numReviews: widget.restaurant.numReviews!,
                             ),
                           ),
                         ],

@@ -70,9 +70,56 @@ class UserController extends GetxController {
   }
 
   Future<Map<String, dynamic>> favoriteRestaurant(
-      String name, String image, int thumb, String id) async {
+      String name, String image, String thumb, String id) async {
     var result;
     await userRepo.favoriteRestaurants(name, image, thumb, id).then((value) {
+      print(value.body);
+      if (value.statusCode == 201) {
+        final Map<String, dynamic> resData = json.decode(value.body);
+        result = {
+          'status': true,
+          'message': 'Successfull',
+          'data': resData,
+        };
+        getProfile();
+        update();
+      } else {
+        result = {
+          'status': false,
+          'message': 'Error',
+        };
+        update();
+      }
+    });
+    return result;
+  }
+
+  Future<Map<String, dynamic>> deletedFavoriteProduct(String id) async {
+    var result;
+    await userRepo.deletedFavoriteProduct(id).then((value) {
+      if (value.statusCode == 201) {
+        final Map<String, dynamic> resData = json.decode(value.body);
+        result = {
+          'status': true,
+          'message': 'Successfull',
+          'data': resData,
+        };
+        getProfile();
+        update();
+      } else {
+        result = {
+          'status': false,
+          'message': 'Error',
+        };
+        update();
+      }
+    });
+    return result;
+  }
+
+  Future<Map<String, dynamic>> deletedFavoriteRestaurant(String id) async {
+    var result;
+    await userRepo.deletedFavoriteRestaurant(id).then((value) {
       if (value.statusCode == 201) {
         final Map<String, dynamic> resData = json.decode(value.body);
         result = {

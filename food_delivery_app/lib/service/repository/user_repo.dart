@@ -60,7 +60,7 @@ class UserRepo extends GetxService {
   }
 
   Future<http.Response> favoriteRestaurants(
-      String name, String image, int thumb, String id) async {
+      String name, String image, String thumb, String id) async {
     final Map<String, dynamic> favData = {
       'name': name,
       'image': image,
@@ -72,6 +72,42 @@ class UserRepo extends GetxService {
     http.Response res = await http.post(
       Uri.parse(AppUrl.FAVORITE_RESTAURANT),
       body: json.encode(favData),
+      headers: {
+        'Authorization': 'Bearer $token',
+        'Accept': 'application/json',
+        'Content-Type': 'application/json',
+      },
+    );
+    return res;
+  }
+
+  Future<http.Response> deletedFavoriteProduct(String id) async {
+    final Map<String, dynamic> data = {
+      'id': id,
+    };
+
+    String token = await UserPreference().getToken();
+    http.Response res = await http.post(
+      Uri.parse(AppUrl.DELETE_FAVORITE_PRODUCT),
+      body: json.encode(data),
+      headers: {
+        'Authorization': 'Bearer $token',
+        'Accept': 'application/json',
+        'Content-Type': 'application/json',
+      },
+    );
+    return res;
+  }
+
+  Future<http.Response> deletedFavoriteRestaurant(String id) async {
+    final Map<String, dynamic> data = {
+      'id': id,
+    };
+
+    String token = await UserPreference().getToken();
+    http.Response res = await http.post(
+      Uri.parse(AppUrl.DELETE_FAVORITE_RESTAURANT),
+      body: json.encode(data),
       headers: {
         'Authorization': 'Bearer $token',
         'Accept': 'application/json',
