@@ -48,7 +48,6 @@ class UserController extends GetxController {
       String name, String image, int price, String id) async {
     var result;
     await userRepo.favoriteProducts(name, image, price, id).then((value) {
-      print(value.body);
       if (value.statusCode == 201) {
         final Map<String, dynamic> resData = json.decode(value.body);
         result = {
@@ -73,7 +72,6 @@ class UserController extends GetxController {
       String name, String image, String thumb, String id) async {
     var result;
     await userRepo.favoriteRestaurants(name, image, thumb, id).then((value) {
-      print(value.body);
       if (value.statusCode == 201) {
         final Map<String, dynamic> resData = json.decode(value.body);
         result = {

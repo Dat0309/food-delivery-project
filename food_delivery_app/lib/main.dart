@@ -5,7 +5,6 @@ import 'package:food_delivery_app/controller/auth_controller.dart';
 import 'package:food_delivery_app/controller/booking_controller.dart';
 import 'package:food_delivery_app/controller/cart_controller.dart';
 import 'package:food_delivery_app/controller/categories_controller.dart';
-import 'package:food_delivery_app/controller/location_controller.dart';
 import 'package:food_delivery_app/controller/order_controller.dart';
 import 'package:food_delivery_app/controller/product_controller.dart';
 import 'package:food_delivery_app/controller/restaurant_controller.dart';

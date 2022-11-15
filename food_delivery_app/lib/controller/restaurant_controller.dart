@@ -56,7 +56,6 @@ class RestaurantController extends GetxController {
       String id, double rating, String comment) async {
     var result;
     await restaurantRepo.restaurantReview(id, rating, comment).then((value) {
-      print(value.body);
       if (value.statusCode == 201) {
         final Map<String, dynamic> resData = json.decode(value.body);
         Restaurant restaurant = Restaurant.fromJson(resData);
