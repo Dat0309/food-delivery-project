@@ -71,15 +71,16 @@ class BookingRepo extends GetxService {
   }
 
   Future<http.Response> createBooking(
-    String uid,
-    List<BookingItem> booking,
-    String paymentMethod,
-    String tableId,
-    int itemPrice,
-    double totalPrice,
-    String date,
-    String time,
-  ) async {
+      String uid,
+      List<BookingItem> booking,
+      String paymentMethod,
+      String tableId,
+      int itemPrice,
+      double totalPrice,
+      String date,
+      String time,
+      String restaurantId,
+      String tableCode) async {
     String token = await UserPreference().getToken();
     var bookingItem = jsonEncode(booking.map((e) => e.toJson()).toList());
     print(bookingItem);
@@ -93,6 +94,8 @@ class BookingRepo extends GetxService {
       "totalPrice": totalPrice,
       "date": date,
       "time": time,
+      "restaurant_id": restaurantId,
+      "table_code": tableCode,
     };
 
     http.Response response = await http.post(

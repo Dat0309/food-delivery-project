@@ -159,23 +159,25 @@ class BookingController extends GetxController {
   }
 
   Future<Map<String, dynamic>> createBooking(
-    List<BookingItem> booking,
-    String paymentMethod,
-    String tableId,
-    int itemPrice,
-    double totalPrice,
-    String date,
-    String time,
-  ) async {
+      List<BookingItem> booking,
+      String paymentMethod,
+      String tableId,
+      int itemPrice,
+      double totalPrice,
+      String date,
+      String time,
+      String restaurantId,
+      String tableCode) async {
     var result;
     String uid = await UserPreference().getUser().then((value) => value.id!);
     await bookingRepo
         .createBooking(uid, booking, paymentMethod, tableId, itemPrice,
-            totalPrice, date, time)
+            totalPrice, date, time, restaurantId, tableCode)
         .then((value) {
       if (value.statusCode == 201) {
         final Map<String, dynamic> resData = json.decode(value.body);
-        Booking booking = Booking.fromJson(resData);
+        Booking booking = Booking.fromJson(resData['createBooking']);
+        print(booking.id);
         isCreated = true;
 
         result = {

@@ -43,6 +43,8 @@ class _PaymentBookingScreenState extends State<PaymentBookingScreen> {
         Get.find<ProductController>().amountBooking,
         Get.find<TableController>().date,
         Get.find<TableController>().time,
+        widget.restaurant.id!,
+        Get.find<TableController>().getTableCode,
       )
           .then((value) {
         if (value['status']) {
