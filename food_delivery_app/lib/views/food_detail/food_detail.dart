@@ -201,7 +201,7 @@ class _FoodDetailState extends State<FoodDetail> {
                         children: [
                           IconAndText(
                             icon: Icons.circle_sharp,
-                            text: '${widget.product.price.toString()} vnđ',
+                            text: '${widget.product.price.toString()} Đ',
                             textColor: AppColors.signColor,
                             iconColor: AppColors.primaryIconColor,
                           ),

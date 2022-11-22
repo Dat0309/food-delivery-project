@@ -78,8 +78,7 @@ class _CartCardState extends State<CartCard> {
                       SizedBox(height: Dimensions.heightPadding10),
                       Text.rich(
                         TextSpan(
-                          text:
-                              "${widget.controller.getItems[index].price} vnđ",
+                          text: "${widget.controller.getItems[index].price} Đ",
                           style: const TextStyle(
                             fontWeight: FontWeight.w600,
                             color: AppColors.primaryColor,

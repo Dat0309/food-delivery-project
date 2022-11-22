@@ -33,13 +33,10 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
 
     void createOrder(OrderController orderController) {
       Map<String, dynamic> address = {
-        "province":
-            Get.find<LocationController>().placemark.name!.split(',')[4],
-        "district":
-            Get.find<LocationController>().placemark.name!.split(',')[3],
-        "ward": Get.find<LocationController>().placemark.name!.split(',')[2],
-        "street":
-            '${Get.find<LocationController>().placemark.name!.split(',')[0]}, ${Get.find<LocationController>().placemark.name!.split(',')[1]}'
+        "province": Get.find<UserController>().getProvince,
+        "district": Get.find<UserController>().getDistrict,
+        "ward": Get.find<UserController>().getWard,
+        "street": {Get.find<UserController>().getStreet},
       };
 
       orderController
@@ -354,24 +351,12 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
                                   color: AppColors.pargColor,
                                 ),
                                 BigText(
-                                  text: "${productController.cartTotalPrice}Đ",
+                                  text: "${productController.cartTotalPrice} Đ",
                                 ),
                               ],
                             ),
                             SizedBox(
                               height: Dimensions.heightPadding10,
-                            ),
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                const BigText(
-                                  text: 'Thuế(đã bao gồm VAT)',
-                                  color: AppColors.pargColor,
-                                ),
-                                BigText(
-                                  text: "${productController.taxPrice}Đ",
-                                ),
-                              ],
                             ),
                             SizedBox(
                               height: Dimensions.heightPadding10,

@@ -40,7 +40,7 @@ class _PaymentBookingScreenState extends State<PaymentBookingScreen> {
         'Thanh toán tại nhà hàng',
         Get.find<TableController>().getTableId,
         Get.find<ProductController>().bookingTotalPrice,
-        Get.find<ProductController>().amountBooking,
+        Get.find<ProductController>().bookingTotalPrice.toDouble(),
         Get.find<TableController>().date,
         Get.find<TableController>().time,
         widget.restaurant.id!,

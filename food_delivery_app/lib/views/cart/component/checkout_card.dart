@@ -82,7 +82,7 @@ class _CheckoutCardState extends State<CheckoutCard> {
                       text: "Tổng tiền:\n",
                       children: [
                         TextSpan(
-                          text: "${controller.cartTotalPrice} vnđ",
+                          text: "${controller.cartTotalPrice} Đ",
                           style: const TextStyle(
                             fontSize: 16,
                             color: Colors.black,

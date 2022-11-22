@@ -47,6 +47,10 @@ class AuthRepo {
     return response;
   }
 
+  Future logout() async {
+    return sharedPreferences.clear();
+  }
+
   Future<http.Response> register(User user) async {
     final Map<String, dynamic> registerData = {
       "id": user.id,

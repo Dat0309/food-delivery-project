@@ -204,7 +204,7 @@ class _SliderState extends State<SliderCustom> {
                         children: [
                           IconAndText(
                             icon: Icons.circle_sharp,
-                            text: '${product.price.toString()} VNĐ',
+                            text: '${product.price.toString()} Đ',
                             textColor: AppColors.signColor,
                             iconColor: AppColors.primaryIconColor,
                           ),

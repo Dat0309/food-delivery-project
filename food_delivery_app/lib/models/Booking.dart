@@ -9,7 +9,7 @@ class Booking {
   String? restaurantId;
   List<dynamic>? bookingItem;
   String? paymentMethod;
-  PaymentResult? paymentResult;
+  Map<String, dynamic>? paymentResult;
   num? totalPrice;
   bool? isPaid;
   String? paidAt;

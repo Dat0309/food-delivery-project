@@ -17,6 +17,10 @@ class AuthController extends GetxController implements GetxService {
   bool userLogged = false;
   bool isRegistated = false;
 
+  Future logout() async {
+    await authRepo.logout();
+  }
+
   Future<Map<String, dynamic>> login(String username, String password) async {
     var result;
     await authRepo.login(username, password).then((value) {

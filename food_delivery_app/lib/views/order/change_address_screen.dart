@@ -6,11 +6,9 @@ import 'package:food_delivery_app/utils/dimensions.dart';
 import 'package:food_delivery_app/views/authentication/widget/button.dart';
 import 'package:food_delivery_app/views/authentication/widget/text_field.dart';
 import 'package:food_delivery_app/views/order/checkout_screen.dart';
-import 'package:food_delivery_app/views/order/pick_address_map.dart';
 import 'package:food_delivery_app/widgets/app_icon.dart';
 import 'package:food_delivery_app/widgets/big_text.dart';
 import 'package:get/get.dart';
-import 'package:google_maps_flutter/google_maps_flutter.dart';
 
 class ChangeAddressScreen extends StatefulWidget {
   const ChangeAddressScreen({Key? key}) : super(key: key);
@@ -87,19 +85,6 @@ class _ChangeAddressScreenState extends State<ChangeAddressScreen> {
                 physics: const BouncingScrollPhysics(),
                 child: GetBuilder<LocationController>(
                     builder: (locationController) {
-                  locationController.loadingCurrentPos
-                      ? {
-                          provinceController.text = locationController
-                              .placemark.subAdministrativeArea!,
-                          districtController.text =
-                              locationController.placemark.locality!,
-                          wardController.text =
-                              locationController.placemark.thoroughfare!,
-                          streetController.text =
-                              locationController.placemark.street!,
-                        }
-                      : '';
-
                   return Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
