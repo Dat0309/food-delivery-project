@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:food_delivery_app/constant/colors.dart';
 import 'package:food_delivery_app/utils/dimensions.dart';
+import 'package:food_delivery_app/views/order/order_detail.dart';
 import 'package:food_delivery_app/widgets/big_text.dart';
 import 'package:food_delivery_app/widgets/small_text.dart';
+import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 
 class CartHistory extends StatefulWidget {
@@ -92,9 +94,14 @@ class _CartHistoryState extends State<CartHistory> {
                           color: AppColors.primaryBgColor!,
                         ),
                       ),
-                      child: const SmallText(
-                        text: "Mua lại",
-                        color: AppColors.primaryBgColor,
+                      child: GestureDetector(
+                        onTap: () {
+                          Get.to(() => OrderDetailScreen(order: widget.item));
+                        },
+                        child: const SmallText(
+                          text: "Chi tiết",
+                          color: AppColors.primaryBgColor,
+                        ),
                       ),
                     ),
                   ],

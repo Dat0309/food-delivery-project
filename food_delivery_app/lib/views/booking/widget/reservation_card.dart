@@ -31,9 +31,7 @@ class _ReservationCardState extends State<ReservationCard> {
     Get.find<RestaurantController>()
         .getSingleRestaurant(widget.booking.restaurantId!)
         .then((value) {
-      setState(() {
-        restaurant = value;
-      });
+      restaurant = value;
     });
   }
 

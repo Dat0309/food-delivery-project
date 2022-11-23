@@ -8,6 +8,7 @@ import 'package:food_delivery_app/utils/dimensions.dart';
 import 'package:food_delivery_app/views/authentication/widget/button.dart';
 import 'package:food_delivery_app/views/home/home_page.dart';
 import 'package:food_delivery_app/views/order/change_address_screen.dart';
+import 'package:food_delivery_app/views/order/order_detail.dart';
 import 'package:food_delivery_app/views/order/widget/add_cart.dart';
 import 'package:food_delivery_app/views/order/widget/payment_cart.dart';
 import 'package:food_delivery_app/widgets/app_icon.dart';
@@ -36,7 +37,7 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
         "province": Get.find<UserController>().getProvince,
         "district": Get.find<UserController>().getDistrict,
         "ward": Get.find<UserController>().getWard,
-        "street": {Get.find<UserController>().getStreet},
+        "street": Get.find<UserController>().getStreet,
       };
 
       orderController
@@ -81,7 +82,7 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
                         ),
                         Image.asset(
                           'assets/images/success.png',
-                          scale: 3,
+                          scale: 4,
                         ),
                         SizedBox(
                           height: Dimensions.heightPadding20,
@@ -105,7 +106,10 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
                           height: 60,
                           width: double.infinity,
                           child: GestureDetector(
-                            onTap: () {},
+                            onTap: () {
+                              Get.to(() =>
+                                  OrderDetailScreen(order: value['order']));
+                            },
                             child: const CustomButton(
                               text: 'Kiểm Tra Đơn Hàng',
                             ),

@@ -57,8 +57,8 @@ class _PopularListState extends State<PopularList> {
                     margin: EdgeInsets.only(
                       left: Dimensions.widthPadding25,
                     ),
-                    width: 300,
-                    height: 20,
+                    width: Dimensions.width150 * 2,
+                    height: Dimensions.heightPadding30,
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(Dimensions.radius8),
                       color: AppColors.signColor,
@@ -73,7 +73,7 @@ class _PopularListState extends State<PopularList> {
         GetBuilder<ProductController>(builder: (products) {
           return products.isLoaded
               ? SizedBox(
-                  height: Dimensions.height1000 + 500,
+                  height: Dimensions.height1000 + 520,
                   child: ListView.builder(
                     physics: const NeverScrollableScrollPhysics(),
                     shrinkWrap: true,

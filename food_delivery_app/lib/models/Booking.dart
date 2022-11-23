@@ -4,6 +4,8 @@ import 'package:food_delivery_app/models/Order.dart';
 
 class Booking {
   String? id;
+  String? tableCode;
+  String? userName;
   String? userId;
   String? tableId;
   String? restaurantId;
@@ -21,6 +23,8 @@ class Booking {
 
   Booking({
     this.id,
+    this.tableCode,
+    this.userName,
     this.userId,
     this.tableId,
     this.bookingItem,
@@ -40,6 +44,8 @@ class Booking {
   factory Booking.fromJson(Map<String, dynamic> res) {
     return Booking(
       id: res['id'],
+      tableCode: res['table_code'],
+      userName: res['user_name'],
       userId: res['user_id'],
       tableId: res['table_id'],
       restaurantId: res['restaurant_id'],

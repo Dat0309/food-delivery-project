@@ -97,6 +97,7 @@ class BookingRepo extends GetxService {
       "restaurant_id": restaurantId,
       "table_code": tableCode,
     };
+    print(bookings);
 
     http.Response response = await http.post(
       Uri.parse(AppUrl.BOOKINGS),

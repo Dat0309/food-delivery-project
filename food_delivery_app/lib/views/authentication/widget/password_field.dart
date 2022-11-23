@@ -44,6 +44,7 @@ class _PasswordFieldState extends State<PasswordField> {
             ),
             Expanded(
               child: TextField(
+                obscureText: true,
                 controller: widget.controller,
                 maxLines: 1,
                 cursorColor: Colors.white70,

@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:food_delivery_app/utils/dimensions.dart';
 import 'package:food_delivery_app/views/home/popular_list.dart';
 import 'package:food_delivery_app/views/home/popular_restaurant.dart';
+import 'package:food_delivery_app/views/home/widget/advertisement_widget.dart';
+import 'package:food_delivery_app/views/home/widget/recommend_widget.dart';
 import 'package:food_delivery_app/views/home/widget/slider.dart';
 import 'package:food_delivery_app/views/home/widget/widget_categories.dart';
 
@@ -57,6 +59,14 @@ class _FoodPageBodyState extends State<FoodPageBody> {
           height: Dimensions.heightPadding30,
         ),
         const PopularList(),
+        SizedBox(
+          height: Dimensions.heightPadding30,
+        ),
+        const AdvertisementWidget(),
+        SizedBox(
+          height: Dimensions.heightPadding30,
+        ),
+        const RecommendWidget(),
       ],
     );
   }

@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:food_delivery_app/constant/app_url.dart';
 import 'package:food_delivery_app/controller/cart_controller.dart';
+import 'package:food_delivery_app/controller/product_controller.dart';
 import 'package:food_delivery_app/models/Cart.dart';
 import 'package:food_delivery_app/service/preferences/user_preferences.dart';
 import 'package:get/get.dart';
@@ -75,19 +76,19 @@ class OrderRepo extends GetxService {
   ) async {
     String token = await UserPreference().getToken();
     var orderItems = jsonEncode(cart.map((e) => e.toJson()).toList());
-    print(orderItems);
 
     final Map<String, dynamic> orders = {
-      "orderItems": Get.find<CartController>().getItems,
-      "shipping_address": {"address": address},
-      "payment_method": paymentMethod,
-      "user": uid,
-      "items_price": itemPrice,
-      "tax_price": taxPrice,
-      "phone_number": phoneNumber,
-      "shipping_price": shippingPrice,
-      "total_price": totalPrice,
+      'orderItems': Get.find<ProductController>().getItems,
+      'shipping_address': {"address": address},
+      'payment_method': paymentMethod,
+      'user': uid,
+      'items_price': itemPrice,
+      'tax_price': taxPrice,
+      'phone_number': phoneNumber,
+      'shipping_price': shippingPrice,
+      'total_price': totalPrice,
     };
+    print(orders);
 
     http.Response response = await http.post(
       Uri.parse(AppUrl.ORDERS),

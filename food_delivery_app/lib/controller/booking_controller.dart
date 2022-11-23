@@ -178,7 +178,6 @@ class BookingController extends GetxController {
       if (value.statusCode == 201) {
         final Map<String, dynamic> resData = json.decode(value.body);
         Booking booking = Booking.fromJson(resData['createBooking']);
-        print(booking.id);
         isCreated = true;
 
         result = {

@@ -88,8 +88,14 @@ class _DetailBookingScreenState extends State<DetailBookingScreen> {
                         right: 0,
                         bottom: Dimensions.heightPadding10,
                       ),
-                      child:
+                      child: Column(
+                        children: [
                           BigText(text: 'Nhà hàng: ${widget.restaurant.name}'),
+                          BigText(
+                              text:
+                                  'Khách hàng: ${widget.bookingResult.userName}'),
+                        ],
+                      ),
                     ),
                     Container(
                       margin: EdgeInsets.only(
@@ -227,9 +233,10 @@ class _DetailBookingScreenState extends State<DetailBookingScreen> {
                       height: Dimensions.heightPadding20,
                     ),
                     QrImage(
-                      data: Get.find<UserController>().getName,
+                      data:
+                          'Khách hàng: ${Get.find<UserController>().getName}, Mã đặt bàn: ${widget.bookingResult.id}',
                       version: QrVersions.auto,
-                      size: Dimensions.height140 + 20,
+                      size: Dimensions.height140 + 18,
                     ),
                     SizedBox(
                       height: Dimensions.heightPadding20,
@@ -238,7 +245,7 @@ class _DetailBookingScreenState extends State<DetailBookingScreen> {
                         onTap: () {
                           Get.off(() => const MyBookingScreen());
                         },
-                        child: const CustomButton(text: 'Về Trang chủ')),
+                        child: const CustomButton(text: 'Trở về')),
                   ],
                 ),
               ),
