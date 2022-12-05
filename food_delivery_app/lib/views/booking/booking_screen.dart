@@ -41,18 +41,6 @@ class _BookingScreenState extends State<BookingScreen> {
                       icon: Icons.arrow_back_ios,
                     ),
                   ),
-                  Row(
-                    children: [
-                      GestureDetector(
-                        child:
-                            const AppIcon(icon: Icons.favorite_border_outlined),
-                      ),
-                      GestureDetector(
-                        child:
-                            const AppIcon(icon: Icons.money_off_csred_rounded),
-                      ),
-                    ],
-                  ),
                 ],
               ),
             ),

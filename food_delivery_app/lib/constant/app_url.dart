@@ -2,7 +2,7 @@
 
 class AppUrl {
   static const int APP_VERSION = 1;
-  static const String BASEURL = "https://smart-fooding.herokuapp.com";
+  static const String BASEURL = "https://backend-foodies-v2-drx1.vercel.app";
 
   static const String PRODUCTS = BASEURL + "/api/product";
   static const String RESTAURANTS = BASEURL + "/api/restaurants";
@@ -28,6 +28,8 @@ class AppUrl {
 
   static const String GEOCODE_URI = '/api/config/geocode';
   static const String GEOCODE_KEY = "AIzaSyBy86vTxXR6bVzfR2u_MnI8pmJNePRos6M";
+
+  static const String GET_TABLE_BY_DATE = '/api/config/date';
 
   static const String PRODUCT_REVIEW = BASEURL + '/api/product/';
   static const String RESTAURATN_REVIEW = BASEURL + '/api/restaurants/';

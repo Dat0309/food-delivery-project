@@ -108,4 +108,17 @@ class TableRepo extends GetxService {
     );
     return res;
   }
+
+  Future<http.Response> getTableByDate(String date) async {
+    String token = await UserPreference().getToken();
+    http.Response res = await http.get(
+      Uri.parse(AppUrl.GET_TABLE_BY_DATE + "?date=$date"),
+      headers: {
+        'Authorization': 'Bearer $token',
+        'Accept': 'application/json',
+        'Content-Type': 'application/json',
+      },
+    );
+    return res;
+  }
 }

@@ -9,13 +9,13 @@ class DateTimeModel {
   DateTime now = DateTime.now();
 
   static List<DateTimeModel> dates = [
-    DateTimeModel('Thứ Hai', '24', '09', '2022'),
-    DateTimeModel('Thứ Ba', '25', '09', '2022'),
-    DateTimeModel('Thứ Tư', '26', '09', '2022'),
-    DateTimeModel('Thứ Năm', '27', '09', '2022'),
-    DateTimeModel('Thứ Sáu', '28', '09', '2022'),
-    DateTimeModel('Thứ Bảy', '29', '09', '2022'),
-    DateTimeModel('Chủ Nhật', '30', '09', '2022'),
+    DateTimeModel('Thứ Hai', '21', '11', '2022'),
+    DateTimeModel('Thứ Ba', '22', '11', '2022'),
+    DateTimeModel('Thứ Tư', '23', '11', '2022'),
+    DateTimeModel('Thứ Năm', '24', '11', '2022'),
+    DateTimeModel('Thứ Sáu', '25', '11', '2022'),
+    DateTimeModel('Thứ Bảy', '26', '11', '2022'),
+    DateTimeModel('Chủ Nhật', '27', '11', '2022'),
   ];
 
   static List<String> times = [
