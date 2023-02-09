@@ -1,15 +1,5 @@
 # Foodies App
-Đề tài Đồ án chuyên ngành nhóm 3 CON SÓI.
-```
-GVHD: La Quốc Thắng
-```
-```
-SV thực hiện:
-   Lead-Backend-Mobile: Đinh Trọng Đạt - 1914775
-   Desight-Mobile: Nguyễn Anh Nhật Huy - 1911155
-   Web: Nguyễn Việt Duy Danh - 1911136
-```
-```
+
 TP. Đà Lạt 2022
 ```
 ## Description
