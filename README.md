@@ -1,7 +1,7 @@
 # Foodies App
 
 TP. Đà Lạt 2022
-```
+
 ## Description
 ![image](https://github.com/Dat0309/food-delivery-project/blob/main/demo/design.png)
 ## Desight
